@@ -4,117 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alia IA · Consultoría en IA</title>
+    <!-- Estilos de fullPage.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.7/fullpage.min.css">
     <style>
-        /* ===== RESET Y ESTILOS BASE ===== */
+        /* ===== RESET Y VARIABLES ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-primary: #f5f5f7;        /* Gris de fondo */
+            --text-primary: #1d1d1f;
+            --text-secondary: #4a4a4e;
+            --border-light: #e6e6e9;
+            --accent: #1d1d1f;
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #ffffff;
-            color: #1e1e1e;
-            line-height: 1.5;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow: hidden; /* fullPage maneja el scroll */
         }
 
         /* ===== TIPOGRAFÍA ===== */
-        h1, h2, h3 {
-            font-weight: 500;
-            letter-spacing: -0.02em;
-        }
-
         h1 {
-            font-size: 3rem;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
             margin-bottom: 1.5rem;
         }
 
         h2 {
-            font-size: 2.2rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid #eaeaea;
-            padding-bottom: 0.5rem;
-        }
-
-        /* ===== BOTONES ===== */
-        button, .btn {
-            background: none;
-            border: 1px solid #1e1e1e;
-            padding: 0.8rem 2rem;
-            font-size: 1rem;
+            font-size: clamp(2rem, 4vw, 2.5rem);
             font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            border-radius: 30px;
-            color: #1e1e1e;
-        }
-
-        button:hover, .btn:hover {
-            background-color: #1e1e1e;
-            color: #ffffff;
-        }
-
-        /* ===== CONTENEDOR PRINCIPAL ===== */
-        .container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* ===== BARRA LATERAL DE NAVEGACIÓN (PUNTOS) ===== */
-        .nav-dots {
-            position: fixed;
-            left: 2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            z-index: 100;
-        }
-
-        .nav-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: #ccc;
-            border: 1px solid transparent;
-            transition: all 0.2s;
-            cursor: pointer;
-        }
-
-        .nav-dot.active {
-            background-color: #1e1e1e;
-            transform: scale(1.3);
-            border-color: #1e1e1e;
-        }
-
-        .nav-dot:hover {
-            background-color: #888;
-        }
-
-        /* ===== CONTENIDO PRINCIPAL (DESPLAZAMIENTO) ===== */
-        .main-content {
-            flex: 1;
-            margin-left: 80px; /* espacio para los puntos */
-            max-width: 1200px;
-            padding: 2rem 4rem 2rem 2rem;
-        }
-
-        /* ===== SECCIONES ===== */
-        .section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 3rem 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .section:last-child {
-            border-bottom: none;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 0.5rem;
         }
 
         /* ===== MENÚ SUPERIOR ===== */
@@ -127,17 +56,16 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 3rem;
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(8px);
+            background-color: rgba(245, 245, 247, 0.8);
+            backdrop-filter: blur(10px);
             z-index: 1000;
-            border-bottom: 1px solid #eaeaea;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
         .logo {
             font-size: 1.8rem;
             font-weight: 600;
-            letter-spacing: -0.02em;
-            color: #1e1e1e;
+            color: var(--text-primary);
             text-decoration: none;
         }
 
@@ -148,14 +76,13 @@
 
         .nav-links a {
             text-decoration: none;
-            color: #1e1e1e;
+            color: var(--text-secondary);
             font-weight: 500;
-            font-size: 1.1rem;
             transition: color 0.2s;
         }
 
         .nav-links a:hover {
-            color: #666;
+            color: var(--text-primary);
         }
 
         /* Menú hamburguesa (móvil) */
@@ -168,62 +95,26 @@
         .menu-toggle span {
             width: 25px;
             height: 2px;
-            background-color: #1e1e1e;
+            background-color: var(--text-primary);
             margin: 3px 0;
-            transition: 0.3s;
         }
 
-        /* ===== SECCIÓN INICIO ===== */
-        .sobre-nosotros p {
-            font-size: 1.3rem;
-            max-width: 800px;
-            color: #333;
-        }
-
-        /* ===== SECCIÓN FUNDADOR ===== */
-        .fundador-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 3rem;
-            align-items: flex-start;
-        }
-
-        .fundador-imagen {
-            flex: 0 0 200px;
+        /* ===== SECCIONES ===== */
+        .section {
             text-align: center;
-        }
-
-        .fundador-imagen .img-placeholder {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background-color: #eaeaea;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            font-size: 3rem;
-            color: #999;
-            margin-bottom: 1rem;
-            border: 1px solid #ddd;
+            align-items: center;
+            padding: 4rem 2rem;
         }
 
-        .fundador-imagen .nombre {
-            font-weight: 600;
-            font-size: 1.3rem;
+        .section-content {
+            max-width: 1200px;
+            width: 100%;
         }
 
-        .fundador-texto {
-            flex: 1;
-            font-size: 1.1rem;
-            color: #444;
-            max-width: 700px;
-        }
-
-        .fundador-texto p {
-            margin-bottom: 1rem;
-        }
-
-        /* ===== SECCIÓN CURSOS (TARJETAS) ===== */
+        /* ===== TARJETAS DE CURSOS ===== */
         .cursos-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -232,70 +123,89 @@
         }
 
         .curso-card {
-            background-color: #fafafa;
-            border: 1px solid #eaeaea;
+            background: white;
             border-radius: 20px;
             padding: 2rem 1.5rem;
-            transition: transform 0.2s, box-shadow 0.2s;
-            display: flex;
-            flex-direction: column;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-light);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: left;
         }
 
         .curso-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-
-        .curso-horario {
-            font-size: 0.9rem;
-            color: #888;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
         }
 
         .curso-titulo {
             font-size: 1.8rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
-            line-height: 1.2;
         }
 
         .curso-desc {
-            font-size: 1rem;
-            color: #555;
-            margin: 1rem 0;
-            flex-grow: 1;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
 
-        .curso-porcentaje {
-            font-size: 2.5rem;
+        .curso-precio {
+            font-size: 2rem;
             font-weight: 700;
-            color: #1e1e1e;
-            margin: 1rem 0;
+            margin-bottom: 1.5rem;
         }
 
-        .btn-card {
-            align-self: flex-start;
-            margin-top: 1rem;
+        .btn-comprar {
             background: none;
-            border: 1px solid #1e1e1e;
-            padding: 0.6rem 1.8rem;
-            border-radius: 30px;
-            font-weight: 500;
+            border: 2px solid var(--text-primary);
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            font-weight: 600;
             cursor: pointer;
-            transition: 0.2s;
+            transition: background 0.3s, color 0.3s;
+            width: 100%;
+            font-size: 1rem;
         }
 
-        .btn-card:hover {
-            background-color: #1e1e1e;
+        .btn-comprar:hover {
+            background: var(--text-primary);
             color: white;
         }
 
-        /* ===== SECCIÓN CONTACTO ===== */
-        .contacto-form {
-            max-width: 600px;
-            margin-top: 2rem;
+        /* ===== MODAL DE COMPRA ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
         }
 
         .form-group {
@@ -306,143 +216,161 @@
             display: block;
             font-weight: 500;
             margin-bottom: 0.3rem;
-            color: #333;
         }
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
+        .form-group input {
             width: 100%;
             padding: 0.8rem;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-light);
             border-radius: 8px;
-            font-family: inherit;
             font-size: 1rem;
-            background-color: #fff;
-        }
-
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin: 2rem 0;
-        }
-
-        .checkbox-group input {
-            width: auto;
         }
 
         .btn-enviar {
-            background-color: #1e1e1e;
+            background: var(--text-primary);
             color: white;
             border: none;
-            padding: 1rem 2.5rem;
-            font-size: 1.1rem;
+            padding: 1rem;
+            width: 100%;
             border-radius: 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: opacity 0.3s;
         }
 
         .btn-enviar:hover {
-            background-color: #333;
+            opacity: 0.9;
+        }
+
+        /* ===== SECCIÓN FUNDADOR ===== */
+        .fundador-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fundador-imagen {
+            flex: 0 0 220px;
+        }
+
+        .img-placeholder {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: #e0e0e5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .fundador-texto {
+            flex: 1;
+            text-align: left;
+            max-width: 600px;
+        }
+
+        .fundador-texto p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* ===== FORMULARIO DE CONTACTO ===== */
+        .contacto-form {
+            max-width: 600px;
+            margin: 2rem auto 0;
+            text-align: left;
+        }
+
+        .contacto-form input,
+        .contacto-form select,
+        .contacto-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            margin-bottom: 1.2rem;
+            font-family: inherit;
+        }
+
+        .contacto-form button {
+            background: var(--text-primary);
+            color: white;
+            border: none;
+            padding: 1rem;
+            width: 100%;
+            border-radius: 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
         }
 
         .footer-links {
-            margin-top: 4rem;
+            margin-top: 2rem;
             display: flex;
+            justify-content: center;
             gap: 2rem;
-            flex-wrap: wrap;
             font-size: 0.9rem;
-            color: #888;
-            border-top: 1px solid #eee;
-            padding-top: 2rem;
+            color: var(--text-secondary);
         }
 
         .footer-links a {
-            color: #666;
+            color: inherit;
             text-decoration: none;
         }
 
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
-
-        /* ===== RESPONSIVE (MÓVILES) ===== */
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-
-            .nav-dots {
-                display: none; /* Ocultamos puntos en móvil */
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding: 6rem 1.5rem 2rem;
-            }
-
             .top-menu {
                 padding: 1rem 1.5rem;
             }
 
             .nav-links {
-                position: fixed;
-                top: 70px;
+                display: none;
+                position: absolute;
+                top: 100%;
                 left: 0;
                 right: 0;
-                background-color: white;
+                background: var(--bg-primary);
                 flex-direction: column;
                 align-items: center;
-                gap: 1.5rem;
-                padding: 2rem;
-                border-bottom: 1px solid #eee;
-                transform: translateY(-100%);
-                opacity: 0;
-                transition: all 0.3s;
-                pointer-events: none;
-                box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+                padding: 1rem;
+                border-bottom: 1px solid var(--border-light);
             }
 
             .nav-links.active {
-                transform: translateY(0);
-                opacity: 1;
-                pointer-events: all;
+                display: flex;
             }
 
             .menu-toggle {
                 display: flex;
             }
 
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            h2 {
-                font-size: 2rem;
-            }
-
             .fundador-content {
                 flex-direction: column;
-                align-items: center;
                 text-align: center;
             }
 
             .fundador-texto {
-                text-align: left;
+                text-align: center;
             }
 
             .cursos-grid {
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Ajustes para fullPage */
+        #fp-nav ul li a span {
+            background: var(--text-primary);
+        }
     </style>
-    <!-- Google Fonts (opcional) -->
+    <!-- Fuente Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -455,194 +383,193 @@
             <span></span>
         </div>
         <nav class="nav-links" id="nav-links">
-            <a href="#inicio" onclick="cerrarMenu()">Inicio</a>
-            <a href="#fundador" onclick="cerrarMenu()">Fundador</a>
-            <a href="#cursos" onclick="cerrarMenu()">Cursos</a>
-            <a href="#contacto" onclick="cerrarMenu()">Contacto</a>
+            <a href="#inicio">Inicio</a>
+            <a href="#fundador">Fundador</a>
+            <a href="#cursos">Cursos</a>
+            <a href="#contacto">Contacto</a>
         </nav>
     </header>
 
-    <!-- PUNTOS DE NAVEGACIÓN LATERAL (solo escritorio) -->
-    <div class="nav-dots" id="nav-dots">
-        <div class="nav-dot" data-section="inicio"></div>
-        <div class="nav-dot" data-section="fundador"></div>
-        <div class="nav-dot" data-section="cursos"></div>
-        <div class="nav-dot" data-section="contacto"></div>
-    </div>
-
-    <!-- CONTENIDO PRINCIPAL (SECCIONES) -->
-    <main class="main-content">
+    <!-- CONTENIDO PRINCIPAL (fullPage) -->
+    <div id="fullpage">
         <!-- SECCIÓN INICIO -->
-        <section id="inicio" class="section">
-            <h2>Sobre nosotros</h2>
-            <div class="sobre-nosotros">
-                <p>En Alia, ofrecemos servicios educativos para fortalecer tus conocimientos. Te recomendamos cosas que funcionan y fomentamos el uso de agentes de IA automatizados. Nuestros productos resuelven problemas reales y ayudan a cientos de empresarios a escalar sus negocios.</p>
+        <div class="section" data-anchor="inicio">
+            <div class="section-content">
+                <h1>Sobre nosotros</h1>
+                <p style="font-size: 1.3rem; max-width: 800px; margin: 0 auto; color: var(--text-secondary);">
+                    En Alia, ofrecemos servicios educativos para fortalecer tus conocimientos. 
+                    Te recomendamos cosas que funcionan y fomentamos el uso de agentes de IA automatizados. 
+                    Nuestros productos resuelven problemas reales y ayudan a cientos de empresarios a escalar sus negocios.
+                </p>
             </div>
-        </section>
+        </div>
 
         <!-- SECCIÓN FUNDADOR -->
-        <section id="fundador" class="section">
-            <h2>Fundador</h2>
-            <div class="fundador-content">
-                <div class="fundador-imagen">
-                    <div class="img-placeholder">👤</div>
-                    <div class="nombre">Alexander López</div>
-                </div>
-                <div class="fundador-texto">
-                    <p>Alexander nació y creció en Barcelona, donde, a pesar de las dificultades iniciales, ha destacado como emprendedor e inversor. Criado en un entorno multicultural y trabajador, enfrentó desafíos desde una edad temprana, como la dislexia.</p>
-                    <p>Sin embargo, su pasión por el emprendimiento lo llevó a sumergirse en diversos proyectos desde los 12 años, abarcando desde el e-commerce y la creación de comunidades online hasta la inversión inmobiliaria y de activos financieros.</p>
+        <div class="section" data-anchor="fundador">
+            <div class="section-content">
+                <h2>Fundador</h2>
+                <div class="fundador-content">
+                    <div class="fundador-imagen">
+                        <div class="img-placeholder">👤</div>
+                        <div style="font-weight: 600; font-size: 1.3rem;">Alexander López</div>
+                    </div>
+                    <div class="fundador-texto">
+                        <p>Alexander nació y creció en Barcelona, donde, a pesar de las dificultades iniciales, ha destacado como emprendedor e inversor. Criado en un entorno multicultural y trabajador, enfrentó desafíos desde una edad temprana, como la dislexia.</p>
+                        <p>Su pasión por el emprendimiento lo llevó a sumergirse en diversos proyectos desde los 12 años, abarcando desde el e-commerce y la creación de comunidades online hasta la inversión inmobiliaria y de activos financieros.</p>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- SECCIÓN CURSOS (TARJETAS) -->
-        <section id="cursos" class="section">
-            <h2>Cursos</h2>
-            <div class="cursos-grid">
-                <!-- Tarjeta 1 -->
-                <div class="curso-card">
-                    <div class="curso-horario">SÁBADOS 8:00 AM - 12:00 PM</div>
-                    <div class="curso-titulo">IN ALIA</div>
-                    <div class="curso-desc">Aprende de IA, administra, gestiona, crece y vende más.</div>
-                    <div class="curso-porcentaje">100%</div>
-                    <button class="btn-card">COMPRAR</button>
-                </div>
-                <!-- Tarjeta 2 (variante) -->
-                <div class="curso-card">
-                    <div class="curso-horario">MARTES Y JUEVES 6:00 PM - 8:00 PM</div>
-                    <div class="curso-titulo">IA AVANZADA</div>
-                    <div class="curso-desc">Domina agentes autónomos, automatizaciones y estrategias de escalado.</div>
-                    <div class="curso-porcentaje">80%</div>
-                    <button class="btn-card">COMPRAR</button>
-                </div>
-                <!-- Tarjeta 3 -->
-                <div class="curso-card">
-                    <div class="curso-horario">INTENSIVO · 3 DÍAS</div>
-                    <div class="curso-titulo">CONSULTORÍA IA</div>
-                    <div class="curso-desc">Conviértete en consultor especializado en IA y multiplica tus ingresos.</div>
-                    <div class="curso-porcentaje">95%</div>
-                    <button class="btn-card">COMPRAR</button>
+        <!-- SECCIÓN CURSOS (6 TARJETAS) -->
+        <div class="section" data-anchor="cursos">
+            <div class="section-content">
+                <h2>Cursos</h2>
+                <div class="cursos-grid">
+                    <!-- Tarjeta 1 -->
+                    <div class="curso-card">
+                        <div class="curso-titulo">IN ALIA</div>
+                        <div class="curso-desc">Aprende de IA, administra, gestiona, crece y vende más. Ideal para principiantes.</div>
+                        <div class="curso-precio">$97 USD</div>
+                        <button class="btn-comprar" onclick="abrirModal('IN ALIA')">COMPRAR</button>
+                    </div>
+                    <!-- Tarjeta 2 -->
+                    <div class="curso-card">
+                        <div class="curso-titulo">IA AVANZADA</div>
+                        <div class="curso-desc">Domina agentes autónomos, automatizaciones complejas y estrategias de escalado.</div>
+                        <div class="curso-precio">$147 USD</div>
+                        <button class="btn-comprar" onclick="abrirModal('IA AVANZADA')">COMPRAR</button>
+                    </div>
+                    <!-- Tarjeta 3 -->
+                    <div class="curso-card">
+                        <div class="curso-titulo">CONSULTORÍA IA</div>
+                        <div class="curso-desc">Conviértete en consultor especializado en IA y multiplica tus ingresos.</div>
+                        <div class="curso-precio">$197 USD</div>
+                        <button class="btn-comprar" onclick="abrirModal('CONSULTORÍA IA')">COMPRAR</button>
+                    </div>
+                    <!-- Tarjeta 4 -->
+                    <div class="curso-card">
+                        <div class="curso-titulo">AGENTES AUTÓNOMOS</div>
+                        <div class="curso-desc">Crea y despliega agentes de IA que trabajen por ti 24/7.</div>
+                        <div class="curso-precio">$127 USD</div>
+                        <button class="btn-comprar" onclick="abrirModal('AGENTES AUTÓNOMOS')">COMPRAR</button>
+                    </div>
+                    <!-- Tarjeta 5 -->
+                    <div class="curso-card">
+                        <div class="curso-titulo">NO-CODE CON IA</div>
+                        <div class="curso-desc">Automatiza tu negocio sin programar, usando herramientas de IA.</div>
+                        <div class="curso-precio">$87 USD</div>
+                        <button class="btn-comprar" onclick="abrirModal('NO-CODE CON IA')">COMPRAR</button>
+                    </div>
+                    <!-- Tarjeta 6 -->
+                    <div class="curso-card">
+                        <div class="curso-titulo">ESCALA CON IA</div>
+                        <div class="curso-desc">Estrategias avanzadas para escalar tu negocio usando inteligencia artificial.</div>
+                        <div class="curso-precio">$167 USD</div>
+                        <button class="btn-comprar" onclick="abrirModal('ESCALA CON IA')">COMPRAR</button>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
 
         <!-- SECCIÓN CONTACTO -->
-        <section id="contacto" class="section">
-            <h2>Contacto</h2>
-            <form class="contacto-form" id="contactForm" onsubmit="event.preventDefault(); alert('Mensaje enviado (simulación)');">
-                <div class="form-group">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" name="nombre" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Dirección de correo electrónico</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="motivo">Motivo de contacto</label>
-                    <select id="motivo" name="motivo">
-                        <option>Consulta general</option>
+        <div class="section" data-anchor="contacto">
+            <div class="section-content">
+                <h2>Contacto</h2>
+                <form class="contacto-form" id="contactForm" onsubmit="event.preventDefault(); alert('Mensaje enviado (simulación)');">
+                    <input type="text" placeholder="Nombre completo" required>
+                    <input type="email" placeholder="Correo electrónico" required>
+                    <select required>
+                        <option value="">Motivo de contacto</option>
                         <option>Información de cursos</option>
                         <option>Colaboración</option>
                         <option>Otro</option>
                     </select>
+                    <textarea rows="4" placeholder="Mensaje" required></textarea>
+                    <button type="submit">Enviar mensaje</button>
+                </form>
+                <div class="footer-links">
+                    <a href="#">Términos y condiciones</a>
+                    <a href="#">Cookies</a>
+                    <a href="#">Políticas de privacidad</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE COMPRA -->
+    <div class="modal" id="modal-compra">
+        <div class="modal-content">
+            <span class="close-modal" onclick="cerrarModal()">&times;</span>
+            <h3 style="margin-bottom: 1.5rem;">Completar compra</h3>
+            <p style="margin-bottom: 1.5rem; color: var(--text-secondary);" id="modal-curso"></p>
+            <form id="form-compra" onsubmit="event.preventDefault(); alert('Compra simulada. Gracias por tu interés.'); cerrarModal();">
+                <div class="form-group">
+                    <label>Nombre completo</label>
+                    <input type="text" required>
                 </div>
                 <div class="form-group">
-                    <label for="mensaje">Mensaje</label>
-                    <textarea id="mensaje" name="mensaje" required></textarea>
+                    <label>Correo electrónico</label>
+                    <input type="email" required>
                 </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="privacidad" required>
-                    <label for="privacidad">Acepto políticas de privacidad y condiciones de uso</label>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="tel" required>
                 </div>
-                <button type="submit" class="btn-enviar">Enviar</button>
+                <button type="submit" class="btn-enviar">Solicitar compra</button>
             </form>
-            <div class="footer-links">
-                <a href="#">Términos y condiciones</a>
-                <a href="#">Cookies</a>
-                <a href="#">Políticas de privacidad</a>
-            </div>
-        </section>
-    </main>
+        </div>
+    </div>
 
-    <!-- SCRIPT PARA FUNCIONALIDADES -->
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.7/fullpage.min.js"></script>
     <script>
-        // === MENÚ HAMBURGUESA (móvil) ===
+        // Inicializar fullPage
+        new fullpage('#fullpage', {
+            autoScrolling: true,
+            navigation: true,
+            navigationPosition: 'right',
+            scrollingSpeed: 700,
+            anchors: ['inicio', 'fundador', 'cursos', 'contacto'],
+            menu: '.nav-links',
+            responsiveWidth: 768,
+            afterResponsive: function(isResponsive){}
+        });
+
+        // Menú hamburguesa
         const menuToggle = document.getElementById('menu-toggle');
         const navLinks = document.getElementById('nav-links');
 
-        function toggleMenu() {
+        menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-        }
-
-        function cerrarMenu() {
-            navLinks.classList.remove('active');
-        }
-
-        menuToggle.addEventListener('click', toggleMenu);
+        });
 
         // Cerrar menú al hacer clic en un enlace
         document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', cerrarMenu);
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
         });
 
-        // === PUNTOS DE NAVEGACIÓN Y SCROLL SUAVE ===
-        const sections = document.querySelectorAll('.section');
-        const dots = document.querySelectorAll('.nav-dot');
-        const mainContent = document.querySelector('.main-content');
+        // Modal de compra
+        const modal = document.getElementById('modal-compra');
+        const modalCurso = document.getElementById('modal-curso');
 
-        // Función para actualizar el punto activo
-        function updateActiveDot() {
-            let current = '';
-            const scrollPosition = window.scrollY + 100; // compensación por menú fijo
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionBottom = sectionTop + section.offsetHeight;
-                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            dots.forEach(dot => {
-                dot.classList.remove('active');
-                if (dot.dataset.section === current) {
-                    dot.classList.add('active');
-                }
-            });
+        function abrirModal(curso) {
+            modalCurso.textContent = `Estás adquiriendo: ${curso}`;
+            modal.classList.add('active');
         }
 
-        // Scroll suave al hacer clic en los puntos
-        dots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                const targetId = dot.dataset.section;
-                const targetSection = document.getElementById(targetId);
-                if (targetSection) {
-                    targetSection.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
+        function cerrarModal() {
+            modal.classList.remove('active');
+        }
+
+        // Cerrar modal al hacer clic fuera del contenido
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                cerrarModal();
+            }
         });
-
-        // Actualizar punto activo al hacer scroll
-        window.addEventListener('scroll', updateActiveDot);
-        window.addEventListener('load', updateActiveDot);
-
-        // También para los enlaces del menú superior (ya tienen href con #)
-        // El scroll suave nativo ya funciona con scroll-behavior: smooth, pero podemos mejorarlo
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-                if (targetSection) {
-                    targetSection.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-
-        // Ajuste de offset por menú fijo (opcional)
-        // Para que el título no quede tapado, podemos modificar el scroll
-        // pero con el padding-top de las secciones ya está considerado
     </script>
 </body>
 </html>
