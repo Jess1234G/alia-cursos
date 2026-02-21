@@ -6,6 +6,8 @@
     <title>Alia IA · Consultoría en IA</title>
     <!-- Estilos de fullPage.js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.7/fullpage.min.css">
+    <!-- Fuente Cormorant Garamond Light -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* ===== RESET Y VARIABLES ===== */
         * {
@@ -15,35 +17,48 @@
         }
 
         :root {
-            --bg-primary: #f5f5f7;        /* Gris de fondo */
-            --text-primary: #1d1d1f;
-            --text-secondary: #4a4a4e;
-            --border-light: #e6e6e9;
-            --accent: #1d1d1f;
+            --bg-primary: #f5f5f7;        /* Gris de fondo solicitado */
+            --text-primary: #ffffff;        /* Texto blanco */
+            --text-secondary: #e0e0e0;      /* Blanco suave para textos secundarios */
+            --border-light: #4a4a4e;         /* Borde sutil */
+            --accent: #1d1d1f;               /* Casi negro para acentos */
             --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300; /* Light */
             background-color: var(--bg-primary);
             color: var(--text-primary);
             overflow: hidden; /* fullPage maneja el scroll */
+            line-height: 1.6;
         }
 
-        /* ===== TIPOGRAFÍA ===== */
+        /* ===== TIPOGRAFÍA AJUSTADA ===== */
         h1 {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            font-weight: 600;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600; /* Un poco más grueso para títulos principales */
+            font-size: clamp(3rem, 6vw, 4.5rem);
             letter-spacing: -0.02em;
             margin-bottom: 1.5rem;
+            color: var(--text-primary);
         }
 
         h2 {
-            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-family: 'Cormorant Garamond', serif;
             font-weight: 500;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
             margin-bottom: 2rem;
             border-bottom: 1px solid var(--border-light);
             padding-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        p, li, a, input, select, textarea, button {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
         }
 
         /* ===== MENÚ SUPERIOR ===== */
@@ -56,17 +71,18 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 3rem;
-            background-color: rgba(245, 245, 247, 0.8);
+            background-color: rgba(245, 245, 247, 0.9); /* Fondo gris con transparencia */
             backdrop-filter: blur(10px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 600;
             color: var(--text-primary);
             text-decoration: none;
+            font-family: 'Cormorant Garamond', serif;
         }
 
         .nav-links {
@@ -76,13 +92,14 @@
 
         .nav-links a {
             text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 500;
-            transition: color 0.2s;
+            color: var(--text-primary);
+            font-weight: 400;
+            font-size: 1.3rem;
+            transition: opacity 0.2s;
         }
 
         .nav-links a:hover {
-            color: var(--text-primary);
+            opacity: 0.8;
         }
 
         /* Menú hamburguesa (móvil) */
@@ -107,6 +124,7 @@
             justify-content: center;
             align-items: center;
             padding: 4rem 2rem;
+            background-color: var(--bg-primary); /* Fondo gris sólido */
         }
 
         .section-content {
@@ -114,7 +132,36 @@
             width: 100%;
         }
 
-        /* ===== TARJETAS DE CURSOS ===== */
+        /* ===== SECCIÓN INICIO CON IMAGEN ===== */
+        .inicio-contenido {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 3rem;
+            text-align: left;
+        }
+
+        .inicio-texto {
+            flex: 1 1 400px;
+        }
+
+        .inicio-texto p {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .inicio-imagen {
+            flex: 1 1 400px;
+            text-align: center;
+        }
+
+        .inicio-imagen img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* ===== TARJETAS DE CURSOS (MÁS ALTAS) ===== */
         .cursos-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -122,54 +169,68 @@
             margin-top: 2rem;
         }
 
+        .curso-item {
+            display: flex;
+            flex-direction: column;
+        }
+
         .curso-card {
-            background: white;
+            background: rgba(255,255,255,0.05); /* Fondo semitransparente para contraste */
             border-radius: 20px;
-            padding: 2rem 1.5rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            padding: 2.5rem 1.8rem; /* Más alto */
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             border: 1px solid var(--border-light);
             transition: transform 0.3s, box-shadow 0.3s;
             text-align: left;
+            min-height: 320px; /* Altura mínima aumentada */
+            display: flex;
+            flex-direction: column;
         }
 
         .curso-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
 
         .curso-titulo {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
         }
 
         .curso-desc {
             color: var(--text-secondary);
             margin-bottom: 1.5rem;
             line-height: 1.6;
+            font-size: 1.2rem;
+            flex-grow: 1;
         }
 
         .curso-precio {
             font-size: 2rem;
             font-weight: 700;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
         }
 
         .btn-comprar {
-            background: none;
+            background: transparent;
             border: 2px solid var(--text-primary);
+            color: var(--text-primary);
             padding: 0.8rem 2rem;
             border-radius: 40px;
-            font-weight: 600;
+            font-weight: 500;
+            font-size: 1.2rem;
             cursor: pointer;
             transition: background 0.3s, color 0.3s;
             width: 100%;
-            font-size: 1rem;
+            margin-top: 1rem; /* Separación de la tarjeta */
         }
 
         .btn-comprar:hover {
             background: var(--text-primary);
-            color: white;
+            color: var(--accent);
         }
 
         /* ===== MODAL DE COMPRA ===== */
@@ -180,7 +241,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0,0,0,0.7);
             z-index: 2000;
             justify-content: center;
             align-items: center;
@@ -191,7 +252,7 @@
         }
 
         .modal-content {
-            background: white;
+            background: #2a2a2a;
             padding: 2.5rem;
             border-radius: 20px;
             max-width: 500px;
@@ -205,7 +266,7 @@
             right: 1.5rem;
             font-size: 2rem;
             cursor: pointer;
-            line-height: 1;
+            color: var(--text-primary);
         }
 
         .form-group {
@@ -214,8 +275,9 @@
 
         .form-group label {
             display: block;
-            font-weight: 500;
+            font-weight: 400;
             margin-bottom: 0.3rem;
+            color: var(--text-primary);
         }
 
         .form-group input {
@@ -223,17 +285,19 @@
             padding: 0.8rem;
             border: 1px solid var(--border-light);
             border-radius: 8px;
-            font-size: 1rem;
+            background: #3a3a3a;
+            color: var(--text-primary);
+            font-size: 1.1rem;
         }
 
         .btn-enviar {
             background: var(--text-primary);
-            color: white;
+            color: var(--accent);
             border: none;
             padding: 1rem;
             width: 100%;
             border-radius: 40px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 600;
             cursor: pointer;
             transition: opacity 0.3s;
@@ -260,13 +324,14 @@
             width: 220px;
             height: 220px;
             border-radius: 50%;
-            background: #e0e0e5;
+            background: #4a4a4e;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 4rem;
-            color: var(--text-secondary);
+            color: var(--text-primary);
             margin-bottom: 1rem;
+            border: 2px solid var(--border-light);
         }
 
         .fundador-texto {
@@ -278,6 +343,7 @@
         .fundador-texto p {
             margin-bottom: 1rem;
             color: var(--text-secondary);
+            font-size: 1.3rem;
         }
 
         /* ===== FORMULARIO DE CONTACTO ===== */
@@ -295,17 +361,19 @@
             border: 1px solid var(--border-light);
             border-radius: 8px;
             margin-bottom: 1.2rem;
-            font-family: inherit;
+            background: #3a3a3a;
+            color: var(--text-primary);
+            font-size: 1.2rem;
         }
 
         .contacto-form button {
             background: var(--text-primary);
-            color: white;
+            color: var(--accent);
             border: none;
             padding: 1rem;
             width: 100%;
             border-radius: 40px;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             font-weight: 600;
             cursor: pointer;
         }
@@ -315,13 +383,19 @@
             display: flex;
             justify-content: center;
             gap: 2rem;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
             color: var(--text-secondary);
         }
 
         .footer-links a {
             color: inherit;
             text-decoration: none;
+            border-bottom: 1px dotted transparent;
+            transition: border-color 0.2s;
+        }
+
+        .footer-links a:hover {
+            border-bottom-color: var(--text-secondary);
         }
 
         /* ===== RESPONSIVE ===== */
@@ -351,6 +425,11 @@
                 display: flex;
             }
 
+            .inicio-contenido {
+                flex-direction: column;
+                text-align: center;
+            }
+
             .fundador-content {
                 flex-direction: column;
                 text-align: center;
@@ -370,8 +449,6 @@
             background: var(--text-primary);
         }
     </style>
-    <!-- Fuente Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- MENÚ SUPERIOR -->
@@ -392,15 +469,20 @@
 
     <!-- CONTENIDO PRINCIPAL (fullPage) -->
     <div id="fullpage">
-        <!-- SECCIÓN INICIO -->
+        <!-- SECCIÓN INICIO CON IMAGEN DE PORTADA -->
         <div class="section" data-anchor="inicio">
-            <div class="section-content">
-                <h1>Sobre nosotros</h1>
-                <p style="font-size: 1.3rem; max-width: 800px; margin: 0 auto; color: var(--text-secondary);">
-                    En Alia, ofrecemos servicios educativos para fortalecer tus conocimientos. 
-                    Te recomendamos cosas que funcionan y fomentamos el uso de agentes de IA automatizados. 
-                    Nuestros productos resuelven problemas reales y ayudan a cientos de empresarios a escalar sus negocios.
-                </p>
+            <div class="section-content inicio-contenido">
+                <div class="inicio-texto">
+                    <h1>Sobre nosotros</h1>
+                    <p>
+                        En Alia, ofrecemos servicios educativos para fortalecer tus conocimientos. 
+                        Te recomendamos cosas que funcionan y fomentamos el uso de agentes de IA automatizados. 
+                        Nuestros productos resuelven problemas reales y ayudan a cientos de empresarios a escalar sus negocios.
+                    </p>
+                </div>
+                <div class="inicio-imagen">
+                    <img src="https://i.ibb.co/7dfMhnPs/5.jpg" alt="Portada Alia IA" loading="lazy">
+                </div>
             </div>
         </div>
 
@@ -411,7 +493,7 @@
                 <div class="fundador-content">
                     <div class="fundador-imagen">
                         <div class="img-placeholder">👤</div>
-                        <div style="font-weight: 600; font-size: 1.3rem;">Alexander López</div>
+                        <div style="font-weight: 500; font-size: 1.8rem;">Alexander López</div>
                     </div>
                     <div class="fundador-texto">
                         <p>Alexander nació y creció en Barcelona, donde, a pesar de las dificultades iniciales, ha destacado como emprendedor e inversor. Criado en un entorno multicultural y trabajador, enfrentó desafíos desde una edad temprana, como la dislexia.</p>
@@ -427,45 +509,57 @@
                 <h2>Cursos</h2>
                 <div class="cursos-grid">
                     <!-- Tarjeta 1 -->
-                    <div class="curso-card">
-                        <div class="curso-titulo">IN ALIA</div>
-                        <div class="curso-desc">Aprende de IA, administra, gestiona, crece y vende más. Ideal para principiantes.</div>
-                        <div class="curso-precio">$97 USD</div>
+                    <div class="curso-item">
+                        <div class="curso-card">
+                            <div class="curso-titulo">IN ALIA</div>
+                            <div class="curso-desc">Aprende de IA, administra, gestiona, crece y vende más. Ideal para principiantes.</div>
+                            <div class="curso-precio">$97 USD</div>
+                        </div>
                         <button class="btn-comprar" onclick="abrirModal('IN ALIA')">COMPRAR</button>
                     </div>
                     <!-- Tarjeta 2 -->
-                    <div class="curso-card">
-                        <div class="curso-titulo">IA AVANZADA</div>
-                        <div class="curso-desc">Domina agentes autónomos, automatizaciones complejas y estrategias de escalado.</div>
-                        <div class="curso-precio">$147 USD</div>
+                    <div class="curso-item">
+                        <div class="curso-card">
+                            <div class="curso-titulo">IA AVANZADA</div>
+                            <div class="curso-desc">Domina agentes autónomos, automatizaciones complejas y estrategias de escalado.</div>
+                            <div class="curso-precio">$147 USD</div>
+                        </div>
                         <button class="btn-comprar" onclick="abrirModal('IA AVANZADA')">COMPRAR</button>
                     </div>
                     <!-- Tarjeta 3 -->
-                    <div class="curso-card">
-                        <div class="curso-titulo">CONSULTORÍA IA</div>
-                        <div class="curso-desc">Conviértete en consultor especializado en IA y multiplica tus ingresos.</div>
-                        <div class="curso-precio">$197 USD</div>
+                    <div class="curso-item">
+                        <div class="curso-card">
+                            <div class="curso-titulo">CONSULTORÍA IA</div>
+                            <div class="curso-desc">Conviértete en consultor especializado en IA y multiplica tus ingresos.</div>
+                            <div class="curso-precio">$197 USD</div>
+                        </div>
                         <button class="btn-comprar" onclick="abrirModal('CONSULTORÍA IA')">COMPRAR</button>
                     </div>
                     <!-- Tarjeta 4 -->
-                    <div class="curso-card">
-                        <div class="curso-titulo">AGENTES AUTÓNOMOS</div>
-                        <div class="curso-desc">Crea y despliega agentes de IA que trabajen por ti 24/7.</div>
-                        <div class="curso-precio">$127 USD</div>
+                    <div class="curso-item">
+                        <div class="curso-card">
+                            <div class="curso-titulo">AGENTES AUTÓNOMOS</div>
+                            <div class="curso-desc">Crea y despliega agentes de IA que trabajen por ti 24/7.</div>
+                            <div class="curso-precio">$127 USD</div>
+                        </div>
                         <button class="btn-comprar" onclick="abrirModal('AGENTES AUTÓNOMOS')">COMPRAR</button>
                     </div>
                     <!-- Tarjeta 5 -->
-                    <div class="curso-card">
-                        <div class="curso-titulo">NO-CODE CON IA</div>
-                        <div class="curso-desc">Automatiza tu negocio sin programar, usando herramientas de IA.</div>
-                        <div class="curso-precio">$87 USD</div>
+                    <div class="curso-item">
+                        <div class="curso-card">
+                            <div class="curso-titulo">NO-CODE CON IA</div>
+                            <div class="curso-desc">Automatiza tu negocio sin programar, usando herramientas de IA.</div>
+                            <div class="curso-precio">$87 USD</div>
+                        </div>
                         <button class="btn-comprar" onclick="abrirModal('NO-CODE CON IA')">COMPRAR</button>
                     </div>
                     <!-- Tarjeta 6 -->
-                    <div class="curso-card">
-                        <div class="curso-titulo">ESCALA CON IA</div>
-                        <div class="curso-desc">Estrategias avanzadas para escalar tu negocio usando inteligencia artificial.</div>
-                        <div class="curso-precio">$167 USD</div>
+                    <div class="curso-item">
+                        <div class="curso-card">
+                            <div class="curso-titulo">ESCALA CON IA</div>
+                            <div class="curso-desc">Estrategias avanzadas para escalar tu negocio usando inteligencia artificial.</div>
+                            <div class="curso-precio">$167 USD</div>
+                        </div>
                         <button class="btn-comprar" onclick="abrirModal('ESCALA CON IA')">COMPRAR</button>
                     </div>
                 </div>
@@ -490,8 +584,8 @@
                 </form>
                 <div class="footer-links">
                     <a href="#">Términos y condiciones</a>
-                    <a href="#">Cookies</a>
-                    <a href="#">Políticas de privacidad</a>
+                    <a href="#">Política de cookies</a>
+                    <a href="#">Política de privacidad</a>
                 </div>
             </div>
         </div>
@@ -501,8 +595,8 @@
     <div class="modal" id="modal-compra">
         <div class="modal-content">
             <span class="close-modal" onclick="cerrarModal()">&times;</span>
-            <h3 style="margin-bottom: 1.5rem;">Completar compra</h3>
-            <p style="margin-bottom: 1.5rem; color: var(--text-secondary);" id="modal-curso"></p>
+            <h3 style="margin-bottom: 1.5rem; color: var(--text-primary); font-size: 2rem;">Completar compra</h3>
+            <p style="margin-bottom: 1.5rem; color: var(--text-secondary); font-size: 1.3rem;" id="modal-curso"></p>
             <form id="form-compra" onsubmit="event.preventDefault(); alert('Compra simulada. Gracias por tu interés.'); cerrarModal();">
                 <div class="form-group">
                     <label>Nombre completo</label>
@@ -544,7 +638,6 @@
             navLinks.classList.toggle('active');
         });
 
-        // Cerrar menú al hacer clic en un enlace
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
@@ -564,7 +657,6 @@
             modal.classList.remove('active');
         }
 
-        // Cerrar modal al hacer clic fuera del contenido
         window.addEventListener('click', (e) => {
             if (e.target === modal) {
                 cerrarModal();
