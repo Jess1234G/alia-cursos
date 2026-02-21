@@ -37,7 +37,7 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, .logo, .curso-titulo {
+        h1, h2, h3, .logo {
             font-family: var(--font-title);
             font-weight: 500;
             letter-spacing: -0.02em;
@@ -60,6 +60,7 @@
             position: relative;
             overflow: hidden;
             color: var(--text-primary);
+            text-align: center; /* Centramos el título de contacto */
         }
 
         h2::after {
@@ -122,7 +123,7 @@
             height: 300px;
         }
 
-        /* ===== NAVEGACIÓN ===== */
+        /* ===== NAVEGACIÓN (MARCO SUTIL) ===== */
         .top-menu {
             position: fixed;
             top: 0;
@@ -131,15 +132,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 3rem;
-            background-color: rgba(26, 26, 26, 0.9);
-            backdrop-filter: blur(10px);
+            padding: 1.2rem 3rem;
+            background-color: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(8px);
             z-index: 1000;
             border-bottom: 1px solid var(--border-light);
         }
 
         .logo {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 500;
             color: var(--text-primary);
             text-decoration: none;
@@ -159,10 +160,12 @@
             text-decoration: none;
             color: var(--text-secondary);
             font-weight: 500;
-            font-size: 1.1rem;
+            font-size: 1rem;
             transition: var(--transition-smooth);
             position: relative;
             font-family: var(--font-body);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .nav-links a::after {
@@ -184,7 +187,7 @@
             width: 100%;
         }
 
-        /* ===== PUNTOS DE NAVEGACIÓN MÁS PEQUEÑOS ===== */
+        /* ===== PUNTOS DE NAVEGACIÓN ===== */
         .nav-dots {
             position: fixed;
             left: 2rem;
@@ -237,7 +240,7 @@
         .main-content {
             margin-left: 80px;
             max-width: 1400px;
-            padding: 80px 4rem 2rem 2rem; /* Padding superior para evitar que el menú tape el contenido */
+            padding: 80px 4rem 2rem 2rem;
         }
 
         /* ===== SECCIONES ===== */
@@ -251,7 +254,7 @@
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.8s, transform 0.8s;
-            scroll-margin-top: 80px; /* Ayuda al scroll suave a no quedar tapado por el menú */
+            scroll-margin-top: 80px;
         }
 
         .section.visible {
@@ -259,7 +262,7 @@
             transform: translateY(0);
         }
 
-        /* ===== PORTADA CON IMAGEN DESTACADA ===== */
+        /* ===== PORTADA ===== */
         .hero {
             display: flex;
             align-items: center;
@@ -270,15 +273,6 @@
 
         .hero-text {
             flex: 1 1 400px;
-        }
-
-        .hero-text .subhead {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-            font-weight: 400;
         }
 
         .hero-text h1 {
@@ -309,8 +303,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-secondary);
-            font-size: 1.2rem;
             border: 1px solid var(--border-light);
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
             transition: transform 0.3s;
@@ -329,7 +321,7 @@
             border-radius: 30px;
         }
 
-        /* ===== FUNDADOR (IMAGEN PEQUEÑA Y REDONDA) ===== */
+        /* ===== FUNDADOR ===== */
         .fundador-content {
             display: flex;
             flex-wrap: wrap;
@@ -375,7 +367,7 @@
             line-height: 1.7;
         }
 
-        /* ===== CURSOS (TARJETAS CON IMAGEN Y BOTÓN) ===== */
+        /* ===== CURSOS ===== */
         .cursos-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -460,199 +452,127 @@
             height: 400px;
         }
 
-        /* ===== CONTACTO ===== */
-        .contacto-form {
+        /* ===== CONTACTO (ESTILO IMAGEN) ===== */
+        #contacto {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contacto-container {
+            width: 100%;
             max-width: 600px;
-            margin-top: 2rem;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .contacto-form {
+            width: 100%;
         }
 
         .form-group {
-            margin-bottom: 1.8rem;
+            margin-bottom: 1.5rem;
         }
 
         .form-group label {
             display: block;
             font-weight: 500;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
             color: var(--text-secondary);
             font-size: 0.95rem;
+            letter-spacing: 0.3px;
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 1rem;
-            border: 1px solid var(--border-light);
-            border-radius: 12px;
+            padding: 0.8rem 0;
+            border: none;
+            border-bottom: 1px solid var(--border-light);
+            background: transparent;
             font-family: var(--font-body);
             font-size: 1rem;
-            background-color: var(--bg-card);
             color: var(--text-primary);
-            transition: var(--transition-smooth);
+            transition: border-color 0.3s;
+            outline: none;
         }
 
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
-            outline: none;
-            border-color: var(--text-primary);
-            box-shadow: 0 5px 15px rgba(255,255,255,0.05);
-            transform: scale(1.01);
+            border-bottom-color: var(--text-primary);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
         }
 
         .checkbox-group {
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            margin: 2rem 0;
+            margin: 2rem 0 1.5rem;
         }
 
         .checkbox-group input {
             width: 18px;
             height: 18px;
             cursor: pointer;
+            accent-color: var(--text-primary);
         }
 
         .checkbox-group label {
             color: var(--text-secondary);
+            font-size: 0.9rem;
         }
 
         .btn-enviar {
+            width: 100%;
             background-color: var(--text-primary);
             color: var(--bg-primary);
             border: none;
-            padding: 1rem 2.8rem;
-            font-size: 1.1rem;
-            border-radius: 40px;
+            padding: 0.9rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 0;
             cursor: pointer;
-            transition: var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-enviar::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(0,0,0,0.2);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+            transition: opacity 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .btn-enviar:hover {
-            background-color: #e0e0e0;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(255,255,255,0.1);
+            opacity: 0.9;
+            background-color: var(--text-primary);
+            color: var(--bg-primary);
+            transform: none;
+            box-shadow: none;
         }
 
-        .btn-enviar:hover::before {
-            width: 400px;
-            height: 400px;
-        }
-
-        /* ===== MODALES PARA POLÍTICAS ===== */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.8);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background-color: var(--bg-primary);
-            max-width: 700px;
-            max-height: 80vh;
-            overflow-y: auto;
-            padding: 2.5rem;
-            border-radius: 30px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-            position: relative;
-            transform: scale(0.9);
-            transition: transform 0.3s;
-            border: 1px solid var(--border-light);
-        }
-
-        .modal-overlay.active .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-secondary);
-            padding: 0.5rem;
-            line-height: 1;
-        }
-
-        .modal-close:hover {
-            color: var(--text-primary);
-        }
-
-        .modal-content h3 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            font-family: var(--font-title);
-            color: var(--text-primary);
-        }
-
-        .modal-content h4 {
-            font-size: 1.3rem;
-            margin: 1.5rem 0 0.5rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .modal-content p {
-            margin-bottom: 1rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-
-        .modal-content ul {
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-secondary);
+        .btn-enviar::before {
+            display: none; /* Quitamos el efecto de onda para mantener estilo sobrio */
         }
 
         .footer-links {
-            margin-top: 4rem;
+            margin-top: 3rem;
             display: flex;
-            gap: 2rem;
+            justify-content: center;
+            gap: 1.5rem;
             flex-wrap: wrap;
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border-light);
-            padding-top: 2rem;
+            font-size: 0.85rem;
+            border-top: none;
+            padding-top: 1.5rem;
         }
 
         .footer-links a {
             color: var(--text-secondary);
             text-decoration: none;
             transition: color 0.3s;
-            position: relative;
             cursor: pointer;
+            position: relative;
         }
 
         .footer-links a::after {
@@ -674,35 +594,11 @@
             width: 100%;
         }
 
-        /* ===== MENÚ HAMBURGUESA ===== */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            z-index: 1001;
+        .separator {
+            color: var(--border-light);
         }
 
-        .menu-toggle span {
-            width: 25px;
-            height: 2px;
-            background-color: var(--text-primary);
-            margin: 3px 0;
-            transition: 0.3s;
-        }
-
-        .menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-
-        /* ===== BANNER DE COOKIES ===== */
+        /* ===== BANNER COOKIES ===== */
         .cookie-banner {
             position: fixed;
             bottom: 0;
@@ -744,6 +640,34 @@
 
         .cookie-banner button:hover {
             opacity: 0.8;
+        }
+
+        /* ===== MENÚ HAMBURGUESA ===== */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background-color: var(--text-primary);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
         }
 
         /* ===== RESPONSIVE ===== */
@@ -794,11 +718,6 @@
                 text-align: center;
             }
 
-            .hero-text .desc {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
             .fundador-content {
                 flex-direction: column;
                 align-items: center;
@@ -812,6 +731,10 @@
             .cookie-banner {
                 flex-direction: column;
                 text-align: center;
+            }
+
+            .contacto-container {
+                padding: 0;
             }
         }
 
@@ -833,7 +756,7 @@
     </style>
 </head>
 <body>
-    <!-- MENÚ SUPERIOR -->
+    <!-- MENÚ SUPERIOR (MARCO SUTIL) -->
     <header class="top-menu">
         <a href="#inicio" class="logo">Alia IA</a>
         <div class="menu-toggle" id="menu-toggle">
@@ -858,7 +781,7 @@
     </div>
 
     <main class="main-content">
-        <!-- SECCIÓN INICIO CON IMAGEN DESTACADA -->
+        <!-- INICIO -->
         <section id="inicio" class="section">
             <div class="hero">
                 <div class="hero-text">
@@ -866,7 +789,7 @@
                     <div class="desc">Transformamos negocios con inteligencia artificial automatizada.</div>
                 </div>
                 <div class="hero-image">
-                    <div class="image-placeholder" id="hero-image-container">
+                    <div class="image-placeholder">
                         <img src="https://i.ibb.co/7dfMhnPs/5.jpg" alt="Alia IA">
                     </div>
                 </div>
@@ -877,7 +800,7 @@
             </div>
         </section>
 
-        <!-- SECCIÓN FUNDADOR -->
+        <!-- FUNDADOR -->
         <section id="fundador" class="section">
             <h2>Fundador</h2>
             <div class="fundador-content">
@@ -892,68 +815,72 @@
             </div>
         </section>
 
-        <!-- SECCIÓN CURSOS (TARJETAS CON IMAGEN) -->
+        <!-- CURSOS -->
         <section id="cursos" class="section">
             <h2>Cursos</h2>
             <div class="cursos-grid">
                 <div class="curso-card">
                     <div class="curso-imagen">
-                        <img src="https://i.ibb.co/placeholder1.jpg" alt="Curso IN ALIA" onerror="this.src='https://via.placeholder.com/400x225?text=Curso+IA'">
+                        <img src="https://via.placeholder.com/400x225?text=Curso+IA" alt="Curso IN ALIA">
                     </div>
                     <button class="btn-card">COMPRAR</button>
                 </div>
                 <div class="curso-card">
                     <div class="curso-imagen">
-                        <img src="https://i.ibb.co/placeholder2.jpg" alt="Curso IA Avanzada" onerror="this.src='https://via.placeholder.com/400x225?text=IA+Avanzada'">
+                        <img src="https://via.placeholder.com/400x225?text=IA+Avanzada" alt="Curso IA Avanzada">
                     </div>
                     <button class="btn-card">COMPRAR</button>
                 </div>
                 <div class="curso-card">
                     <div class="curso-imagen">
-                        <img src="https://i.ibb.co/placeholder3.jpg" alt="Curso Consultoría IA" onerror="this.src='https://via.placeholder.com/400x225?text=Consultoría+IA'">
+                        <img src="https://via.placeholder.com/400x225?text=Consultoría+IA" alt="Curso Consultoría IA">
                     </div>
                     <button class="btn-card">COMPRAR</button>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN CONTACTO -->
+        <!-- CONTACTO (ESTILO IMAGEN) -->
         <section id="contacto" class="section">
-            <h2>Contacto</h2>
-            <form class="contacto-form" id="contactForm" onsubmit="event.preventDefault(); alert('Mensaje enviado (simulación)');">
-                <div class="form-group">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" name="nombre" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Dirección de correo electrónico</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="motivo">Motivo de contacto</label>
-                    <select id="motivo" name="motivo">
-                        <option>Consulta general</option>
-                        <option>Información de cursos</option>
-                        <option>Colaboración</option>
-                        <option>Otro</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="mensaje">Mensaje</label>
-                    <textarea id="mensaje" name="mensaje" required></textarea>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="privacidad" required>
-                    <label for="privacidad">Acepto políticas de privacidad y condiciones de uso</label>
-                </div>
-                <button type="submit" class="btn-enviar">Enviar</button>
-            </form>
+            <div class="contacto-container">
+                <h2>Contacto</h2>
+                <form class="contacto-form" id="contactForm" onsubmit="event.preventDefault(); alert('Mensaje enviado (simulación)');">
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Dirección de correo electrónico</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="motivo">Motivo de contacto</label>
+                        <select id="motivo" name="motivo">
+                            <option>Consulta general</option>
+                            <option>Información de cursos</option>
+                            <option>Colaboración</option>
+                            <option>Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje</label>
+                        <textarea id="mensaje" name="mensaje" required></textarea>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="privacidad" required>
+                        <label for="privacidad">Acepto políticas de privacidad y condiciones de uso</label>
+                    </div>
+                    <button type="submit" class="btn-enviar">Enviar</button>
+                </form>
 
-            <!-- Footer con enlaces a políticas -->
-            <div class="footer-links">
-                <a onclick="openModal('terminos')">Términos y condiciones</a>
-                <a onclick="openModal('cookies')">Cookies</a>
-                <a onclick="openModal('privacidad')">Políticas de privacidad</a>
+                <!-- Footer con enlaces estilo imagen -->
+                <div class="footer-links">
+                    <a onclick="openModal('terminos')">Términos y condiciones</a>
+                    <span class="separator">·</span>
+                    <a onclick="openModal('cookies')">Cookies</a>
+                    <span class="separator">·</span>
+                    <a onclick="openModal('privacidad')">Políticas de privacidad</a>
+                </div>
             </div>
         </section>
     </main>
@@ -964,10 +891,69 @@
         <button onclick="aceptarCookies()">Aceptar</button>
     </div>
 
-    <!-- MODALES PARA POLÍTICAS (contenido igual al original) -->
-    <div class="modal-overlay" id="modal-terminos">...</div>
-    <div class="modal-overlay" id="modal-cookies">...</div>
-    <div class="modal-overlay" id="modal-privacidad">...</div>
+    <!-- MODALES PARA POLÍTICAS (mismo contenido) -->
+    <div class="modal-overlay" id="modal-terminos">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('terminos')">&times;</button>
+            <h3>Términos y condiciones</h3>
+            <p><strong>Última actualización:</strong> 20 de febrero de 2026</p>
+            <p>Bienvenido a Alia IA. Al acceder o utilizar nuestro sitio web y servicios, usted acepta cumplir con los siguientes términos y condiciones. Si no está de acuerdo, por favor absténgase de usar nuestros servicios.</p>
+            <h4>1. Uso del sitio</h4>
+            <p>El contenido de este sitio es solo para fines informativos y educativos. No garantizamos la exactitud, integridad o actualidad de la información. Usted es responsable de verificar cualquier información antes de actuar en consecuencia.</p>
+            <h4>2. Propiedad intelectual</h4>
+            <p>Todos los materiales, incluyendo textos, gráficos, logotipos, imágenes y software, son propiedad de Alia IA o de sus licenciantes y están protegidos por leyes de propiedad intelectual. No se permite la reproducción, distribución o modificación sin autorización previa por escrito.</p>
+            <h4>3. Compra de cursos</h4>
+            <p>Al adquirir un curso digital, usted recibe una licencia no exclusiva e intransferible para acceder al contenido. No se permiten reventas, distribución pública o uso comercial sin consentimiento. Los pagos son procesados por terceros; no almacenamos información de pago.</p>
+            <h4>4. Limitación de responsabilidad</h4>
+            <p>Alia IA no será responsable por daños directos, indirectos, incidentales o consecuentes derivados del uso o la imposibilidad de uso de nuestros servicios. Nuestra responsabilidad máxima será el monto pagado por el curso en cuestión.</p>
+            <h4>5. Modificaciones</h4>
+            <p>Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios serán efectivos inmediatamente después de su publicación en el sitio. Su uso continuado implica la aceptación de los nuevos términos.</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-cookies">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('cookies')">&times;</button>
+            <h3>Política de Cookies</h3>
+            <p><strong>Última actualización:</strong> 20 de febrero de 2026</p>
+            <p>En Alia IA utilizamos cookies y tecnologías similares para mejorar su experiencia, analizar el tráfico y personalizar el contenido. Al continuar navegando, usted consiente su uso según esta política.</p>
+            <h4>¿Qué son las cookies?</h4>
+            <p>Las cookies son pequeños archivos de texto que se almacenan en su dispositivo cuando visita un sitio web. Sirven para recordar sus preferencias, autenticación y estadísticas.</p>
+            <h4>Tipos de cookies que utilizamos</h4>
+            <ul>
+                <li><strong>Cookies esenciales:</strong> Necesarias para el funcionamiento básico del sitio (ej. inicio de sesión).</li>
+                <li><strong>Cookies de rendimiento:</strong> Nos ayudan a entender cómo los usuarios interactúan con el sitio, mejorando su funcionamiento.</li>
+                <li><strong>Cookies de funcionalidad:</strong> Permiten recordar sus preferencias (idioma, región).</li>
+            </ul>
+            <h4>Gestión de cookies</h4>
+            <p>Puede configurar su navegador para rechazar todas las cookies o para que le avise cuando se envíe una. Sin embargo, algunas partes del sitio podrían no funcionar correctamente. Consulte la ayuda de su navegador para más información.</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-privacidad">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('privacidad')">&times;</button>
+            <h3>Política de Privacidad</h3>
+            <p><strong>Última actualización:</strong> 20 de febrero de 2026</p>
+            <p>En Alia IA valoramos su privacidad. Esta política explica cómo recopilamos, usamos y protegemos su información personal cuando utiliza nuestros servicios.</p>
+            <h4>Información que recopilamos</h4>
+            <p>Podemos recopilar información personal como nombre, correo electrónico, y datos de pago cuando usted se registra, compra un curso o se comunica con nosotros. También recopilamos datos de navegación mediante cookies.</p>
+            <h4>Uso de la información</h4>
+            <p>Utilizamos su información para:</p>
+            <ul>
+                <li>Proveer y gestionar los cursos adquiridos.</li>
+                <li>Comunicarnos con usted sobre novedades, promociones (si ha dado su consentimiento).</li>
+                <li>Mejorar nuestro sitio y servicios mediante análisis.</li>
+                <li>Cumplir con obligaciones legales.</li>
+            </ul>
+            <h4>Protección de datos</h4>
+            <p>Implementamos medidas de seguridad técnicas y organizativas para proteger su información contra accesos no autorizados, pérdida o destrucción. Sin embargo, ninguna transmisión por internet es 100% segura.</p>
+            <h4>Sus derechos</h4>
+            <p>Usted tiene derecho a acceder, rectificar o suprimir sus datos personales, así como a oponerse al tratamiento o solicitar su portabilidad. Para ejercerlos, contáctenos en hola@alia.ia.</p>
+            <h4>Compartir información</h4>
+            <p>No vendemos su información a terceros. Podemos compartirla con proveedores de servicios que nos ayudan a operar (procesadores de pago, plataformas de email) bajo estrictas obligaciones de confidencialidad.</p>
+        </div>
+    </div>
 
     <script>
         // === MENÚ HAMBURGUESA ===
@@ -986,7 +972,7 @@
             });
         });
 
-        // === OBSERVER PARA ANIMACIONES DE SECCIÓN ===
+        // === OBSERVER PARA ANIMACIONES ===
         const sections = document.querySelectorAll('.section');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1046,7 +1032,7 @@
             });
         });
 
-        // === MODALES PARA POLÍTICAS ===
+        // === MODALES ===
         function openModal(id) {
             document.getElementById(`modal-${id}`).classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -1073,7 +1059,7 @@
             }
         });
 
-        // === BANNER DE COOKIES ===
+        // === BANNER COOKIES ===
         const cookieBanner = document.getElementById('cookie-banner');
 
         function mostrarBannerCookies() {
@@ -1087,7 +1073,6 @@
             cookieBanner.style.display = 'none';
         }
 
-        // Comprobar al cargar la página
         window.addEventListener('load', mostrarBannerCookies);
     </script>
 </body>
