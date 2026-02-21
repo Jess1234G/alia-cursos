@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alia · Cursos de IA</title>
+    <style>
+        /* ===== RESET Y ESTILOS GLOBALES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            background-color: #000000;         /* Fondo negro sólido */
+            color: #ffffffd9;                   /* Texto blanco suave */
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* ===== BARRA DE NAVEGACIÓN (siempre visible) ===== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background-color: #000000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #00c0b0;   /* Azul espuma de mar intenso */
+            box-shadow: 0 4px 20px rgba(0, 192, 176, 0.3);
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, #00c0b0, #ffd966, #ff4d4d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px #00c0b0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 0.5rem 0.2rem;
+            transition: all 0.2s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: #ff4d4d;        /* Rojo intenso */
+            color: #ffd966;                       /* Amarillo intenso */
+            transform: translateY(-2px);
+        }
+
+        /* ===== SECCIONES GENERALES ===== */
+        section {
+            min-height: 90vh;
+            padding: 4rem 2rem;
+            max-width: 1300px;
+            margin: 0 auto;
+            border-bottom: 1px dashed #00c0b055;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(135deg, #ffd966, #ff4d4d, #00c0b0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px #00c0b0;
+            display: inline-block;
+        }
+
+        /* ===== INICIO · PRESENTACIÓN ALIA ===== */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+
+        .hero-content {
+            flex: 1 1 400px;
+        }
+
+        .hero-content h2 {
+            font-size: 2.2rem;
+            color: #ffd966;                       /* Amarillo intenso */
+            text-shadow: 0 0 8px #ffd966;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            border-left: 6px solid #00c0b0;
+            padding-left: 1.8rem;
+            background: rgba(0, 192, 176, 0.08);
+            border-radius: 0 20px 20px 0;
+        }
+
+        .hero-highlight {
+            color: #ff4d4d;                       /* Rojo intenso */
+            font-weight: 700;
+            text-shadow: 0 0 5px #ff4d4d;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: #0a0a0a;
+            border: 2px solid #00c0b0;
+            border-radius: 30px;
+            padding: 1rem 2rem;
+            text-align: center;
+            box-shadow: 0 0 30px #00c0b0;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #ffd966;
+        }
+
+        .stat-label {
+            color: #ccc;
+            font-size: 1rem;
+        }
+
+        /* ===== CURSOS · TARJETAS CON COLORES INTENSOS ===== */
+        .cursos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .curso-card {
+            background: #0d0d0d;
+            border: 3px solid;
+            border-radius: 30px;
+            padding: 2rem 1.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+        }
+
+        .curso-card:hover {
+            transform: scale(1.02) translateY(-10px);
+            box-shadow: 0 0 40px currentColor;
+        }
+
+        /* variantes de borde por color */
+        .curso-card.azul {
+            border-color: #00c0b0;
+            box-shadow: 0 0 25px #00c0b0;
+        }
+        .curso-card.amarillo {
+            border-color: #ffd966;
+            box-shadow: 0 0 25px #ffd966;
+        }
+        .curso-card.rojo {
+            border-color: #ff4d4d;
+            box-shadow: 0 0 25px #ff4d4d;
+        }
+
+        .curso-icono {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .curso-titulo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .curso-desc {
+            flex-grow: 1;
+            margin-bottom: 1.8rem;
+            color: #bbbbbb;
+        }
+
+        .curso-precio {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, #fff, #ffd966);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-comprar {
+            background: transparent;
+            border: 2px solid currentColor;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 1rem;
+            width: fit-content;
+        }
+
+        .btn-comprar:hover {
+            background: currentColor;
+            color: black;
+            font-weight: 800;
+            box-shadow: 0 0 30px currentColor;
+        }
+
+        /* colores específicos para botones dentro de cada tipo */
+        .azul .btn-comprar { color: #00c0b0; }
+        .amarillo .btn-comprar { color: #ffd966; }
+        .rojo .btn-comprar { color: #ff4d4d; }
+
+        /* ===== CONTACTO · FORMULARIO Y ENLACES ===== */
+        .contacto-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            background: #0a0a0a;
+            border-radius: 50px;
+            padding: 3rem;
+            border: 3px solid #00c0b0;
+            box-shadow: 0 0 50px #00c0b055;
+        }
+
+        .contacto-info {
+            flex: 1 1 250px;
+        }
+
+        .contacto-info h3 {
+            color: #ffd966;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .contacto-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            font-size: 1.3rem;
+        }
+
+        .contacto-item .emoji {
+            font-size: 2rem;
+            background: #000;
+            padding: 0.5rem;
+            border-radius: 50%;
+            border: 2px solid #ff4d4d;
+        }
+
+        .contacto-form {
+            flex: 2 1 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            color: #00c0b0;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+        }
+
+        .input-group input,
+        .input-group textarea {
+            background: #1a1a1a;
+            border: 2px solid #333;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border-radius: 20px;
+            color: white;
+            transition: 0.2s;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus {
+            border-color: #ffd966;
+            outline: none;
+            box-shadow: 0 0 20px #ffd966;
+        }
+
+        .btn-enviar {
+            background: #ff4d4d;
+            color: black;
+            font-weight: bold;
+            font-size: 1.4rem;
+            padding: 1rem;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 1rem;
+            box-shadow: 0 0 20px #ff4d4d;
+        }
+
+        .btn-enviar:hover {
+            background: #ff6666;
+            box-shadow: 0 0 40px #ff4d4d;
+            transform: scale(1.02);
+        }
+
+        /* ===== FOOTER (opcional, para redondear) ===== */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #888;
+            border-top: 2px dashed #00c0b0;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 700px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- BARRA DE NAVEGACIÓN (INICIO - CURSOS - CONTACTO) -->
+    <nav class="navbar">
+        <div class="logo">▲ LIA</div>
+        <div class="nav-links">
+            <a href="#inicio">INICIO</a>
+            <a href="#cursos">CURSOS</a>
+            <a href="#contacto">CONTACTO</a>
+        </div>
+    </nav>
+
+    <!-- SECCIÓN INICIO · TEXTO EXACTO QUE PROPORCIONASTE -->
+    <section id="inicio">
+        <h1 class="section-title">▸ Alia ◂</h1>
+        <div class="hero">
+            <div class="hero-content">
+                <h2>educación · agentes IA · escalabilidad</h2>
+                <p>
+                    En <span class="hero-highlight">Alia</span>, ofrecemos servicios educativos para fortalecer tus conocimientos.<br>
+                    Te recomendamos cosas que funcionan y fomentamos el uso de <strong>agentes de IA automatizados</strong>.<br>
+                    Nuestros productos resuelven problemas reales y ayudan a cientos de empresarios a escalar sus negocios.
+                </p>
+                <p style="font-size: 1.8rem; border: none; background: none; padding: 0; margin-top: 1rem;">
+                    <span style="color:#ffd966;">consultoría</span> + 
+                    <span style="color:#00c0b0;">agentes IA</span>
+                </p>
+                <!-- pequeños indicadores al estilo del contador anterior (toque dinámico) -->
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">+450</div>
+                        <div class="stat-label">empresarios formados</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">cursos prácticos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">IA</div>
+                        <div class="stat-label">agentes incluidos</div>
+                    </div>
+                </div>
+            </div>
+            <!-- elemento gráfico abstracto (sin imágenes) -->
+            <div style="font-size: 8rem; line-height: 1; filter: drop-shadow(0 0 30px #00c0b0);">
+                ⚡🧠⚡
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CURSOS · 3 CURSOS DE EJEMPLO (cada uno con un color intenso) -->
+    <section id="cursos">
+        <h2 class="section-title">📘 Cursos digitales</h2>
+        <div class="cursos-grid">
+            <!-- CURSO 1 · AZUL ESPUMA DE MAR -->
+            <div class="curso-card azul">
+                <div class="curso-icono">🤖</div>
+                <div class="curso-titulo" style="color:#00c0b0;">Agentes IA Pro</div>
+                <div class="curso-desc">Aprende a crear, entrenar y desplegar agentes autónomos que multiplican tu productividad. Para empresas y emprendedores.</div>
+                <div class="curso-precio">$97 USD</div>
+                <button class="btn-comprar">⟶ Comprar ahora</button>
+            </div>
+            <!-- CURSO 2 · AMARILLO INTENSO -->
+            <div class="curso-card amarillo">
+                <div class="curso-icono">⚙️</div>
+                <div class="curso-titulo" style="color:#ffd966;">Automatización 360</div>
+                <div class="curso-desc">Domina las herramientas no-code y con IA para escalar tu negocio mientras duermes. Incluye plantillas listas.</div>
+                <div class="curso-precio">$67 USD</div>
+                <button class="btn-comprar">⟶ Comprar ahora</button>
+            </div>
+            <!-- CURSO 3 · ROJO INTENSO -->
+            <div class="curso-card rojo">
+                <div class="curso-icono">📈</div>
+                <div class="curso-titulo" style="color:#ff4d4d;">Consultoría Acelerada</div>
+                <div class="curso-desc">De 0 a consultor en IA: metodologías, scripts y agentes para ofrecer servicios de alto valor desde el día 1.</div>
+                <div class="curso-precio">$147 USD</div>
+                <button class="btn-comprar">⟶ Comprar ahora</button>
+            </div>
+        </div>
+        <!-- Nota: en una versión real estos botones tendrían un link de pago -->
+        <p style="text-align: center; margin-top: 3rem; color: #aaa;">💳 pagos seguros · acceso inmediato · soporte 24/7 con IA</p>
+    </section>
+
+    <!-- SECCIÓN CONTACTO · FORMULARIO + DATOS DE CONTACTO -->
+    <section id="contacto">
+        <h2 class="section-title">✉️ contacto</h2>
+        <div class="contacto-container">
+            <div class="contacto-info">
+                <h3>¿hablamos?</h3>
+                <p style="margin-bottom: 2rem;">Respuesta en menos de 2 horas (también con IA).</p>
+                <div class="contacto-item">
+                    <span class="emoji">📧</span>
+                    <span>hola@alia.ia</span>
+                </div>
+                <div class="contacto-item">
+                    <span class="emoji">📱</span>
+                    <span>+57 300 173 8905</span>
+                </div>
+                <div class="contacto-item">
+                    <span class="emoji">💬</span>
+                    <span>@alia_educa</span>
+                </div>
+                <!-- horario / redes sociales con colores -->
+                <div style="margin-top: 3rem; display: flex; gap: 2rem; font-size: 2rem; filter: drop-shadow(0 0 15px #00c0b0);">
+                    <span style="color:#00c0b0;">📘</span>
+                    <span style="color:#ffd966;">📷</span>
+                    <span style="color:#ff4d4d;">🐦</span>
+                </div>
+            </div>
+            <form class="contacto-form" id="contactForm" onsubmit="event.preventDefault(); alert('📨 Mensaje enviado (simulación) \n\nGracias por contactar a Alia. Te responderemos pronto.'); this.reset();">
+                <div class="input-group">
+                    <label for="nombre">Nombre completo</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="ej. Jess Guerrero" required>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required>
+                </div>
+                <div class="input-group">
+                    <label for="mensaje">Mensaje / consulta</label>
+                    <textarea id="mensaje" name="mensaje" rows="4" placeholder="Me interesa el curso de agentes IA..."></textarea>
+                </div>
+                <button type="submit" class="btn-enviar">🚀 Enviar mensaje</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Pequeño footer -->
+    <footer>
+        <p>Alia · consultoría y agentes de IA · 2025</p>
+        <p style="color: #00c0b0;">⚡ azul espuma de mar · amarillo intenso · rojo intenso ⚡</p>
+    </footer>
+
+    <!-- mini script opcional para interacción extra (igual que el anterior tenia timer, pero acá es más simple) -->
+    <script>
+        // Un pequeño toque dinámico: los números pueden cambiar (simulación)
+        const statNumbers = document.querySelectorAll('.stat-number');
+        if (statNumbers.length) {
+            // Solo para jugar un poco con la sensación "activa"
+            setInterval(() => {
+                statNumbers[0].innerText = '+' + (450 + Math.floor(Math.random() * 20));
+            }, 5000);
+        }
+
+        // Smooth scroll para los enlaces del menú (opcional)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
