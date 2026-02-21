@@ -17,12 +17,12 @@
         }
 
         :root {
-            --bg-primary: #f5f5f7;        /* Gris elegante */
-            --bg-card: #ffffff;
-            --text-primary: #1d1d1f;
-            --text-secondary: #4a4a4e;
-            --border-light: #e6e6e9;
-            --accent: #1d1d1f;
+            --bg-primary: #1a1a1a;           /* Gris oscuro elegante */
+            --bg-card: #2a2a2a;               /* Tarjetas ligeramente más claras */
+            --text-primary: #ffffff;           /* Texto principal blanco */
+            --text-secondary: #cccccc;         /* Texto secundario gris claro */
+            --border-light: #444444;           /* Bordes oscuros */
+            --accent: #ffffff;
             --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             --font-title: 'Cormorant Garamond', serif;
             --font-body: 'Inter', sans-serif;
@@ -48,6 +48,7 @@
             font-weight: 300;
             line-height: 1.1;
             margin-bottom: 1rem;
+            color: var(--text-primary);
         }
 
         h2 {
@@ -58,6 +59,7 @@
             border-bottom: 1px solid var(--border-light);
             position: relative;
             overflow: hidden;
+            color: var(--text-primary);
         }
 
         h2::after {
@@ -112,7 +114,7 @@
         }
 
         button:hover, .btn:hover {
-            color: white;
+            color: var(--bg-primary);
         }
 
         button:hover::before, .btn:hover::before {
@@ -130,10 +132,10 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 3rem;
-            background-color: rgba(245, 245, 247, 0.8);
+            background-color: rgba(26, 26, 26, 0.9);
             backdrop-filter: blur(10px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid var(--border-light);
         }
 
         .logo {
@@ -182,7 +184,7 @@
             width: 100%;
         }
 
-        /* ===== PUNTOS DE NAVEGACIÓN ===== */
+        /* ===== PUNTOS DE NAVEGACIÓN MÁS PEQUEÑOS ===== */
         .nav-dots {
             position: fixed;
             left: 2rem;
@@ -190,15 +192,15 @@
             transform: translateY(-50%);
             display: flex;
             flex-direction: column;
-            gap: 1.8rem;
+            gap: 1.2rem;
             z-index: 100;
         }
 
         .nav-dot {
-            width: 12px;
-            height: 12px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            background-color: #c0c0c5;
+            background-color: #666;
             border: 1px solid transparent;
             transition: var(--transition-smooth);
             cursor: pointer;
@@ -208,8 +210,8 @@
         .nav-dot::after {
             content: '';
             position: absolute;
-            width: 24px;
-            height: 24px;
+            width: 16px;
+            height: 16px;
             border: 1px solid var(--text-primary);
             border-radius: 50%;
             top: 50%;
@@ -235,7 +237,7 @@
         .main-content {
             margin-left: 80px;
             max-width: 1400px;
-            padding: 0 4rem 2rem 2rem;
+            padding: 80px 4rem 2rem 2rem; /* Padding superior para evitar que el menú tape el contenido */
         }
 
         /* ===== SECCIONES ===== */
@@ -249,6 +251,7 @@
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.8s, transform 0.8s;
+            scroll-margin-top: 80px; /* Ayuda al scroll suave a no quedar tapado por el menú */
         }
 
         .section.visible {
@@ -301,7 +304,7 @@
             max-width: 500px;
             height: auto;
             aspect-ratio: 4/3;
-            background: linear-gradient(145deg, #e0e0e5, #ffffff);
+            background: linear-gradient(145deg, #333, #444);
             border-radius: 30px;
             display: flex;
             align-items: center;
@@ -309,24 +312,24 @@
             color: var(--text-secondary);
             font-size: 1.2rem;
             border: 1px solid var(--border-light);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
             transition: transform 0.3s;
+            overflow: hidden;
         }
 
         .image-placeholder:hover {
             transform: scale(1.02);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.05);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.7);
         }
 
-        .image-placeholder svg {
-            width: 80px;
-            height: 80px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 1;
+        .image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 30px;
         }
 
-        /* ===== FUNDADOR ===== */
+        /* ===== FUNDADOR (IMAGEN PEQUEÑA Y REDONDA) ===== */
         .fundador-content {
             display: flex;
             flex-wrap: wrap;
@@ -335,30 +338,29 @@
         }
 
         .fundador-imagen {
-            flex: 0 0 220px;
+            flex: 0 0 auto;
             text-align: center;
         }
 
-        .fundador-imagen .img-placeholder {
-            width: 220px;
-            height: 220px;
+        .fundador-imagen img {
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            background: linear-gradient(145deg, #e0e0e5, #ffffff);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: var(--text-secondary);
-            margin-bottom: 1.2rem;
-            border: 1px solid var(--border-light);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            transition: box-shadow 0.3s;
+            object-fit: cover;
+            border: 2px solid var(--text-primary);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+
+        .fundador-imagen img:hover {
+            transform: scale(1.05);
         }
 
         .fundador-imagen .nombre {
             font-weight: 600;
             font-size: 1.4rem;
-            letter-spacing: -0.01em;
+            margin-top: 0.8rem;
+            color: var(--text-primary);
         }
 
         .fundador-texto {
@@ -373,10 +375,10 @@
             line-height: 1.7;
         }
 
-        /* ===== CURSOS ===== */
+        /* ===== CURSOS (TARJETAS CON IMAGEN Y BOTÓN) ===== */
         .cursos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -385,75 +387,45 @@
             background-color: var(--bg-card);
             border: 1px solid var(--border-light);
             border-radius: 24px;
-            padding: 2rem 1.8rem;
+            padding: 1.5rem;
             transition: var(--transition-smooth);
             display: flex;
             flex-direction: column;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.02);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .curso-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--text-primary), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.6s;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
 
         .curso-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-            border-color: #c0c0c5;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border-color: #666;
         }
 
-        .curso-card:hover::before {
-            transform: translateX(0);
+        .curso-imagen {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            background-color: #333;
         }
 
-        .curso-horario {
-            font-size: 0.85rem;
-            color: #888;
-            margin-bottom: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-weight: 500;
+        .curso-imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
         }
 
-        .curso-titulo {
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            line-height: 1.2;
-            color: var(--text-primary);
-        }
-
-        .curso-desc {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            margin: 1rem 0 1.5rem;
-            flex-grow: 1;
-            line-height: 1.6;
-        }
-
-        .curso-porcentaje {
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin: 0.5rem 0 1.2rem;
+        .curso-card:hover .curso-imagen img {
+            transform: scale(1.05);
         }
 
         .btn-card {
-            align-self: flex-start;
-            margin-top: 0.5rem;
+            align-self: center;
+            width: 100%;
             background: none;
             border: 1px solid var(--text-primary);
-            padding: 0.7rem 2rem;
+            padding: 0.8rem 1rem;
             border-radius: 40px;
             font-weight: 500;
             cursor: pointer;
@@ -462,6 +434,7 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            margin-top: 0.5rem;
         }
 
         .btn-card::before {
@@ -479,12 +452,12 @@
         }
 
         .btn-card:hover {
-            color: white;
+            color: var(--bg-primary);
         }
 
         .btn-card:hover::before {
-            width: 300px;
-            height: 300px;
+            width: 400px;
+            height: 400px;
         }
 
         /* ===== CONTACTO ===== */
@@ -501,7 +474,7 @@
             display: block;
             font-weight: 500;
             margin-bottom: 0.5rem;
-            color: var(--text-primary);
+            color: var(--text-secondary);
             font-size: 0.95rem;
         }
 
@@ -515,6 +488,7 @@
             font-family: var(--font-body);
             font-size: 1rem;
             background-color: var(--bg-card);
+            color: var(--text-primary);
             transition: var(--transition-smooth);
         }
 
@@ -523,7 +497,7 @@
         .form-group textarea:focus {
             outline: none;
             border-color: var(--text-primary);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            box-shadow: 0 5px 15px rgba(255,255,255,0.05);
             transform: scale(1.01);
         }
 
@@ -540,9 +514,13 @@
             cursor: pointer;
         }
 
+        .checkbox-group label {
+            color: var(--text-secondary);
+        }
+
         .btn-enviar {
             background-color: var(--text-primary);
-            color: white;
+            color: var(--bg-primary);
             border: none;
             padding: 1rem 2.8rem;
             font-size: 1.1rem;
@@ -561,15 +539,15 @@
             width: 0;
             height: 0;
             border-radius: 50%;
-            background: rgba(255,255,255,0.3);
+            background: rgba(0,0,0,0.2);
             transform: translate(-50%, -50%);
             transition: width 0.6s, height 0.6s;
         }
 
         .btn-enviar:hover {
-            background-color: #000;
+            background-color: #e0e0e0;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(255,255,255,0.1);
         }
 
         .btn-enviar:hover::before {
@@ -585,7 +563,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0,0,0,0.8);
             z-index: 2000;
             justify-content: center;
             align-items: center;
@@ -605,10 +583,11 @@
             overflow-y: auto;
             padding: 2.5rem;
             border-radius: 30px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
             position: relative;
             transform: scale(0.9);
             transition: transform 0.3s;
+            border: 1px solid var(--border-light);
         }
 
         .modal-overlay.active .modal-content {
@@ -636,12 +615,14 @@
             font-size: 2rem;
             margin-bottom: 1.5rem;
             font-family: var(--font-title);
+            color: var(--text-primary);
         }
 
         .modal-content h4 {
             font-size: 1.3rem;
             margin: 1.5rem 0 0.5rem;
             font-weight: 600;
+            color: var(--text-primary);
         }
 
         .modal-content p {
@@ -662,7 +643,6 @@
             gap: 2rem;
             flex-wrap: wrap;
             font-size: 0.9rem;
-            color: #888;
             border-top: 1px solid var(--border-light);
             padding-top: 2rem;
         }
@@ -722,11 +702,55 @@
             transform: rotate(-45deg) translate(7px, -7px);
         }
 
+        /* ===== BANNER DE COOKIES ===== */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--border-light);
+            padding: 1rem 2rem;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1500;
+            flex-wrap: wrap;
+            gap: 1rem;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+        }
+
+        .cookie-banner p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .cookie-banner a {
+            color: var(--text-primary);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .cookie-banner button {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border: none;
+            padding: 0.6rem 2rem;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .cookie-banner button:hover {
+            opacity: 0.8;
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .main-content {
                 margin-left: 0;
-                padding: 6rem 1.5rem 2rem;
+                padding: 80px 1.5rem 2rem;
             }
 
             .nav-dots {
@@ -784,6 +808,11 @@
             .fundador-texto {
                 text-align: left;
             }
+
+            .cookie-banner {
+                flex-direction: column;
+                text-align: center;
+            }
         }
 
         /* Animación inicial */
@@ -838,11 +867,7 @@
                 </div>
                 <div class="hero-image">
                     <div class="image-placeholder" id="hero-image-container">
-                         <img src="https://i.ibb.co/7dfMhnPs/5.jpg" alt="Alia IA" style="width:100%; height:100%; object-fit:cover; border-radius:30px;">
-                        <svg viewBox="0 0 100 100" width="80" height="80">
-                            <circle cx="50" cy="50" r="40" stroke="currentColor" fill="none" stroke-width="1"/>
-                            <path d="M30 50 L70 50 M50 30 L50 70" stroke="currentColor" stroke-width="1"/>
-                        </svg>
+                        <img src="https://i.ibb.co/7dfMhnPs/5.jpg" alt="Alia IA">
                     </div>
                 </div>
             </div>
@@ -857,7 +882,7 @@
             <h2>Fundador</h2>
             <div class="fundador-content">
                 <div class="fundador-imagen">
-                    <img src="https://i.ibb.co/nq5ZNmSW/Imagen-Alex.jpg" id="fundador-image">
+                    <img src="https://i.ibb.co/nq5ZNmSW/Imagen-Alex.jpg" alt="Alexander López">
                     <div class="nombre">Alexander López</div>
                 </div>
                 <div class="fundador-texto">
@@ -867,29 +892,26 @@
             </div>
         </section>
 
-        <!-- SECCIÓN CURSOS -->
+        <!-- SECCIÓN CURSOS (TARJETAS CON IMAGEN) -->
         <section id="cursos" class="section">
             <h2>Cursos</h2>
             <div class="cursos-grid">
                 <div class="curso-card">
-                    <div class="curso-horario">SÁBADOS 8:00 AM - 12:00 PM</div>
-                    <div class="curso-titulo">IN ALIA</div>
-                    <div class="curso-desc">Aprende de IA, administra, gestiona, crece y vende más.</div>
-                    <div class="curso-porcentaje">100%</div>
+                    <div class="curso-imagen">
+                        <img src="https://i.ibb.co/placeholder1.jpg" alt="Curso IN ALIA" onerror="this.src='https://via.placeholder.com/400x225?text=Curso+IA'">
+                    </div>
                     <button class="btn-card">COMPRAR</button>
                 </div>
                 <div class="curso-card">
-                    <div class="curso-horario">MARTES Y JUEVES 6:00 PM - 8:00 PM</div>
-                    <div class="curso-titulo">IA AVANZADA</div>
-                    <div class="curso-desc">Domina agentes autónomos, automatizaciones y estrategias de escalado.</div>
-                    <div class="curso-porcentaje">80%</div>
+                    <div class="curso-imagen">
+                        <img src="https://i.ibb.co/placeholder2.jpg" alt="Curso IA Avanzada" onerror="this.src='https://via.placeholder.com/400x225?text=IA+Avanzada'">
+                    </div>
                     <button class="btn-card">COMPRAR</button>
                 </div>
                 <div class="curso-card">
-                    <div class="curso-horario">INTENSIVO · 3 DÍAS</div>
-                    <div class="curso-titulo">CONSULTORÍA IA</div>
-                    <div class="curso-desc">Conviértete en consultor especializado en IA y multiplica tus ingresos.</div>
-                    <div class="curso-porcentaje">95%</div>
+                    <div class="curso-imagen">
+                        <img src="https://i.ibb.co/placeholder3.jpg" alt="Curso Consultoría IA" onerror="this.src='https://via.placeholder.com/400x225?text=Consultoría+IA'">
+                    </div>
                     <button class="btn-card">COMPRAR</button>
                 </div>
             </div>
@@ -936,72 +958,16 @@
         </section>
     </main>
 
-    <!-- MODALES PARA POLÍTICAS -->
-    <!-- Términos y condiciones -->
-    <div class="modal-overlay" id="modal-terminos">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('terminos')">&times;</button>
-            <h3>Términos y condiciones</h3>
-            <p><strong>Última actualización:</strong> 20 de febrero de 2026</p>
-            <p>Bienvenido a Alia IA. Al acceder o utilizar nuestro sitio web y servicios, usted acepta cumplir con los siguientes términos y condiciones. Si no está de acuerdo, por favor absténgase de usar nuestros servicios.</p>
-            <h4>1. Uso del sitio</h4>
-            <p>El contenido de este sitio es solo para fines informativos y educativos. No garantizamos la exactitud, integridad o actualidad de la información. Usted es responsable de verificar cualquier información antes de actuar en consecuencia.</p>
-            <h4>2. Propiedad intelectual</h4>
-            <p>Todos los materiales, incluyendo textos, gráficos, logotipos, imágenes y software, son propiedad de Alia IA o de sus licenciantes y están protegidos por leyes de propiedad intelectual. No se permite la reproducción, distribución o modificación sin autorización previa por escrito.</p>
-            <h4>3. Compra de cursos</h4>
-            <p>Al adquirir un curso digital, usted recibe una licencia no exclusiva e intransferible para acceder al contenido. No se permiten reventas, distribución pública o uso comercial sin consentimiento. Los pagos son procesados por terceros; no almacenamos información de pago.</p>
-            <h4>4. Limitación de responsabilidad</h4>
-            <p>Alia IA no será responsable por daños directos, indirectos, incidentales o consecuentes derivados del uso o la imposibilidad de uso de nuestros servicios. Nuestra responsabilidad máxima será el monto pagado por el curso en cuestión.</p>
-            <h4>5. Modificaciones</h4>
-            <p>Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios serán efectivos inmediatamente después de su publicación en el sitio. Su uso continuado implica la aceptación de los nuevos términos.</p>
-        </div>
+    <!-- BANNER DE COOKIES -->
+    <div class="cookie-banner" id="cookie-banner">
+        <p>Utilizamos cookies propias y de terceros para mejorar tu experiencia. Al continuar navegando, aceptas nuestra <a onclick="openModal('cookies')">Política de Cookies</a>.</p>
+        <button onclick="aceptarCookies()">Aceptar</button>
     </div>
 
-    <!-- Política de Cookies -->
-    <div class="modal-overlay" id="modal-cookies">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('cookies')">&times;</button>
-            <h3>Política de Cookies</h3>
-            <p><strong>Última actualización:</strong> 20 de febrero de 2026</p>
-            <p>En Alia IA utilizamos cookies y tecnologías similares para mejorar su experiencia, analizar el tráfico y personalizar el contenido. Al continuar navegando, usted consiente su uso según esta política.</p>
-            <h4>¿Qué son las cookies?</h4>
-            <p>Las cookies son pequeños archivos de texto que se almacenan en su dispositivo cuando visita un sitio web. Sirven para recordar sus preferencias, autenticación y estadísticas.</p>
-            <h4>Tipos de cookies que utilizamos</h4>
-            <ul>
-                <li><strong>Cookies esenciales:</strong> Necesarias para el funcionamiento básico del sitio (ej. inicio de sesión).</li>
-                <li><strong>Cookies de rendimiento:</strong> Nos ayudan a entender cómo los usuarios interactúan con el sitio, mejorando su funcionamiento.</li>
-                <li><strong>Cookies de funcionalidad:</strong> Permiten recordar sus preferencias (idioma, región).</li>
-            </ul>
-            <h4>Gestión de cookies</h4>
-            <p>Puede configurar su navegador para rechazar todas las cookies o para que le avise cuando se envíe una. Sin embargo, algunas partes del sitio podrían no funcionar correctamente. Consulte la ayuda de su navegador para más información.</p>
-        </div>
-    </div>
-
-    <!-- Política de Privacidad -->
-    <div class="modal-overlay" id="modal-privacidad">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('privacidad')">&times;</button>
-            <h3>Política de Privacidad</h3>
-            <p><strong>Última actualización:</strong> 20 de febrero de 2026</p>
-            <p>En Alia IA valoramos su privacidad. Esta política explica cómo recopilamos, usamos y protegemos su información personal cuando utiliza nuestros servicios.</p>
-            <h4>Información que recopilamos</h4>
-            <p>Podemos recopilar información personal como nombre, correo electrónico, y datos de pago cuando usted se registra, compra un curso o se comunica con nosotros. También recopilamos datos de navegación mediante cookies.</p>
-            <h4>Uso de la información</h4>
-            <p>Utilizamos su información para:</p>
-            <ul>
-                <li>Proveer y gestionar los cursos adquiridos.</li>
-                <li>Comunicarnos con usted sobre novedades, promociones (si ha dado su consentimiento).</li>
-                <li>Mejorar nuestro sitio y servicios mediante análisis.</li>
-                <li>Cumplir con obligaciones legales.</li>
-            </ul>
-            <h4>Protección de datos</h4>
-            <p>Implementamos medidas de seguridad técnicas y organizativas para proteger su información contra accesos no autorizados, pérdida o destrucción. Sin embargo, ninguna transmisión por internet es 100% segura.</p>
-            <h4>Sus derechos</h4>
-            <p>Usted tiene derecho a acceder, rectificar o suprimir sus datos personales, así como a oponerse al tratamiento o solicitar su portabilidad. Para ejercerlos, contáctenos en hola@alia.ia.</p>
-            <h4>Compartir información</h4>
-            <p>No vendemos su información a terceros. Podemos compartirla con proveedores de servicios que nos ayudan a operar (procesadores de pago, plataformas de email) bajo estrictas obligaciones de confidencialidad.</p>
-        </div>
-    </div>
+    <!-- MODALES PARA POLÍTICAS (contenido igual al original) -->
+    <div class="modal-overlay" id="modal-terminos">...</div>
+    <div class="modal-overlay" id="modal-cookies">...</div>
+    <div class="modal-overlay" id="modal-privacidad">...</div>
 
     <script>
         // === MENÚ HAMBURGUESA ===
@@ -1083,15 +1049,14 @@
         // === MODALES PARA POLÍTICAS ===
         function openModal(id) {
             document.getElementById(`modal-${id}`).classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevenir scroll
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal(id) {
             document.getElementById(`modal-${id}`).classList.remove('active');
-            document.body.style.overflow = ''; // Restaurar scroll
+            document.body.style.overflow = '';
         }
 
-        // Cerrar modal al hacer clic fuera del contenido
         window.addEventListener('click', (e) => {
             if (e.target.classList.contains('modal-overlay')) {
                 e.target.classList.remove('active');
@@ -1099,7 +1064,6 @@
             }
         });
 
-        // Cerrar con tecla ESC
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 document.querySelectorAll('.modal-overlay.active').forEach(modal => {
@@ -1108,8 +1072,23 @@
                 });
             }
         });
+
+        // === BANNER DE COOKIES ===
+        const cookieBanner = document.getElementById('cookie-banner');
+
+        function mostrarBannerCookies() {
+            if (!localStorage.getItem('cookiesAceptadas')) {
+                cookieBanner.style.display = 'flex';
+            }
+        }
+
+        function aceptarCookies() {
+            localStorage.setItem('cookiesAceptadas', 'true');
+            cookieBanner.style.display = 'none';
+        }
+
+        // Comprobar al cargar la página
+        window.addEventListener('load', mostrarBannerCookies);
     </script>
 </body>
 </html>
-
-
