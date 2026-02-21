@@ -4,120 +4,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alia IA · Consultoría en IA</title>
+    <!-- Fuentes: Cormorant Garamond para títulos, Inter para texto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ===== RESET Y ESTILOS BASE ===== */
+        /* ===== VARIABLES Y RESET ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-primary: #f5f5f7;        /* Gris elegante */
+            --bg-card: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #4a4a4e;
+            --border-light: #e6e6e9;
+            --accent: #1d1d1f;
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --font-title: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #ffffff;
-            color: #1e1e1e;
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.5;
             scroll-behavior: smooth;
             overflow-x: hidden;
         }
 
-        /* ===== TIPOGRAFÍA ===== */
-        h1, h2, h3 {
+        h1, h2, h3, .logo, .curso-titulo {
+            font-family: var(--font-title);
             font-weight: 500;
             letter-spacing: -0.02em;
         }
 
         h1 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 1rem;
         }
 
         h2 {
-            font-size: 2.2rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid #eaeaea;
-            padding-bottom: 0.5rem;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: var(--text-primary);
+            animation: slideIn 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation-play-state: paused;
+        }
+
+        .section.visible h2::after {
+            animation-play-state: running;
+        }
+
+        @keyframes slideIn {
+            to { left: 0; }
         }
 
         /* ===== BOTONES ===== */
         button, .btn {
             background: none;
-            border: 1px solid #1e1e1e;
+            border: 1px solid var(--text-primary);
             padding: 0.8rem 2rem;
             font-size: 1rem;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: var(--transition-smooth);
             border-radius: 30px;
-            color: #1e1e1e;
+            color: var(--text-primary);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            font-family: var(--font-body);
+        }
+
+        button::before, .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: var(--text-primary);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+            z-index: -1;
         }
 
         button:hover, .btn:hover {
-            background-color: #1e1e1e;
-            color: #ffffff;
+            color: white;
         }
 
-        /* ===== CONTENEDOR PRINCIPAL ===== */
-        .container {
-            display: flex;
-            min-height: 100vh;
+        button:hover::before, .btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
-        /* ===== BARRA LATERAL DE NAVEGACIÓN (PUNTOS) ===== */
-        .nav-dots {
-            position: fixed;
-            left: 2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            z-index: 100;
-        }
-
-        .nav-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: #ccc;
-            border: 1px solid transparent;
-            transition: all 0.2s;
-            cursor: pointer;
-        }
-
-        .nav-dot.active {
-            background-color: #1e1e1e;
-            transform: scale(1.3);
-            border-color: #1e1e1e;
-        }
-
-        .nav-dot:hover {
-            background-color: #888;
-        }
-
-        /* ===== CONTENIDO PRINCIPAL (DESPLAZAMIENTO) ===== */
-        .main-content {
-            flex: 1;
-            margin-left: 80px; /* espacio para los puntos */
-            max-width: 1200px;
-            padding: 2rem 4rem 2rem 2rem;
-        }
-
-        /* ===== SECCIONES ===== */
-        .section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 3rem 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .section:last-child {
-            border-bottom: none;
-        }
-
-        /* ===== MENÚ SUPERIOR ===== */
+        /* ===== NAVEGACIÓN ===== */
         .top-menu {
             position: fixed;
             top: 0;
@@ -127,18 +130,22 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 3rem;
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(8px);
+            background-color: rgba(245, 245, 247, 0.8);
+            backdrop-filter: blur(10px);
             z-index: 1000;
-            border-bottom: 1px solid #eaeaea;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            color: #1e1e1e;
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: var(--text-primary);
             text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .logo:hover {
+            opacity: 0.7;
         }
 
         .nav-links {
@@ -148,208 +155,505 @@
 
         .nav-links a {
             text-decoration: none;
-            color: #1e1e1e;
+            color: var(--text-secondary);
             font-weight: 500;
             font-size: 1.1rem;
-            transition: color 0.2s;
+            transition: var(--transition-smooth);
+            position: relative;
+            font-family: var(--font-body);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--text-primary);
+            transition: width 0.3s;
         }
 
         .nav-links a:hover {
-            color: #666;
+            color: var(--text-primary);
         }
 
-        /* Menú hamburguesa (móvil) */
-        .menu-toggle {
-            display: none;
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ===== PUNTOS DE NAVEGACIÓN ===== */
+        .nav-dots {
+            position: fixed;
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
             flex-direction: column;
+            gap: 1.8rem;
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #c0c0c5;
+            border: 1px solid transparent;
+            transition: var(--transition-smooth);
             cursor: pointer;
+            position: relative;
         }
 
-        .menu-toggle span {
-            width: 25px;
-            height: 2px;
-            background-color: #1e1e1e;
-            margin: 3px 0;
-            transition: 0.3s;
+        .nav-dot::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border: 1px solid var(--text-primary);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.3s;
         }
 
-        /* ===== SECCIÓN INICIO ===== */
-        .sobre-nosotros p {
-            font-size: 1.3rem;
-            max-width: 800px;
-            color: #333;
+        .nav-dot.active {
+            background-color: var(--text-primary);
+            transform: scale(1.2);
         }
 
-        /* ===== SECCIÓN FUNDADOR ===== */
+        .nav-dot.active::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .nav-dot:hover {
+            background-color: var(--text-primary);
+        }
+
+        /* ===== CONTENEDOR PRINCIPAL ===== */
+        .main-content {
+            margin-left: 80px;
+            max-width: 1400px;
+            padding: 0 4rem 2rem 2rem;
+        }
+
+        /* ===== SECCIONES ===== */
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--border-light);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== PORTADA CON IMAGEN DESTACADA ===== */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-text {
+            flex: 1 1 400px;
+        }
+
+        .hero-text .subhead {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .hero-text h1 {
+            margin-bottom: 1rem;
+        }
+
+        .hero-text .desc {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-top: 1.5rem;
+        }
+
+        .hero-image {
+            flex: 1 1 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            aspect-ratio: 4/3;
+            background: linear-gradient(145deg, #e0e0e5, #ffffff);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.02);
+            transition: transform 0.3s;
+        }
+
+        .image-placeholder:hover {
+            transform: scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.05);
+        }
+
+        .image-placeholder svg {
+            width: 80px;
+            height: 80px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1;
+        }
+
+        /* ===== FUNDADOR ===== */
         .fundador-content {
             display: flex;
             flex-wrap: wrap;
-            gap: 3rem;
+            gap: 4rem;
             align-items: flex-start;
         }
 
         .fundador-imagen {
-            flex: 0 0 200px;
+            flex: 0 0 220px;
             text-align: center;
         }
 
         .fundador-imagen .img-placeholder {
-            width: 200px;
-            height: 200px;
+            width: 220px;
+            height: 220px;
             border-radius: 50%;
-            background-color: #eaeaea;
+            background: linear-gradient(145deg, #e0e0e5, #ffffff);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
-            color: #999;
-            margin-bottom: 1rem;
-            border: 1px solid #ddd;
+            font-size: 4rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.2rem;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: box-shadow 0.3s;
         }
 
         .fundador-imagen .nombre {
             font-weight: 600;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
+            letter-spacing: -0.01em;
         }
 
         .fundador-texto {
             flex: 1;
             font-size: 1.1rem;
-            color: #444;
+            color: var(--text-secondary);
             max-width: 700px;
         }
 
         .fundador-texto p {
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.7;
         }
 
-        /* ===== SECCIÓN CURSOS (TARJETAS) ===== */
+        /* ===== CURSOS ===== */
         .cursos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
 
         .curso-card {
-            background-color: #fafafa;
-            border: 1px solid #eaeaea;
-            border-radius: 20px;
-            padding: 2rem 1.5rem;
-            transition: transform 0.2s, box-shadow 0.2s;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 24px;
+            padding: 2rem 1.8rem;
+            transition: var(--transition-smooth);
             display: flex;
             flex-direction: column;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.02);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .curso-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--text-primary), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
         }
 
         .curso-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border-color: #c0c0c5;
+        }
+
+        .curso-card:hover::before {
+            transform: translateX(0);
         }
 
         .curso-horario {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #888;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            font-weight: 500;
         }
 
         .curso-titulo {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
             line-height: 1.2;
+            color: var(--text-primary);
         }
 
         .curso-desc {
             font-size: 1rem;
-            color: #555;
-            margin: 1rem 0;
+            color: var(--text-secondary);
+            margin: 1rem 0 1.5rem;
             flex-grow: 1;
+            line-height: 1.6;
         }
 
         .curso-porcentaje {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 700;
-            color: #1e1e1e;
-            margin: 1rem 0;
+            color: var(--text-primary);
+            margin: 0.5rem 0 1.2rem;
         }
 
         .btn-card {
             align-self: flex-start;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
             background: none;
-            border: 1px solid #1e1e1e;
-            padding: 0.6rem 1.8rem;
-            border-radius: 30px;
+            border: 1px solid var(--text-primary);
+            padding: 0.7rem 2rem;
+            border-radius: 40px;
             font-weight: 500;
             cursor: pointer;
-            transition: 0.2s;
+            transition: var(--transition-smooth);
+            color: var(--text-primary);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: var(--text-primary);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+            z-index: -1;
         }
 
         .btn-card:hover {
-            background-color: #1e1e1e;
             color: white;
         }
 
-        /* ===== SECCIÓN CONTACTO ===== */
+        .btn-card:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* ===== CONTACTO ===== */
         .contacto-form {
             max-width: 600px;
             margin-top: 2rem;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
         }
 
         .form-group label {
             display: block;
             font-weight: 500;
-            margin-bottom: 0.3rem;
-            color: #333;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-size: 0.95rem;
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: inherit;
+            padding: 1rem;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            font-family: var(--font-body);
             font-size: 1rem;
-            background-color: #fff;
+            background-color: var(--bg-card);
+            transition: var(--transition-smooth);
         }
 
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--text-primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            transform: scale(1.01);
         }
 
         .checkbox-group {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.8rem;
             margin: 2rem 0;
         }
 
         .checkbox-group input {
-            width: auto;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
         }
 
         .btn-enviar {
-            background-color: #1e1e1e;
+            background-color: var(--text-primary);
             color: white;
             border: none;
-            padding: 1rem 2.5rem;
+            padding: 1rem 2.8rem;
             font-size: 1.1rem;
             border-radius: 40px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-enviar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
         }
 
         .btn-enviar:hover {
-            background-color: #333;
+            background-color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .btn-enviar:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        /* ===== MODALES PARA POLÍTICAS ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: var(--bg-primary);
+            max-width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 2.5rem;
+            border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 0.5rem;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-family: var(--font-title);
+        }
+
+        .modal-content h4 {
+            font-size: 1.3rem;
+            margin: 1.5rem 0 0.5rem;
+            font-weight: 600;
+        }
+
+        .modal-content p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .modal-content ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
         }
 
         .footer-links {
@@ -359,32 +663,74 @@
             flex-wrap: wrap;
             font-size: 0.9rem;
             color: #888;
-            border-top: 1px solid #eee;
+            border-top: 1px solid var(--border-light);
             padding-top: 2rem;
         }
 
         .footer-links a {
-            color: #666;
+            color: var(--text-secondary);
             text-decoration: none;
+            transition: color 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--text-primary);
+            transition: width 0.3s;
         }
 
         .footer-links a:hover {
-            text-decoration: underline;
+            color: var(--text-primary);
         }
 
-        /* ===== RESPONSIVE (MÓVILES) ===== */
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ===== MENÚ HAMBURGUESA ===== */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background-color: var(--text-primary);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-
-            .nav-dots {
-                display: none; /* Ocultamos puntos en móvil */
-            }
-
             .main-content {
                 margin-left: 0;
                 padding: 6rem 1.5rem 2rem;
+            }
+
+            .nav-dots {
+                display: none;
             }
 
             .top-menu {
@@ -396,17 +742,17 @@
                 top: 70px;
                 left: 0;
                 right: 0;
-                background-color: white;
+                background-color: var(--bg-primary);
                 flex-direction: column;
                 align-items: center;
                 gap: 1.5rem;
                 padding: 2rem;
-                border-bottom: 1px solid #eee;
+                border-bottom: 1px solid var(--border-light);
                 transform: translateY(-100%);
                 opacity: 0;
-                transition: all 0.3s;
+                transition: var(--transition-smooth);
                 pointer-events: none;
-                box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+                backdrop-filter: blur(10px);
             }
 
             .nav-links.active {
@@ -419,12 +765,14 @@
                 display: flex;
             }
 
-            h1 {
-                font-size: 2.5rem;
+            .hero {
+                flex-direction: column;
+                text-align: center;
             }
 
-            h2 {
-                font-size: 2rem;
+            .hero-text .desc {
+                margin-left: auto;
+                margin-right: auto;
             }
 
             .fundador-content {
@@ -436,14 +784,24 @@
             .fundador-texto {
                 text-align: left;
             }
+        }
 
-            .cursos-grid {
-                grid-template-columns: 1fr;
+        /* Animación inicial */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
+
+        .logo, .nav-links a, .section {
+            animation: fadeInUp 0.8s ease forwards;
+        }
     </style>
-    <!-- Google Fonts (opcional) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- MENÚ SUPERIOR -->
@@ -455,14 +813,14 @@
             <span></span>
         </div>
         <nav class="nav-links" id="nav-links">
-            <a href="#inicio" onclick="cerrarMenu()">Inicio</a>
-            <a href="#fundador" onclick="cerrarMenu()">Fundador</a>
-            <a href="#cursos" onclick="cerrarMenu()">Cursos</a>
-            <a href="#contacto" onclick="cerrarMenu()">Contacto</a>
+            <a href="#inicio">Inicio</a>
+            <a href="#fundador">Fundador</a>
+            <a href="#cursos">Cursos</a>
+            <a href="#contacto">Contacto</a>
         </nav>
     </header>
 
-    <!-- PUNTOS DE NAVEGACIÓN LATERAL (solo escritorio) -->
+    <!-- PUNTOS DE NAVEGACIÓN -->
     <div class="nav-dots" id="nav-dots">
         <div class="nav-dot" data-section="inicio"></div>
         <div class="nav-dot" data-section="fundador"></div>
@@ -470,13 +828,29 @@
         <div class="nav-dot" data-section="contacto"></div>
     </div>
 
-    <!-- CONTENIDO PRINCIPAL (SECCIONES) -->
     <main class="main-content">
-        <!-- SECCIÓN INICIO -->
+        <!-- SECCIÓN INICIO CON IMAGEN DESTACADA -->
         <section id="inicio" class="section">
-            <h2>Sobre nosotros</h2>
-            <div class="sobre-nosotros">
-                <p>En Alia, ofrecemos servicios educativos para fortalecer tus conocimientos. Te recomendamos cosas que funcionan y fomentamos el uso de agentes de IA automatizados. Nuestros productos resuelven problemas reales y ayudan a cientos de empresarios a escalar sus negocios.</p>
+            <div class="hero">
+                <div class="hero-text">
+                    <div class="subhead">Consultoría en IA</div>
+                    <h1>Alia IA</h1>
+                    <div class="desc">Transformamos negocios con inteligencia artificial automatizada.</div>
+                </div>
+                <div class="hero-image">
+                    <!-- Aquí va tu imagen destacada. Reemplaza el div con una etiqueta img si tienes la URL -->
+                    <div class="image-placeholder" id="hero-image-container">
+                        <!-- Espacio para imagen o logo -->
+                        <svg viewBox="0 0 100 100" width="80" height="80">
+                            <circle cx="50" cy="50" r="40" stroke="currentColor" fill="none" stroke-width="1"/>
+                            <path d="M30 50 L70 50 M50 30 L50 70" stroke="currentColor" stroke-width="1"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="sobre-nosotros" style="margin-top: 3rem;">
+                <h2>Sobre nosotros</h2>
+                <p style="font-size: 1.2rem; max-width: 800px; color: var(--text-secondary);">En Alia, ofrecemos servicios educativos para fortalecer tus conocimientos. Te recomendamos cosas que funcionan y fomentamos el uso de agentes de IA automatizados. Nuestros productos resuelven problemas reales y ayudan a cientos de empresarios a escalar sus negocios.</p>
             </div>
         </section>
 
@@ -485,21 +859,20 @@
             <h2>Fundador</h2>
             <div class="fundador-content">
                 <div class="fundador-imagen">
-                    <div class="img-placeholder">👤</div>
+                    <div class="img-placeholder" id="fundador-image">👤</div>
                     <div class="nombre">Alexander López</div>
                 </div>
                 <div class="fundador-texto">
                     <p>Alexander nació y creció en Barcelona, donde, a pesar de las dificultades iniciales, ha destacado como emprendedor e inversor. Criado en un entorno multicultural y trabajador, enfrentó desafíos desde una edad temprana, como la dislexia.</p>
-                    <p>Sin embargo, su pasión por el emprendimiento lo llevó a sumergirse en diversos proyectos desde los 12 años, abarcando desde el e-commerce y la creación de comunidades online hasta la inversión inmobiliaria y de activos financieros.</p>
+                    <p>Su pasión por el emprendimiento lo llevó a sumergirse en diversos proyectos desde los 12 años, abarcando desde el e-commerce y la creación de comunidades online hasta la inversión inmobiliaria y de activos financieros.</p>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN CURSOS (TARJETAS) -->
+        <!-- SECCIÓN CURSOS -->
         <section id="cursos" class="section">
             <h2>Cursos</h2>
             <div class="cursos-grid">
-                <!-- Tarjeta 1 -->
                 <div class="curso-card">
                     <div class="curso-horario">SÁBADOS 8:00 AM - 12:00 PM</div>
                     <div class="curso-titulo">IN ALIA</div>
@@ -507,7 +880,6 @@
                     <div class="curso-porcentaje">100%</div>
                     <button class="btn-card">COMPRAR</button>
                 </div>
-                <!-- Tarjeta 2 (variante) -->
                 <div class="curso-card">
                     <div class="curso-horario">MARTES Y JUEVES 6:00 PM - 8:00 PM</div>
                     <div class="curso-titulo">IA AVANZADA</div>
@@ -515,7 +887,6 @@
                     <div class="curso-porcentaje">80%</div>
                     <button class="btn-card">COMPRAR</button>
                 </div>
-                <!-- Tarjeta 3 -->
                 <div class="curso-card">
                     <div class="curso-horario">INTENSIVO · 3 DÍAS</div>
                     <div class="curso-titulo">CONSULTORÍA IA</div>
@@ -557,44 +928,118 @@
                 </div>
                 <button type="submit" class="btn-enviar">Enviar</button>
             </form>
+
+            <!-- Footer con enlaces a políticas -->
             <div class="footer-links">
-                <a href="#">Términos y condiciones</a>
-                <a href="#">Cookies</a>
-                <a href="#">Políticas de privacidad</a>
+                <a onclick="openModal('terminos')">Términos y condiciones</a>
+                <a onclick="openModal('cookies')">Cookies</a>
+                <a onclick="openModal('privacidad')">Políticas de privacidad</a>
             </div>
         </section>
     </main>
 
-    <!-- SCRIPT PARA FUNCIONALIDADES -->
+    <!-- MODALES PARA POLÍTICAS -->
+    <!-- Términos y condiciones -->
+    <div class="modal-overlay" id="modal-terminos">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('terminos')">&times;</button>
+            <h3>Términos y condiciones</h3>
+            <p><strong>Última actualización:</strong> 20 de febrero de 2026</p>
+            <p>Bienvenido a Alia IA. Al acceder o utilizar nuestro sitio web y servicios, usted acepta cumplir con los siguientes términos y condiciones. Si no está de acuerdo, por favor absténgase de usar nuestros servicios.</p>
+            <h4>1. Uso del sitio</h4>
+            <p>El contenido de este sitio es solo para fines informativos y educativos. No garantizamos la exactitud, integridad o actualidad de la información. Usted es responsable de verificar cualquier información antes de actuar en consecuencia.</p>
+            <h4>2. Propiedad intelectual</h4>
+            <p>Todos los materiales, incluyendo textos, gráficos, logotipos, imágenes y software, son propiedad de Alia IA o de sus licenciantes y están protegidos por leyes de propiedad intelectual. No se permite la reproducción, distribución o modificación sin autorización previa por escrito.</p>
+            <h4>3. Compra de cursos</h4>
+            <p>Al adquirir un curso digital, usted recibe una licencia no exclusiva e intransferible para acceder al contenido. No se permiten reventas, distribución pública o uso comercial sin consentimiento. Los pagos son procesados por terceros; no almacenamos información de pago.</p>
+            <h4>4. Limitación de responsabilidad</h4>
+            <p>Alia IA no será responsable por daños directos, indirectos, incidentales o consecuentes derivados del uso o la imposibilidad de uso de nuestros servicios. Nuestra responsabilidad máxima será el monto pagado por el curso en cuestión.</p>
+            <h4>5. Modificaciones</h4>
+            <p>Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios serán efectivos inmediatamente después de su publicación en el sitio. Su uso continuado implica la aceptación de los nuevos términos.</p>
+        </div>
+    </div>
+
+    <!-- Política de Cookies -->
+    <div class="modal-overlay" id="modal-cookies">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('cookies')">&times;</button>
+            <h3>Política de Cookies</h3>
+            <p><strong>Última actualización:</strong> 20 de febrero de 2026</p>
+            <p>En Alia IA utilizamos cookies y tecnologías similares para mejorar su experiencia, analizar el tráfico y personalizar el contenido. Al continuar navegando, usted consiente su uso según esta política.</p>
+            <h4>¿Qué son las cookies?</h4>
+            <p>Las cookies son pequeños archivos de texto que se almacenan en su dispositivo cuando visita un sitio web. Sirven para recordar sus preferencias, autenticación y estadísticas.</p>
+            <h4>Tipos de cookies que utilizamos</h4>
+            <ul>
+                <li><strong>Cookies esenciales:</strong> Necesarias para el funcionamiento básico del sitio (ej. inicio de sesión).</li>
+                <li><strong>Cookies de rendimiento:</strong> Nos ayudan a entender cómo los usuarios interactúan con el sitio, mejorando su funcionamiento.</li>
+                <li><strong>Cookies de funcionalidad:</strong> Permiten recordar sus preferencias (idioma, región).</li>
+            </ul>
+            <h4>Gestión de cookies</h4>
+            <p>Puede configurar su navegador para rechazar todas las cookies o para que le avise cuando se envíe una. Sin embargo, algunas partes del sitio podrían no funcionar correctamente. Consulte la ayuda de su navegador para más información.</p>
+        </div>
+    </div>
+
+    <!-- Política de Privacidad -->
+    <div class="modal-overlay" id="modal-privacidad">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('privacidad')">&times;</button>
+            <h3>Política de Privacidad</h3>
+            <p><strong>Última actualización:</strong> 20 de febrero de 2026</p>
+            <p>En Alia IA valoramos su privacidad. Esta política explica cómo recopilamos, usamos y protegemos su información personal cuando utiliza nuestros servicios.</p>
+            <h4>Información que recopilamos</h4>
+            <p>Podemos recopilar información personal como nombre, correo electrónico, y datos de pago cuando usted se registra, compra un curso o se comunica con nosotros. También recopilamos datos de navegación mediante cookies.</p>
+            <h4>Uso de la información</h4>
+            <p>Utilizamos su información para:</p>
+            <ul>
+                <li>Proveer y gestionar los cursos adquiridos.</li>
+                <li>Comunicarnos con usted sobre novedades, promociones (si ha dado su consentimiento).</li>
+                <li>Mejorar nuestro sitio y servicios mediante análisis.</li>
+                <li>Cumplir con obligaciones legales.</li>
+            </ul>
+            <h4>Protección de datos</h4>
+            <p>Implementamos medidas de seguridad técnicas y organizativas para proteger su información contra accesos no autorizados, pérdida o destrucción. Sin embargo, ninguna transmisión por internet es 100% segura.</p>
+            <h4>Sus derechos</h4>
+            <p>Usted tiene derecho a acceder, rectificar o suprimir sus datos personales, así como a oponerse al tratamiento o solicitar su portabilidad. Para ejercerlos, contáctenos en hola@alia.ia.</p>
+            <h4>Compartir información</h4>
+            <p>No vendemos su información a terceros. Podemos compartirla con proveedores de servicios que nos ayudan a operar (procesadores de pago, plataformas de email) bajo estrictas obligaciones de confidencialidad.</p>
+        </div>
+    </div>
+
     <script>
-        // === MENÚ HAMBURGUESA (móvil) ===
+        // === MENÚ HAMBURGUESA ===
         const menuToggle = document.getElementById('menu-toggle');
         const navLinks = document.getElementById('nav-links');
 
-        function toggleMenu() {
+        menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-        }
-
-        function cerrarMenu() {
-            navLinks.classList.remove('active');
-        }
-
-        menuToggle.addEventListener('click', toggleMenu);
-
-        // Cerrar menú al hacer clic en un enlace
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', cerrarMenu);
+            menuToggle.classList.toggle('active');
         });
 
-        // === PUNTOS DE NAVEGACIÓN Y SCROLL SUAVE ===
-        const sections = document.querySelectorAll('.section');
-        const dots = document.querySelectorAll('.nav-dot');
-        const mainContent = document.querySelector('.main-content');
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('active');
+            });
+        });
 
-        // Función para actualizar el punto activo
+        // === OBSERVER PARA ANIMACIONES DE SECCIÓN ===
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        sections.forEach(section => observer.observe(section));
+
+        // === PUNTOS DE NAVEGACIÓN ===
+        const dots = document.querySelectorAll('.nav-dot');
+
         function updateActiveDot() {
             let current = '';
-            const scrollPosition = window.scrollY + 100; // compensación por menú fijo
+            const scrollPosition = window.scrollY + 150;
 
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
@@ -612,7 +1057,9 @@
             });
         }
 
-        // Scroll suave al hacer clic en los puntos
+        window.addEventListener('scroll', updateActiveDot);
+        window.addEventListener('load', updateActiveDot);
+
         dots.forEach(dot => {
             dot.addEventListener('click', () => {
                 const targetId = dot.dataset.section;
@@ -623,12 +1070,7 @@
             });
         });
 
-        // Actualizar punto activo al hacer scroll
-        window.addEventListener('scroll', updateActiveDot);
-        window.addEventListener('load', updateActiveDot);
-
-        // También para los enlaces del menú superior (ya tienen href con #)
-        // El scroll suave nativo ya funciona con scroll-behavior: smooth, pero podemos mejorarlo
+        // === SCROLL SUAVE EN MENÚ ===
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -640,9 +1082,34 @@
             });
         });
 
-        // Ajuste de offset por menú fijo (opcional)
-        // Para que el título no quede tapado, podemos modificar el scroll
-        // pero con el padding-top de las secciones ya está considerado
+        // === MODALES PARA POLÍTICAS ===
+        function openModal(id) {
+            document.getElementById(`modal-${id}`).classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevenir scroll
+        }
+
+        function closeModal(id) {
+            document.getElementById(`modal-${id}`).classList.remove('active');
+            document.body.style.overflow = ''; // Restaurar scroll
+        }
+
+        // Cerrar modal al hacer clic fuera del contenido
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) {
+                e.target.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Cerrar con tecla ESC
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+        });
     </script>
 </body>
 </html>
