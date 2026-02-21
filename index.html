@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alia · Cursos de IA</title>
+    <title>Alia IA · Consultoría en IA</title>
     <style>
-        /* ===== RESET Y ESTILOS GLOBALES ===== */
+        /* ===== RESET Y ESTILOS BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -13,36 +13,132 @@
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-            background-color: #000000;         /* Fondo negro sólido */
-            color: #ffffffd9;                   /* Texto blanco suave */
-            line-height: 1.6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #1e1e1e;
+            line-height: 1.5;
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
-        /* ===== BARRA DE NAVEGACIÓN (siempre visible) ===== */
-        .navbar {
-            position: sticky;
-            top: 0;
-            background-color: #000000;
-            padding: 1rem 2rem;
+        /* ===== TIPOGRAFÍA ===== */
+        h1, h2, h3 {
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 0.5rem;
+        }
+
+        /* ===== BOTONES ===== */
+        button, .btn {
+            background: none;
+            border: 1px solid #1e1e1e;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 30px;
+            color: #1e1e1e;
+        }
+
+        button:hover, .btn:hover {
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+
+        /* ===== CONTENEDOR PRINCIPAL ===== */
+        .container {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #00c0b0;   /* Azul espuma de mar intenso */
-            box-shadow: 0 4px 20px rgba(0, 192, 176, 0.3);
+            min-height: 100vh;
+        }
+
+        /* ===== BARRA LATERAL DE NAVEGACIÓN (PUNTOS) ===== */
+        .nav-dots {
+            position: fixed;
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
             z-index: 100;
         }
 
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ccc;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-dot.active {
+            background-color: #1e1e1e;
+            transform: scale(1.3);
+            border-color: #1e1e1e;
+        }
+
+        .nav-dot:hover {
+            background-color: #888;
+        }
+
+        /* ===== CONTENIDO PRINCIPAL (DESPLAZAMIENTO) ===== */
+        .main-content {
+            flex: 1;
+            margin-left: 80px; /* espacio para los puntos */
+            max-width: 1200px;
+            padding: 2rem 4rem 2rem 2rem;
+        }
+
+        /* ===== SECCIONES ===== */
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 3rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        /* ===== MENÚ SUPERIOR ===== */
+        .top-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            border-bottom: 1px solid #eaeaea;
+        }
+
         .logo {
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            background: linear-gradient(45deg, #00c0b0, #ffd966, #ff4d4d);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 12px #00c0b0;
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #1e1e1e;
+            text-decoration: none;
         }
 
         .nav-links {
@@ -51,459 +147,488 @@
         }
 
         .nav-links a {
-            color: white;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1.2rem;
-            padding: 0.5rem 0.2rem;
-            transition: all 0.2s;
-            border-bottom: 3px solid transparent;
+            color: #1e1e1e;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.2s;
         }
 
         .nav-links a:hover {
-            border-bottom-color: #ff4d4d;        /* Rojo intenso */
-            color: #ffd966;                       /* Amarillo intenso */
-            transform: translateY(-2px);
+            color: #666;
         }
 
-        /* ===== SECCIONES GENERALES ===== */
-        section {
-            min-height: 90vh;
-            padding: 4rem 2rem;
-            max-width: 1300px;
-            margin: 0 auto;
-            border-bottom: 1px dashed #00c0b055;
+        /* Menú hamburguesa (móvil) */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
         }
 
-        .section-title {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            background: linear-gradient(135deg, #ffd966, #ff4d4d, #00c0b0);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 15px #00c0b0;
-            display: inline-block;
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background-color: #1e1e1e;
+            margin: 3px 0;
+            transition: 0.3s;
         }
 
-        /* ===== INICIO · PRESENTACIÓN ALIA ===== */
-        .hero {
+        /* ===== SECCIÓN INICIO ===== */
+        .sobre-nosotros p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            color: #333;
+        }
+
+        /* ===== SECCIÓN FUNDADOR ===== */
+        .fundador-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            align-items: flex-start;
+        }
+
+        .fundador-imagen {
+            flex: 0 0 200px;
+            text-align: center;
+        }
+
+        .fundador-imagen .img-placeholder {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #eaeaea;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-wrap: wrap;
-            gap: 3rem;
+            font-size: 3rem;
+            color: #999;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
         }
 
-        .hero-content {
-            flex: 1 1 400px;
+        .fundador-imagen .nombre {
+            font-weight: 600;
+            font-size: 1.3rem;
         }
 
-        .hero-content h2 {
-            font-size: 2.2rem;
-            color: #ffd966;                       /* Amarillo intenso */
-            text-shadow: 0 0 8px #ffd966;
-            margin-bottom: 1.5rem;
+        .fundador-texto {
+            flex: 1;
+            font-size: 1.1rem;
+            color: #444;
+            max-width: 700px;
         }
 
-        .hero-content p {
-            font-size: 1.4rem;
-            margin-bottom: 2rem;
-            border-left: 6px solid #00c0b0;
-            padding-left: 1.8rem;
-            background: rgba(0, 192, 176, 0.08);
-            border-radius: 0 20px 20px 0;
+        .fundador-texto p {
+            margin-bottom: 1rem;
         }
 
-        .hero-highlight {
-            color: #ff4d4d;                       /* Rojo intenso */
-            font-weight: 700;
-            text-shadow: 0 0 5px #ff4d4d;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 2rem;
-            margin-top: 2.5rem;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            background: #0a0a0a;
-            border: 2px solid #00c0b0;
-            border-radius: 30px;
-            padding: 1rem 2rem;
-            text-align: center;
-            box-shadow: 0 0 30px #00c0b0;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #ffd966;
-        }
-
-        .stat-label {
-            color: #ccc;
-            font-size: 1rem;
-        }
-
-        /* ===== CURSOS · TARJETAS CON COLORES INTENSOS ===== */
+        /* ===== SECCIÓN CURSOS (TARJETAS) ===== */
         .cursos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
             margin-top: 2rem;
         }
 
         .curso-card {
-            background: #0d0d0d;
-            border: 3px solid;
-            border-radius: 30px;
+            background-color: #fafafa;
+            border: 1px solid #eaeaea;
+            border-radius: 20px;
             padding: 2rem 1.5rem;
-            transition: all 0.3s ease;
+            transition: transform 0.2s, box-shadow 0.2s;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
         }
 
         .curso-card:hover {
-            transform: scale(1.02) translateY(-10px);
-            box-shadow: 0 0 40px currentColor;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
-        /* variantes de borde por color */
-        .curso-card.azul {
-            border-color: #00c0b0;
-            box-shadow: 0 0 25px #00c0b0;
-        }
-        .curso-card.amarillo {
-            border-color: #ffd966;
-            box-shadow: 0 0 25px #ffd966;
-        }
-        .curso-card.rojo {
-            border-color: #ff4d4d;
-            box-shadow: 0 0 25px #ff4d4d;
-        }
-
-        .curso-icono {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
+        .curso-horario {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .curso-titulo {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
         }
 
         .curso-desc {
+            font-size: 1rem;
+            color: #555;
+            margin: 1rem 0;
             flex-grow: 1;
-            margin-bottom: 1.8rem;
-            color: #bbbbbb;
         }
 
-        .curso-precio {
-            font-size: 2.2rem;
-            font-weight: 800;
-            background: linear-gradient(145deg, #fff, #ffd966);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 0.5rem;
+        .curso-porcentaje {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e1e1e;
+            margin: 1rem 0;
         }
 
-        .btn-comprar {
-            background: transparent;
-            border: 2px solid currentColor;
-            color: white;
-            padding: 0.8rem 1.5rem;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 50px;
+        .btn-card {
+            align-self: flex-start;
+            margin-top: 1rem;
+            background: none;
+            border: 1px solid #1e1e1e;
+            padding: 0.6rem 1.8rem;
+            border-radius: 30px;
+            font-weight: 500;
             cursor: pointer;
             transition: 0.2s;
-            margin-top: 1rem;
-            width: fit-content;
         }
 
-        .btn-comprar:hover {
-            background: currentColor;
-            color: black;
-            font-weight: 800;
-            box-shadow: 0 0 30px currentColor;
+        .btn-card:hover {
+            background-color: #1e1e1e;
+            color: white;
         }
 
-        /* colores específicos para botones dentro de cada tipo */
-        .azul .btn-comprar { color: #00c0b0; }
-        .amarillo .btn-comprar { color: #ffd966; }
-        .rojo .btn-comprar { color: #ff4d4d; }
-
-        /* ===== CONTACTO · FORMULARIO Y ENLACES ===== */
-        .contacto-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 3rem;
-            background: #0a0a0a;
-            border-radius: 50px;
-            padding: 3rem;
-            border: 3px solid #00c0b0;
-            box-shadow: 0 0 50px #00c0b055;
+        /* ===== SECCIÓN CONTACTO ===== */
+        .contacto-form {
+            max-width: 600px;
+            margin-top: 2rem;
         }
 
-        .contacto-info {
-            flex: 1 1 250px;
+        .form-group {
+            margin-bottom: 1.5rem;
         }
 
-        .contacto-info h3 {
-            color: #ffd966;
-            font-size: 2rem;
-            margin-bottom: 1rem;
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            color: #333;
         }
 
-        .contacto-item {
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            background-color: #fff;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .checkbox-group {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.5rem;
             margin: 2rem 0;
-            font-size: 1.3rem;
         }
 
-        .contacto-item .emoji {
-            font-size: 2rem;
-            background: #000;
-            padding: 0.5rem;
-            border-radius: 50%;
-            border: 2px solid #ff4d4d;
-        }
-
-        .contacto-form {
-            flex: 2 1 400px;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .input-group label {
-            color: #00c0b0;
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-            font-size: 1.1rem;
-        }
-
-        .input-group input,
-        .input-group textarea {
-            background: #1a1a1a;
-            border: 2px solid #333;
-            padding: 1rem;
-            font-size: 1.1rem;
-            border-radius: 20px;
-            color: white;
-            transition: 0.2s;
-        }
-
-        .input-group input:focus,
-        .input-group textarea:focus {
-            border-color: #ffd966;
-            outline: none;
-            box-shadow: 0 0 20px #ffd966;
+        .checkbox-group input {
+            width: auto;
         }
 
         .btn-enviar {
-            background: #ff4d4d;
-            color: black;
-            font-weight: bold;
-            font-size: 1.4rem;
-            padding: 1rem;
+            background-color: #1e1e1e;
+            color: white;
             border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
             border-radius: 40px;
             cursor: pointer;
-            transition: 0.2s;
-            margin-top: 1rem;
-            box-shadow: 0 0 20px #ff4d4d;
+            transition: background 0.2s;
         }
 
         .btn-enviar:hover {
-            background: #ff6666;
-            box-shadow: 0 0 40px #ff4d4d;
-            transform: scale(1.02);
+            background-color: #333;
         }
 
-        /* ===== FOOTER (opcional, para redondear) ===== */
-        footer {
-            text-align: center;
-            padding: 2rem;
+        .footer-links {
+            margin-top: 4rem;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
             color: #888;
-            border-top: 2px dashed #00c0b0;
+            border-top: 1px solid #eee;
+            padding-top: 2rem;
         }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 700px) {
-            .navbar {
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== RESPONSIVE (MÓVILES) ===== */
+        @media (max-width: 768px) {
+            .container {
                 flex-direction: column;
-                gap: 1rem;
             }
-            .section-title {
-                font-size: 2.2rem;
+
+            .nav-dots {
+                display: none; /* Ocultamos puntos en móvil */
             }
-            .hero-content p {
-                font-size: 1.2rem;
+
+            .main-content {
+                margin-left: 0;
+                padding: 6rem 1.5rem 2rem;
+            }
+
+            .top-menu {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+                padding: 2rem;
+                border-bottom: 1px solid #eee;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: all 0.3s;
+                pointer-events: none;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .fundador-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .fundador-texto {
+                text-align: left;
+            }
+
+            .cursos-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
+    <!-- Google Fonts (opcional) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- BARRA DE NAVEGACIÓN (INICIO - CURSOS - CONTACTO) -->
-    <nav class="navbar">
-        <div class="logo">▲ LIA</div>
-        <div class="nav-links">
-            <a href="#inicio">INICIO</a>
-            <a href="#cursos">CURSOS</a>
-            <a href="#contacto">CONTACTO</a>
+    <!-- MENÚ SUPERIOR -->
+    <header class="top-menu">
+        <a href="#inicio" class="logo">Alia IA</a>
+        <div class="menu-toggle" id="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-    </nav>
+        <nav class="nav-links" id="nav-links">
+            <a href="#inicio" onclick="cerrarMenu()">Inicio</a>
+            <a href="#fundador" onclick="cerrarMenu()">Fundador</a>
+            <a href="#cursos" onclick="cerrarMenu()">Cursos</a>
+            <a href="#contacto" onclick="cerrarMenu()">Contacto</a>
+        </nav>
+    </header>
 
-    <!-- SECCIÓN INICIO · TEXTO EXACTO QUE PROPORCIONASTE -->
-    <section id="inicio">
-        <h1 class="section-title">▸ Alia ◂</h1>
-        <div class="hero">
-            <div class="hero-content">
-                <h2>educación · agentes IA · escalabilidad</h2>
-                <p>
-                    En <span class="hero-highlight">Alia</span>, ofrecemos servicios educativos para fortalecer tus conocimientos.<br>
-                    Te recomendamos cosas que funcionan y fomentamos el uso de <strong>agentes de IA automatizados</strong>.<br>
-                    Nuestros productos resuelven problemas reales y ayudan a cientos de empresarios a escalar sus negocios.
-                </p>
-                <p style="font-size: 1.8rem; border: none; background: none; padding: 0; margin-top: 1rem;">
-                    <span style="color:#ffd966;">consultoría</span> + 
-                    <span style="color:#00c0b0;">agentes IA</span>
-                </p>
-                <!-- pequeños indicadores al estilo del contador anterior (toque dinámico) -->
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">+450</div>
-                        <div class="stat-label">empresarios formados</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">100%</div>
-                        <div class="stat-label">cursos prácticos</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">IA</div>
-                        <div class="stat-label">agentes incluidos</div>
-                    </div>
-                </div>
-            </div>
-            <!-- elemento gráfico abstracto (sin imágenes) -->
-            <div style="font-size: 8rem; line-height: 1; filter: drop-shadow(0 0 30px #00c0b0);">
-                ⚡🧠⚡
-            </div>
-        </div>
-    </section>
+    <!-- PUNTOS DE NAVEGACIÓN LATERAL (solo escritorio) -->
+    <div class="nav-dots" id="nav-dots">
+        <div class="nav-dot" data-section="inicio"></div>
+        <div class="nav-dot" data-section="fundador"></div>
+        <div class="nav-dot" data-section="cursos"></div>
+        <div class="nav-dot" data-section="contacto"></div>
+    </div>
 
-    <!-- SECCIÓN CURSOS · 3 CURSOS DE EJEMPLO (cada uno con un color intenso) -->
-    <section id="cursos">
-        <h2 class="section-title">📘 Cursos digitales</h2>
-        <div class="cursos-grid">
-            <!-- CURSO 1 · AZUL ESPUMA DE MAR -->
-            <div class="curso-card azul">
-                <div class="curso-icono">🤖</div>
-                <div class="curso-titulo" style="color:#00c0b0;">Agentes IA Pro</div>
-                <div class="curso-desc">Aprende a crear, entrenar y desplegar agentes autónomos que multiplican tu productividad. Para empresas y emprendedores.</div>
-                <div class="curso-precio">$97 USD</div>
-                <button class="btn-comprar">⟶ Comprar ahora</button>
+    <!-- CONTENIDO PRINCIPAL (SECCIONES) -->
+    <main class="main-content">
+        <!-- SECCIÓN INICIO -->
+        <section id="inicio" class="section">
+            <h2>Sobre nosotros</h2>
+            <div class="sobre-nosotros">
+                <p>En Alia, ofrecemos servicios educativos para fortalecer tus conocimientos. Te recomendamos cosas que funcionan y fomentamos el uso de agentes de IA automatizados. Nuestros productos resuelven problemas reales y ayudan a cientos de empresarios a escalar sus negocios.</p>
             </div>
-            <!-- CURSO 2 · AMARILLO INTENSO -->
-            <div class="curso-card amarillo">
-                <div class="curso-icono">⚙️</div>
-                <div class="curso-titulo" style="color:#ffd966;">Automatización 360</div>
-                <div class="curso-desc">Domina las herramientas no-code y con IA para escalar tu negocio mientras duermes. Incluye plantillas listas.</div>
-                <div class="curso-precio">$67 USD</div>
-                <button class="btn-comprar">⟶ Comprar ahora</button>
-            </div>
-            <!-- CURSO 3 · ROJO INTENSO -->
-            <div class="curso-card rojo">
-                <div class="curso-icono">📈</div>
-                <div class="curso-titulo" style="color:#ff4d4d;">Consultoría Acelerada</div>
-                <div class="curso-desc">De 0 a consultor en IA: metodologías, scripts y agentes para ofrecer servicios de alto valor desde el día 1.</div>
-                <div class="curso-precio">$147 USD</div>
-                <button class="btn-comprar">⟶ Comprar ahora</button>
-            </div>
-        </div>
-        <!-- Nota: en una versión real estos botones tendrían un link de pago -->
-        <p style="text-align: center; margin-top: 3rem; color: #aaa;">💳 pagos seguros · acceso inmediato · soporte 24/7 con IA</p>
-    </section>
+        </section>
 
-    <!-- SECCIÓN CONTACTO · FORMULARIO + DATOS DE CONTACTO -->
-    <section id="contacto">
-        <h2 class="section-title">✉️ contacto</h2>
-        <div class="contacto-container">
-            <div class="contacto-info">
-                <h3>¿hablamos?</h3>
-                <p style="margin-bottom: 2rem;">Respuesta en menos de 2 horas (también con IA).</p>
-                <div class="contacto-item">
-                    <span class="emoji">📧</span>
-                    <span>hola@alia.ia</span>
+        <!-- SECCIÓN FUNDADOR -->
+        <section id="fundador" class="section">
+            <h2>Fundador</h2>
+            <div class="fundador-content">
+                <div class="fundador-imagen">
+                    <div class="img-placeholder">👤</div>
+                    <div class="nombre">Alexander López</div>
                 </div>
-                <div class="contacto-item">
-                    <span class="emoji">📱</span>
-                    <span>+57 300 173 8905</span>
-                </div>
-                <div class="contacto-item">
-                    <span class="emoji">💬</span>
-                    <span>@alia_educa</span>
-                </div>
-                <!-- horario / redes sociales con colores -->
-                <div style="margin-top: 3rem; display: flex; gap: 2rem; font-size: 2rem; filter: drop-shadow(0 0 15px #00c0b0);">
-                    <span style="color:#00c0b0;">📘</span>
-                    <span style="color:#ffd966;">📷</span>
-                    <span style="color:#ff4d4d;">🐦</span>
+                <div class="fundador-texto">
+                    <p>Alexander nació y creció en Barcelona, donde, a pesar de las dificultades iniciales, ha destacado como emprendedor e inversor. Criado en un entorno multicultural y trabajador, enfrentó desafíos desde una edad temprana, como la dislexia.</p>
+                    <p>Sin embargo, su pasión por el emprendimiento lo llevó a sumergirse en diversos proyectos desde los 12 años, abarcando desde el e-commerce y la creación de comunidades online hasta la inversión inmobiliaria y de activos financieros.</p>
                 </div>
             </div>
-            <form class="contacto-form" id="contactForm" onsubmit="event.preventDefault(); alert('📨 Mensaje enviado (simulación) \n\nGracias por contactar a Alia. Te responderemos pronto.'); this.reset();">
-                <div class="input-group">
-                    <label for="nombre">Nombre completo</label>
-                    <input type="text" id="nombre" name="nombre" placeholder="ej. Jess Guerrero" required>
+        </section>
+
+        <!-- SECCIÓN CURSOS (TARJETAS) -->
+        <section id="cursos" class="section">
+            <h2>Cursos</h2>
+            <div class="cursos-grid">
+                <!-- Tarjeta 1 -->
+                <div class="curso-card">
+                    <div class="curso-horario">SÁBADOS 8:00 AM - 12:00 PM</div>
+                    <div class="curso-titulo">IN ALIA</div>
+                    <div class="curso-desc">Aprende de IA, administra, gestiona, crece y vende más.</div>
+                    <div class="curso-porcentaje">100%</div>
+                    <button class="btn-card">COMPRAR</button>
                 </div>
-                <div class="input-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required>
+                <!-- Tarjeta 2 (variante) -->
+                <div class="curso-card">
+                    <div class="curso-horario">MARTES Y JUEVES 6:00 PM - 8:00 PM</div>
+                    <div class="curso-titulo">IA AVANZADA</div>
+                    <div class="curso-desc">Domina agentes autónomos, automatizaciones y estrategias de escalado.</div>
+                    <div class="curso-porcentaje">80%</div>
+                    <button class="btn-card">COMPRAR</button>
                 </div>
-                <div class="input-group">
-                    <label for="mensaje">Mensaje / consulta</label>
-                    <textarea id="mensaje" name="mensaje" rows="4" placeholder="Me interesa el curso de agentes IA..."></textarea>
+                <!-- Tarjeta 3 -->
+                <div class="curso-card">
+                    <div class="curso-horario">INTENSIVO · 3 DÍAS</div>
+                    <div class="curso-titulo">CONSULTORÍA IA</div>
+                    <div class="curso-desc">Conviértete en consultor especializado en IA y multiplica tus ingresos.</div>
+                    <div class="curso-porcentaje">95%</div>
+                    <button class="btn-card">COMPRAR</button>
                 </div>
-                <button type="submit" class="btn-enviar">🚀 Enviar mensaje</button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN CONTACTO -->
+        <section id="contacto" class="section">
+            <h2>Contacto</h2>
+            <form class="contacto-form" id="contactForm" onsubmit="event.preventDefault(); alert('Mensaje enviado (simulación)');">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Dirección de correo electrónico</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="motivo">Motivo de contacto</label>
+                    <select id="motivo" name="motivo">
+                        <option>Consulta general</option>
+                        <option>Información de cursos</option>
+                        <option>Colaboración</option>
+                        <option>Otro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="mensaje">Mensaje</label>
+                    <textarea id="mensaje" name="mensaje" required></textarea>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="privacidad" required>
+                    <label for="privacidad">Acepto políticas de privacidad y condiciones de uso</label>
+                </div>
+                <button type="submit" class="btn-enviar">Enviar</button>
             </form>
-        </div>
-    </section>
+            <div class="footer-links">
+                <a href="#">Términos y condiciones</a>
+                <a href="#">Cookies</a>
+                <a href="#">Políticas de privacidad</a>
+            </div>
+        </section>
+    </main>
 
-    <!-- Pequeño footer -->
-    <footer>
-        <p>Alia · consultoría y agentes de IA · 2025</p>
-        <p style="color: #00c0b0;">⚡ azul espuma de mar · amarillo intenso · rojo intenso ⚡</p>
-    </footer>
-
-    <!-- mini script opcional para interacción extra (igual que el anterior tenia timer, pero acá es más simple) -->
+    <!-- SCRIPT PARA FUNCIONALIDADES -->
     <script>
-        // Un pequeño toque dinámico: los números pueden cambiar (simulación)
-        const statNumbers = document.querySelectorAll('.stat-number');
-        if (statNumbers.length) {
-            // Solo para jugar un poco con la sensación "activa"
-            setInterval(() => {
-                statNumbers[0].innerText = '+' + (450 + Math.floor(Math.random() * 20));
-            }, 5000);
+        // === MENÚ HAMBURGUESA (móvil) ===
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinks = document.getElementById('nav-links');
+
+        function toggleMenu() {
+            navLinks.classList.toggle('active');
         }
 
-        // Smooth scroll para los enlaces del menú (opcional)
+        function cerrarMenu() {
+            navLinks.classList.remove('active');
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', cerrarMenu);
+        });
+
+        // === PUNTOS DE NAVEGACIÓN Y SCROLL SUAVE ===
+        const sections = document.querySelectorAll('.section');
+        const dots = document.querySelectorAll('.nav-dot');
+        const mainContent = document.querySelector('.main-content');
+
+        // Función para actualizar el punto activo
+        function updateActiveDot() {
+            let current = '';
+            const scrollPosition = window.scrollY + 100; // compensación por menú fijo
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            dots.forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.dataset.section === current) {
+                    dot.classList.add('active');
+                }
+            });
+        }
+
+        // Scroll suave al hacer clic en los puntos
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const targetId = dot.dataset.section;
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Actualizar punto activo al hacer scroll
+        window.addEventListener('scroll', updateActiveDot);
+        window.addEventListener('load', updateActiveDot);
+
+        // También para los enlaces del menú superior (ya tienen href con #)
+        // El scroll suave nativo ya funciona con scroll-behavior: smooth, pero podemos mejorarlo
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -514,7 +639,10 @@
                 }
             });
         });
+
+        // Ajuste de offset por menú fijo (opcional)
+        // Para que el título no quede tapado, podemos modificar el scroll
+        // pero con el padding-top de las secciones ya está considerado
     </script>
 </body>
-
 </html>
