@@ -740,7 +740,7 @@
            <div class="hero-container">
               <div class="hero-text">
                  <h1>Alexsander <span style="color: #939393;">Lopez.</span></h1>
-                 <p class="subtitle">INFORMATICO • EMPRENDEDOR • EXPERTO EN IA</p>
+                 <p class="subtitle" id="hero-subtitle">INFORMATICO • EMPRENDEDOR • EXPERTO EN IA</p>
              </div>
                <div class="hero-image">
                   <img src="https://i.ibb.co/ZznMK7LD/Imagen-Alex-2.png" alt="Alexsander Lopez">
@@ -913,6 +913,31 @@
                     if (active && active.anchor === anchor) start();
                 }
             } catch (e) {}
+        })();
+
+        (function() {
+            const subtitle = document.getElementById('hero-subtitle');
+            const heroText = document.querySelector('.hero-container .hero-text');
+            const heroImage = document.querySelector('.hero-container .hero-image');
+            if (!subtitle || !heroText || !heroImage) return;
+
+            const mq = window.matchMedia('(max-width: 968px)');
+            function apply() {
+                if (mq.matches) {
+                    if (subtitle.parentElement !== heroImage.parentElement || subtitle.previousElementSibling !== heroImage) {
+                        heroImage.insertAdjacentElement('afterend', subtitle);
+                    }
+                } else {
+                    if (subtitle.parentElement !== heroText) {
+                        heroText.appendChild(subtitle);
+                    }
+                }
+            }
+
+            if (mq.addEventListener) mq.addEventListener('change', apply);
+            else mq.addListener(apply);
+            window.addEventListener('resize', apply);
+            apply();
         })();
 
         (function() {
