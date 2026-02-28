@@ -739,11 +739,11 @@
         <div class="section" data-anchor="inicio">
            <div class="hero-container">
               <div class="hero-text">
-                 <h1>Alexsander <span style="color: #939393;">Lopez.</span></h1>
+                 <h1>Alexander <span style="color: #939393;">Lopez.</span></h1>
                  <p class="subtitle" id="hero-subtitle">INFORMATICO • EMPRENDEDOR • EXPERTO EN IA</p>
              </div>
                <div class="hero-image">
-                  <img src="https://i.ibb.co/ZznMK7LD/Imagen-Alex-2.png" alt="Alexsander Lopez">
+                  <img src="https://i.ibb.co/ZznMK7LD/Imagen-Alex-2.png" alt="Alexander Lopez">
                </div>
           </div>
       </div>
@@ -1045,6 +1045,7 @@
                     '    .card:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg, rgba(255,255,255,.06), transparent 30%, transparent 70%, rgba(0,0,0,.18));opacity:.55}' +
                     '    .card > *{position:relative;z-index:1}' +
                     '    .muted{color:var(--muted);line-height:1.7}' +
+                    '    .course-desc{text-align:justify;text-justify:inter-word}' +
                     '    .kvs{margin-top:14px;border-top:1px solid var(--border);padding-top:14px;display:grid;gap:8px}' +
                     '    .kv{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:14px}' +
                     '    .kv span{opacity:.9}' +
@@ -1066,16 +1067,16 @@
                     '    .summary{display:grid;gap:10px}' +
                     '    .line{display:flex;justify-content:space-between;gap:12px}' +
                     '    .success{padding:18px;border-radius:16px;border:1px solid rgba(76,175,80,.28);background:linear-gradient(145deg, rgba(76,175,80,.10), rgba(76,175,80,.04))}' +
-                    '    @media (max-width: 900px){.wrap{padding:28px 14px}.top{flex-direction:column;align-items:flex-start}.badge{padding:8px 12px}.grid{grid-template-columns:1fr}.card{padding:18px}}' +
+                    '    @media (max-width: 900px){.wrap{padding:28px 14px}.top{flex-direction:column;align-items:stretch}.badge{padding:8px 12px;align-self:flex-start}.top-left{text-align:center}.course-title{text-align:center}.center-on-mobile{text-align:center}.grid{grid-template-columns:1fr}.card{padding:18px}}' +
                     '    @media (max-width: 520px){.wrap{padding:22px 12px}.row{flex-direction:column}.btn{letter-spacing:.08em}.kv{font-size:13px}}' +
                     '  </style>' +
                     '</head>' +
                     '<body>' +
                     '  <div class="wrap">' +
                     '    <div class="top">' +
-                    '      <div>' +
-                    '        <h1>' + cursoNombre + '</h1>' +
-                    '        <div class="muted" style="margin-top:10px">' + cursoDesc + '</div>' +
+                    '      <div class="top-left">' +
+                    '        <h1 class="course-title">' + cursoNombre + '</h1>' +
+                    '        <div class="muted course-desc" style="margin-top:10px">' + cursoDesc + '</div>' +
                     '      </div>' +
                     '      <div class="badge">Checkout seguro</div>' +
                     '    </div>' +
@@ -1087,8 +1088,7 @@
                     '          <div class="kv"><span>Fecha y hora</span><b>' + cursoFecha + '</b></div>' +
                     '        </div>' +
                     '        <div style="margin-top:18px" id="step1" class="step active">' +
-                    '          <h2>Tus datos</h2>' +
-                    '          <div class="muted">Completa tus datos para continuar.</div>' +
+                    '          <h2>Completa tus datos para continuar:</h2>' +
                     '          <form id="formDatos">' +
                     '            <label>Nombre completo</label><input id="nombre" required />' +
                     '            <label>Correo electrónico</label><input id="email" type="email" required />' +
@@ -1124,7 +1124,7 @@
                     '        </div>' +
                     '      </div>' +
                     '      <div class="card">' +
-                    '        <h2>Detalles de compra</h2>' +
+                    '        <h2 class="center-on-mobile">Detalles de compra</h2>' +
                     '        <div class="muted">Al confirmar y pagar, se abrirá la pasarela de pago en otra pestaña.</div>' +
                     '        <div class="kvs" style="margin-top:14px">' +
                     '          <div class="kv"><span>Precio</span><b>' + cursoPrecio + '</b></div>' +
@@ -1140,8 +1140,25 @@
                     '    let datos = null;' +
                     '    function esc(v){return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/\'/g,"&#039;");}' +
                     '    function show(id){document.querySelectorAll(".step").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");}' +
-                    '    document.getElementById("cerrar").addEventListener("click",()=>window.close());' +
-                    '    document.getElementById("cerrar2").addEventListener("click",()=>window.close());' +
+                    '    function closeCheckout(){' +
+                    '      try{' +
+                    '        if(window.opener){' +
+                    '          try{window.opener.location.hash="#inicio";}catch(e){}' +
+                    '          try{window.opener.focus();}catch(e){}' +
+                    '        }' +
+                    '      }catch(e){}' +
+                    '      try{window.close();}catch(e){}' +
+                    '      setTimeout(function(){' +
+                    '        try{' +
+                    '          if(!window.closed && window.opener){' +
+                    '            try{window.opener.location.hash="#inicio";}catch(e){}' +
+                    '            try{window.opener.focus();}catch(e){}' +
+                    '          }' +
+                    '        }catch(e){}' +
+                    '      }, 150);' +
+                    '    }' +
+                    '    document.getElementById("cerrar").addEventListener("click",closeCheckout);' +
+                    '    document.getElementById("cerrar2").addEventListener("click",closeCheckout);' +
                     '    document.getElementById("volver").addEventListener("click",()=>show("step1"));' +
                     '    document.getElementById("formDatos").addEventListener("submit",(e)=>{' +
                     '      e.preventDefault();' +
