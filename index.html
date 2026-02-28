@@ -328,7 +328,7 @@
 
         .form-group input:focus {
             outline: none;
-            border-color: var(--primary-color);
+            border-color: rgba(255,255,255,0.35);
             background: rgba(255,255,255,0.08);
         }
 
@@ -440,32 +440,52 @@
             justify-content: center;
         }
 
-        .fundador-imagen {
-            flex: 0 0 220px;
+        .sobre-title {
+            margin-bottom: 1.2rem;
+            margin-top: -1.2rem;
         }
 
-        .img-placeholder {
-            width: 220px;
-            height: 220px;
-            border-radius: 50%;
-            background: #e0e0e5;
+        .sobre-layout {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
+            justify-content: space-between;
+            gap: 3.5rem;
         }
 
-        .fundador-texto {
+        .sobre-texto {
             flex: 1;
+            max-width: 620px;
             text-align: left;
-            max-width: 600px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: var(--text-secondary);
         }
 
-        .fundador-texto p {
-            margin-bottom: 1rem;
-            color: var(--text-secondary);
+        .sobre-carousel {
+            flex: 0 0 520px;
+            width: 520px;
+            height: 300px;
+            border-radius: 22px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.10);
+            box-shadow: 0 30px 90px rgba(0,0,0,0.55);
+            position: relative;
+            background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+        }
+
+        .sobre-carousel img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 700ms ease;
+        }
+
+        .sobre-carousel img.active {
+            opacity: 1;
         }
 
         /* ===== FORMULARIO DE CONTACTO ===== */
@@ -487,8 +507,8 @@
         }
 
         .contacto-form button {
-            background: var(--text-primary);
-            color: white;
+            background: #ffffff;
+            color: #000000;
             border: none;
             padding: 1rem;
             width: 100%;
@@ -550,6 +570,28 @@
 
             .cursos-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .sobre-title {
+                margin-top: 0;
+                text-align: center;
+            }
+
+            .sobre-layout {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .sobre-texto {
+                text-align: left;
+                font-size: 1rem;
+            }
+
+            .sobre-carousel {
+                width: 100%;
+                flex-basis: auto;
+                height: 220px;
+                border-radius: 18px;
             }
         }
 
@@ -709,16 +751,16 @@
         <!-- SECCIÓN ¿Quienes somos? -->
         <div class="section" data-anchor="quienes-somos">
            <div class="section-content">
-             <h2>Sobre nosotros</h2>
-               <div class="fundador-content">
-                  <div class="fundador-imagen">
-                     <!-- Aquí debes colocar tu imagen real -->
-                      <img src="https://i.ibb.co/B2q190kR/6.jpg" alt="Alexsander Lopez" style="width: 220px; height: 220px; border-radius: 50%; object-fit: cover;">
-                  </div>
-                  <div class="fundador-texto">
-                        <p>En Alia, ofrecemos servicios educativos para fortalecer tus conocimientos. Te recomendamos cosas que funcionan y fomentamos el uso de agentes de IA automatizados. Nuestros productos resuelven problemas reales y ayudan a cientos de empresarios a escalar sus negocios.</p>
+             <h2 class="sobre-title">Sobre nosotros</h2>
+             <div class="sobre-layout">
+                 <div class="sobre-texto">
+                     <p>En Alia, ofrecemos servicios educativos para fortalecer tus conocimientos. Te recomendamos cosas que funcionan y fomentamos el uso de agentes de IA automatizados. Nuestros productos resuelven problemas reales y ayudan a cientos de empresarios a escalar sus negocios.</p>
                  </div>
-              </div>
+                 <div class="sobre-carousel" id="sobre-carousel" aria-label="Presentación">
+                     <img class="active" src="https://i.ibb.co/SXg1jHhK/4.jpg" alt="Alia" />
+                     <img src="https://i.ibb.co/35CY5jyt/5.jpg" alt="Alia" />
+                 </div>
+             </div>
           </div>
       </div>
 
@@ -812,12 +854,82 @@
            paddingTop: '80px',
            paddingBottom: '0px',
            normalScrollElements: '.top-menu',
+           onLeave: function(origin, destination, direction) {
+               if (origin && origin.anchor === 'quienes-somos') {
+                   if (window.__aliaSobreStopCarousel) window.__aliaSobreStopCarousel();
+               }
+           },
            afterLoad: function(origin, destination, direction) {
+               if (destination && destination.anchor === 'quienes-somos') {
+                   if (window.__aliaSobreStartCarousel) window.__aliaSobreStartCarousel();
+               } else {
+                   if (window.__aliaSobreStopCarousel) window.__aliaSobreStopCarousel();
+               }
                setTimeout(function() {
                    window.dispatchEvent(new Event('resize'));
                }, 100);
            }
        });
+
+        (function() {
+            const anchor = 'quienes-somos';
+            const rootId = 'sobre-carousel';
+            let timer = null;
+
+            function setActive(images, idx) {
+                images.forEach(function(img, i) {
+                    if (i === idx) img.classList.add('active');
+                    else img.classList.remove('active');
+                });
+            }
+
+            function start() {
+                const root = document.getElementById(rootId);
+                if (!root) return;
+                const images = Array.prototype.slice.call(root.querySelectorAll('img'));
+                if (images.length <= 1) return;
+                if (timer) return;
+
+                let idx = 0;
+                setActive(images, idx);
+                timer = window.setInterval(function() {
+                    idx = (idx + 1) % images.length;
+                    setActive(images, idx);
+                }, 3500);
+            }
+
+            function stop() {
+                if (!timer) return;
+                window.clearInterval(timer);
+                timer = null;
+            }
+
+            window.__aliaSobreStartCarousel = start;
+            window.__aliaSobreStopCarousel = stop;
+
+            try {
+                if (typeof fullpage_api !== 'undefined' && fullpage_api.getActiveSection) {
+                    const active = fullpage_api.getActiveSection();
+                    if (active && active.anchor === anchor) start();
+                }
+            } catch (e) {}
+        })();
+
+        (function() {
+            const toggle = document.getElementById('menu-toggle');
+            const nav = document.getElementById('nav-links');
+            if (!toggle || !nav) return;
+
+            toggle.addEventListener('click', function() {
+                nav.classList.toggle('active');
+            });
+
+            nav.querySelectorAll('a').forEach(function(a) {
+                a.addEventListener('click', function() {
+                    nav.classList.remove('active');
+                });
+            });
+        })();
 
         // Datos de los cursos
         const cursosData = {
@@ -852,11 +964,11 @@
 
         function escapeHtml(value) {
             return String(value)
-                .replaceAll('&', '&amp;')
-                .replaceAll('<', '&lt;')
-                .replaceAll('>', '&gt;')
-                .replaceAll('"', '&quot;')
-                .replaceAll("'", '&#039;');
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
         }
 
         // Abre el checkout en una pestaña/ventana nueva (no dentro de la página principal)
@@ -864,165 +976,197 @@
             const curso = cursosData[cursoId];
             if (!curso) return;
 
-            const w = window.open('', '_blank', 'noopener,noreferrer');
+            const w = window.open('about:blank', '_blank');
             if (!w) {
                 alert('Tu navegador bloqueó la ventana emergente. Habilita popups para este sitio y vuelve a intentar.');
                 return;
             }
 
-            const pageTitle = 'Checkout - ' + curso.nombre;
-            const cursoNombre = escapeHtml(curso.nombre);
-            const cursoDesc = escapeHtml(curso.descripcion);
-            const cursoPrecio = escapeHtml(curso.precio);
-            const cursoEvento = escapeHtml(curso.evento);
-            const cursoModalidad = escapeHtml(curso.modalidad);
-            const cursoFecha = escapeHtml(curso.fecha);
-            const notifyEmail = 'jesusdavidguerrero2018@gmail.com';
-            const cursoJson = JSON.stringify(curso).replaceAll('</', '<\\/');
+            try { w.opener = null; } catch (e) {}
 
-            const html =
-                '<!doctype html>' +
-                '<html lang="es">' +
-                '<head>' +
-                '  <meta charset="utf-8" />' +
-                '  <meta name="viewport" content="width=device-width, initial-scale=1" />' +
-                '  <title>' + escapeHtml(pageTitle) + '</title>' +
-                '  <link rel="preconnect" href="https://fonts.googleapis.com">' +
-                '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' +
-                '  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">' +
-                '  <style>' +
-                '    :root{--bg:#0b0b0b;--muted:#9a9a9a;--border:rgba(255,255,255,.08);--white:#fff;--black:#000;}' +
-                '    *{box-sizing:border-box}' +
-                '    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:radial-gradient(1200px 600px at 40% 10%, rgba(255,255,255,.08), transparent 60%), var(--bg);color:var(--white);}' +
-                '    .wrap{max-width:980px;margin:0 auto;padding:48px 20px;}' +
-                '    .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:24px;}' +
-                '    h1{font-family:\'Playfair Display\',serif;font-weight:400;margin:0;font-size:clamp(2rem,4vw,3rem);letter-spacing:-.02em;}' +
-                '    h2{font-family:\'Playfair Display\',serif;font-weight:400;margin:0 0 10px 0;}' +
-                '    .badge{border:1px solid var(--border);padding:10px 14px;border-radius:999px;color:var(--muted);font-size:12px;letter-spacing:.14em;text-transform:uppercase;}' +
-                '    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;}' +
-                '    @media (max-width: 900px){.grid{grid-template-columns:1fr}}' +
-                '    .card{background:linear-gradient(135deg,#121212 0%,#1b1b1b 100%);border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:0 24px 60px rgba(0,0,0,.5)}' +
-                '    .muted{color:var(--muted);line-height:1.7}' +
-                '    .kvs{margin-top:14px;border-top:1px solid var(--border);padding-top:14px;display:grid;gap:8px}' +
-                '    .kv{display:flex;justify-content:space-between;gap:12px;color:var(--muted)}' +
-                '    .kv b{color:var(--white);font-weight:600}' +
-                '    label{display:block;color:var(--muted);font-size:13px;margin:10px 0 6px}' +
-                '    input{width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--white);outline:none}' +
-                '    input:focus{border-color:rgba(255,255,255,.22)}' +
-                '    .btn{width:100%;padding:13px 16px;border-radius:999px;border:0;cursor:pointer;font-weight:700;letter-spacing:.08em;text-transform:uppercase}' +
-                '    .btn-primary{background:#fff;color:#000;box-shadow:0 10px 28px rgba(255,255,255,.14)}' +
-                '    .btn-secondary{background:rgba(255,255,255,.06);color:#fff;border:1px solid var(--border)}' +
-                '    .row{display:flex;gap:10px}' +
-                '    .row>*{flex:1}' +
-                '    .step{display:none}' +
-                '    .step.active{display:block}' +
-                '    .summary{display:grid;gap:10px}' +
-                '    .line{display:flex;justify-content:space-between;gap:12px}' +
-                '    .success{padding:18px;border-radius:14px;border:1px solid rgba(76,175,80,.25);background:rgba(76,175,80,.06)}' +
-                '  </style>' +
-                '</head>' +
-                '<body>' +
-                '  <div class="wrap">' +
-                '    <div class="top">' +
-                '      <div>' +
-                '        <h1>' + cursoNombre + '</h1>' +
-                '        <div class="muted" style="margin-top:10px">' + cursoDesc + '</div>' +
-                '      </div>' +
-                '      <div class="badge">Checkout seguro</div>' +
-                '    </div>' +
-                '    <div class="grid">' +
-                '      <div class="card">' +
-                '        <div class="kvs">' +
-                '          <div class="kv"><span>Evento</span><b>' + cursoEvento + '</b></div>' +
-                '          <div class="kv"><span>Modalidad</span><b>' + cursoModalidad + '</b></div>' +
-                '          <div class="kv"><span>Fecha y hora</span><b>' + cursoFecha + '</b></div>' +
-                '        </div>' +
-                '        <div style="margin-top:18px" id="step1" class="step active">' +
-                '          <h2>Tus datos</h2>' +
-                '          <div class="muted">Completa tus datos para continuar.</div>' +
-                '          <form id="formDatos">' +
-                '            <label>Nombre completo</label><input id="nombre" required />' +
-                '            <label>Correo electrónico</label><input id="email" type="email" required />' +
-                '            <div class="row">' +
-                '              <div><label>Número de teléfono</label><input id="telefono" required /></div>' +
-                '              <div><label>WhatsApp</label><input id="whatsapp" required /></div>' +
-                '            </div>' +
-                '            <div style="margin-top:16px" class="row">' +
-                '              <button class="btn btn-primary" type="submit">Confirmar datos</button>' +
-                '              <button class="btn btn-secondary" type="button" id="cerrar">Cerrar</button>' +
-                '            </div>' +
-                '          </form>' +
-                '        </div>' +
-                '        <div style="margin-top:18px" id="step2" class="step">' +
-                '          <h2>Resumen</h2>' +
-                '          <div class="summary">' +
-                '            <div class="line"><span class="muted">Curso</span><b>' + cursoNombre + '</b></div>' +
-                '            <div class="line"><span class="muted">Total a pagar</span><b>' + cursoPrecio + '</b></div>' +
-                '            <div style="height:1px;background:rgba(255,255,255,.08)"></div>' +
-                '            <div class="muted" id="datosOut"></div>' +
-                '          </div>' +
-                '          <div style="margin-top:16px" class="row">' +
-                '            <button class="btn btn-primary" type="button" id="pagar">Pagar</button>' +
-                '            <button class="btn btn-secondary" type="button" id="volver">Editar datos</button>' +
-                '          </div>' +
-                '        </div>' +
-                '        <div style="margin-top:18px" id="step3" class="step">' +
-                '          <div class="success">' +
-                '            <h2>¡Compra exitosa!</h2>' +
-                '            <div class="muted">En 5 minutos validaremos tu pago y te enviaremos toda la información respecto al curso.</div>' +
-                '          </div>' +
-                '          <div style="margin-top:16px"><button class="btn btn-secondary" type="button" id="cerrar2">Cerrar</button></div>' +
-                '        </div>' +
-                '      </div>' +
-                '      <div class="card">' +
-                '        <h2>Detalles de compra</h2>' +
-                '        <div class="muted">Al confirmar y pagar, se abrirá la pasarela de pago en otra pestaña.</div>' +
-                '        <div class="kvs" style="margin-top:14px">' +
-                '          <div class="kv"><span>Precio</span><b>' + cursoPrecio + '</b></div>' +
-                '          <div class="kv"><span>Soporte</span><b>' + escapeHtml(notifyEmail) + '</b></div>' +
-                '        </div>' +
-                '        <div class="muted" style="margin-top:14px;font-size:12px">Nota: Para enviar correo automáticamente se requiere un backend.</div>' +
-                '      </div>' +
-                '    </div>' +
-                '  </div>' +
-                '  <script>' +
-                '    const notifyEmail = ' + JSON.stringify(notifyEmail) + ';' +
-                '    const curso = ' + cursoJson + ';' +
-                '    let datos = null;' +
-                '    function esc(v){return String(v).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll("\"","&quot;").replaceAll("\'","&#039;");}' +
-                '    function show(id){document.querySelectorAll(".step").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");}' +
-                '    document.getElementById("cerrar").addEventListener("click",()=>window.close());' +
-                '    document.getElementById("cerrar2").addEventListener("click",()=>window.close());' +
-                '    document.getElementById("volver").addEventListener("click",()=>show("step1"));' +
-                '    document.getElementById("formDatos").addEventListener("submit",(e)=>{' +
-                '      e.preventDefault();' +
-                '      datos={nombre:document.getElementById("nombre").value.trim(),email:document.getElementById("email").value.trim(),telefono:document.getElementById("telefono").value.trim(),whatsapp:document.getElementById("whatsapp").value.trim()};' +
-                '      document.getElementById("datosOut").innerHTML=' +
-                '        "<div><b>Nombre:</b> " + esc(datos.nombre) + "</div>" +' +
-                '        "<div><b>Email:</b> " + esc(datos.email) + "</div>" +' +
-                '        "<div><b>Teléfono:</b> " + esc(datos.telefono) + "</div>" +' +
-                '        "<div><b>WhatsApp:</b> " + esc(datos.whatsapp) + "</div>";' +
-                '      show("step2");' +
-                '    });' +
-                '    document.getElementById("pagar").addEventListener("click",()=>{' +
-                '      if(!datos) return;' +
-                '      window.open(curso.urlPago,"_blank","noopener,noreferrer");' +
-                '      const subject=encodeURIComponent("Nueva compra - "+curso.nombre);' +
-                '      const body=encodeURIComponent(' +
-                '        "Curso: "+curso.nombre+"\\nPrecio: "+curso.precio+"\\n\\nCliente:"+' +
-                '        "\\n- Nombre: "+datos.nombre+"\\n- Email: "+datos.email+"\\n- Teléfono: "+datos.telefono+"\\n- WhatsApp: "+datos.whatsapp+"\\n\\nFecha: "+(new Date().toLocaleString())' +
-                '      );' +
-                '      // window.open("mailto:"+notifyEmail+"?subject="+subject+"&body="+body,"_blank");' +
-                '      show("step3");' +
-                '    });' +
-                '  <\\/script>' +
-                '</body>' +
-                '</html>';
+            try {
+                const pageTitle = 'Checkout - ' + curso.nombre;
+                const cursoNombre = escapeHtml(curso.nombre);
+                const cursoDesc = escapeHtml(curso.descripcion);
+                const cursoPrecio = escapeHtml(curso.precio);
+                const cursoEvento = escapeHtml(curso.evento);
+                const cursoModalidad = escapeHtml(curso.modalidad);
+                const cursoFecha = escapeHtml(curso.fecha);
+                const notifyEmail = 'jesusdavidguerrero2018@gmail.com';
+                const cursoJson = JSON.stringify(curso).replace(/<\//g, '<\\/');
 
-            w.document.open();
-            w.document.write(html);
-            w.document.close();
+                const html =
+                    '<!doctype html>' +
+                    '<html lang="es">' +
+                    '<head>' +
+                    '  <meta charset="utf-8" />' +
+                    '  <meta name="viewport" content="width=device-width, initial-scale=1" />' +
+                    '  <title>' + escapeHtml(pageTitle) + '</title>' +
+                    '  <link rel="preconnect" href="https://fonts.googleapis.com">' +
+                    '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' +
+                    '  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">' +
+                    '  <style>' +
+                    '    :root{--bg:#0b0b0b;--panel:#101010;--panel2:#191919;--muted:rgba(255,255,255,.66);--white:#fff;--border:rgba(255,255,255,.10);--border2:rgba(255,255,255,.18);--shadow:rgba(0,0,0,.55);--accent:#ffffff;}' +
+                    '    *{box-sizing:border-box}' +
+                    '    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:radial-gradient(900px 520px at 20% 0%, rgba(255,255,255,.10), transparent 65%), radial-gradient(1200px 700px at 100% 30%, rgba(255,255,255,.06), transparent 60%), var(--bg);color:var(--white);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}' +
+                    '    .wrap{max-width:980px;margin:0 auto;padding:48px 20px;}' +
+                    '    .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:24px;}' +
+                    '    h1{font-family:\'Playfair Display\',serif;font-weight:400;margin:0;font-size:clamp(2rem,4vw,3rem);letter-spacing:-.02em;line-height:1.05;text-wrap:balance}' +
+                    '    h2{font-family:\'Playfair Display\',serif;font-weight:400;margin:0 0 10px 0;letter-spacing:-.01em}' +
+                    '    .badge{border:1px solid var(--border);background:rgba(255,255,255,.03);backdrop-filter:blur(10px);padding:10px 14px;border-radius:999px;color:var(--muted);font-size:12px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}' +
+                    '    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;}' +
+                    '    .card{background:linear-gradient(145deg,var(--panel) 0%, var(--panel2) 100%);border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:0 26px 70px var(--shadow);position:relative;overflow:hidden}' +
+                    '    .card:before{content:"";position:absolute;inset:-1px;pointer-events:none;background:radial-gradient(560px 240px at 0% 0%, rgba(255,255,255,.12), transparent 62%);opacity:.95}' +
+                    '    .card:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg, rgba(255,255,255,.06), transparent 30%, transparent 70%, rgba(0,0,0,.18));opacity:.55}' +
+                    '    .card > *{position:relative;z-index:1}' +
+                    '    .muted{color:var(--muted);line-height:1.7}' +
+                    '    .kvs{margin-top:14px;border-top:1px solid var(--border);padding-top:14px;display:grid;gap:8px}' +
+                    '    .kv{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:14px}' +
+                    '    .kv span{opacity:.9}' +
+                    '    .kv b{color:var(--white);font-weight:600}' +
+                    '    label{display:block;color:rgba(255,255,255,.72);font-size:12px;letter-spacing:.02em;margin:14px 0 6px}' +
+                    '    input{width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--white);outline:none;transition:border-color .18s ease, box-shadow .18s ease, background .18s ease}' +
+                    '    input::placeholder{color:rgba(255,255,255,.45)}' +
+                    '    input:focus{border-color:var(--border2);box-shadow:0 0 0 4px rgba(255,255,255,.07);background:rgba(255,255,255,.06)}' +
+                    '    .btn{width:100%;padding:13px 16px;border-radius:999px;border:0;cursor:pointer;font-weight:700;letter-spacing:.10em;text-transform:uppercase;transition:transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease}' +
+                    '    .btn:active{transform:translateY(1px)}' +
+                    '    .btn-primary{background:linear-gradient(180deg, #ffffff 0%, #e9e9e9 100%);color:#000;box-shadow:0 12px 30px rgba(255,255,255,.14)}' +
+                    '    .btn-primary:hover{transform:translateY(-1px);box-shadow:0 16px 44px rgba(255,255,255,.20)}' +
+                    '    .btn-secondary{background:rgba(255,255,255,.05);color:#fff;border:1px solid var(--border)}' +
+                    '    .btn-secondary:hover{background:rgba(255,255,255,.07);border-color:var(--border2)}' +
+                    '    .row{display:flex;gap:10px}' +
+                    '    .row>*{flex:1}' +
+                    '    .step{display:none}' +
+                    '    .step.active{display:block}' +
+                    '    .summary{display:grid;gap:10px}' +
+                    '    .line{display:flex;justify-content:space-between;gap:12px}' +
+                    '    .success{padding:18px;border-radius:16px;border:1px solid rgba(76,175,80,.28);background:linear-gradient(145deg, rgba(76,175,80,.10), rgba(76,175,80,.04))}' +
+                    '    @media (max-width: 900px){.wrap{padding:28px 14px}.top{flex-direction:column;align-items:flex-start}.badge{padding:8px 12px}.grid{grid-template-columns:1fr}.card{padding:18px}}' +
+                    '    @media (max-width: 520px){.wrap{padding:22px 12px}.row{flex-direction:column}.btn{letter-spacing:.08em}.kv{font-size:13px}}' +
+                    '  </style>' +
+                    '</head>' +
+                    '<body>' +
+                    '  <div class="wrap">' +
+                    '    <div class="top">' +
+                    '      <div>' +
+                    '        <h1>' + cursoNombre + '</h1>' +
+                    '        <div class="muted" style="margin-top:10px">' + cursoDesc + '</div>' +
+                    '      </div>' +
+                    '      <div class="badge">Checkout seguro</div>' +
+                    '    </div>' +
+                    '    <div class="grid">' +
+                    '      <div class="card">' +
+                    '        <div class="kvs">' +
+                    '          <div class="kv"><span>Evento</span><b>' + cursoEvento + '</b></div>' +
+                    '          <div class="kv"><span>Modalidad</span><b>' + cursoModalidad + '</b></div>' +
+                    '          <div class="kv"><span>Fecha y hora</span><b>' + cursoFecha + '</b></div>' +
+                    '        </div>' +
+                    '        <div style="margin-top:18px" id="step1" class="step active">' +
+                    '          <h2>Tus datos</h2>' +
+                    '          <div class="muted">Completa tus datos para continuar.</div>' +
+                    '          <form id="formDatos">' +
+                    '            <label>Nombre completo</label><input id="nombre" required />' +
+                    '            <label>Correo electrónico</label><input id="email" type="email" required />' +
+                    '            <div class="row">' +
+                    '              <div><label>Número de teléfono</label><input id="telefono" required inputmode="numeric" pattern="\\d{10}" maxlength="10" minlength="10" autocomplete="tel" /></div>' +
+                    '              <div><label>WhatsApp</label><input id="whatsapp" required inputmode="numeric" pattern="\\d{10}" maxlength="10" minlength="10" autocomplete="tel" /></div>' +
+                    '            </div>' +
+                    '            <div style="margin-top:16px" class="row">' +
+                    '              <button class="btn btn-primary" type="submit">Confirmar datos</button>' +
+                    '              <button class="btn btn-secondary" type="button" id="cerrar">Cerrar</button>' +
+                    '            </div>' +
+                    '          </form>' +
+                    '        </div>' +
+                    '        <div style="margin-top:18px" id="step2" class="step">' +
+                    '          <h2>Resumen</h2>' +
+                    '          <div class="summary">' +
+                    '            <div class="line"><span class="muted">Curso</span><b>' + cursoNombre + '</b></div>' +
+                    '            <div class="line"><span class="muted">Total a pagar</span><b>' + cursoPrecio + '</b></div>' +
+                    '            <div style="height:1px;background:rgba(255,255,255,.08)"></div>' +
+                    '            <div class="muted" id="datosOut"></div>' +
+                    '          </div>' +
+                    '          <div style="margin-top:16px" class="row">' +
+                    '            <button class="btn btn-primary" type="button" id="pagar">Pagar</button>' +
+                    '            <button class="btn btn-secondary" type="button" id="volver">Editar datos</button>' +
+                    '          </div>' +
+                    '        </div>' +
+                    '        <div style="margin-top:18px" id="step3" class="step">' +
+                    '          <div class="success">' +
+                    '            <h2>¡Compra exitosa!</h2>' +
+                    '            <div class="muted">En 5 minutos validaremos tu pago y te enviaremos toda la información respecto al curso.</div>' +
+                    '          </div>' +
+                    '          <div style="margin-top:16px"><button class="btn btn-secondary" type="button" id="cerrar2">Cerrar</button></div>' +
+                    '        </div>' +
+                    '      </div>' +
+                    '      <div class="card">' +
+                    '        <h2>Detalles de compra</h2>' +
+                    '        <div class="muted">Al confirmar y pagar, se abrirá la pasarela de pago en otra pestaña.</div>' +
+                    '        <div class="kvs" style="margin-top:14px">' +
+                    '          <div class="kv"><span>Precio</span><b>' + cursoPrecio + '</b></div>' +
+                    '          <div class="kv"><span>Soporte</span><b>' + escapeHtml(notifyEmail) + '</b></div>' +
+                    '        </div>' +
+                    '        <div class="muted" style="margin-top:14px;font-size:12px">Nota: Una vez se verifique tu pago, un miembro de nuestro equipo se pondrá en contacto contigo para enviarte toda la información relacionada con el curso.</div>' +
+                    '      </div>' +
+                    '    </div>' +
+                    '  </div>' +
+                    '  <script>' +
+                    '    const notifyEmail = ' + JSON.stringify(notifyEmail) + ';' +
+                    '    const curso = ' + cursoJson + ';' +
+                    '    let datos = null;' +
+                    '    function esc(v){return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/\'/g,"&#039;");}' +
+                    '    function show(id){document.querySelectorAll(".step").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");}' +
+                    '    document.getElementById("cerrar").addEventListener("click",()=>window.close());' +
+                    '    document.getElementById("cerrar2").addEventListener("click",()=>window.close());' +
+                    '    document.getElementById("volver").addEventListener("click",()=>show("step1"));' +
+                    '    document.getElementById("formDatos").addEventListener("submit",(e)=>{' +
+                    '      e.preventDefault();' +
+                    '      const telEl=document.getElementById("telefono");' +
+                    '      const waEl=document.getElementById("whatsapp");' +
+                    '      const tel=telEl.value.replace(/\\D/g, "");' +
+                    '      const wa=waEl.value.replace(/\\D/g, "");' +
+                    '      telEl.value=tel;' +
+                    '      waEl.value=wa;' +
+                    '      if(tel.length!==10){alert("El número de teléfono debe tener 10 dígitos.");telEl.focus();return;}' +
+                    '      if(wa.length!==10){alert("El WhatsApp debe tener 10 dígitos.");waEl.focus();return;}' +
+                    '      datos={nombre:document.getElementById("nombre").value.trim(),email:document.getElementById("email").value.trim(),telefono:tel,whatsapp:wa};' +
+                    '      document.getElementById("datosOut").innerHTML=' +
+                    '        "<div><b>Nombre:</b> " + esc(datos.nombre) + "</div>" +' +
+                    '        "<div><b>Email:</b> " + esc(datos.email) + "</div>" +' +
+                    '        "<div><b>Teléfono:</b> " + esc(datos.telefono) + "</div>" +' +
+                    '        "<div><b>WhatsApp:</b> " + esc(datos.whatsapp) + "</div>";' +
+                    '      show("step2");' +
+                    '    });' +
+                    '    document.getElementById("pagar").addEventListener("click",()=>{' +
+                    '      if(!datos) return;' +
+                    '      window.open(curso.urlPago,"_blank","noopener,noreferrer");' +
+                    '      const subject=encodeURIComponent("Nueva compra - "+curso.nombre);' +
+                    '      const body=encodeURIComponent(' +
+                    '        "Curso: "+curso.nombre+"\\nPrecio: "+curso.precio+"\\n\\nCliente:"+' +
+                    '        "\\n- Nombre: "+datos.nombre+"\\n- Email: "+datos.email+"\\n- Teléfono: "+datos.telefono+"\\n- WhatsApp: "+datos.whatsapp+"\\n\\nFecha: "+(new Date().toLocaleString())' +
+                    '      );' +
+                    '      // window.open("mailto:"+notifyEmail+"?subject="+subject+"&body="+body,"_blank");' +
+                    '      show("step3");' +
+                    '    });' +
+                    '  <\\/script>' +
+                    '</body>' +
+                    '</html>';
+
+                w.document.open();
+                w.document.write(html);
+                w.document.close();
+            } catch (err) {
+                w.document.open();
+                w.document.write(
+                    '<!doctype html><html><head><meta charset="utf-8" /><title>Error</title></head><body style="font-family:Arial;padding:20px">' +
+                    '<h2>No se pudo cargar el checkout</h2>' +
+                    '<p>Ocurrió un error al generar la ventana de compra.</p>' +
+                    '<pre style="white-space:pre-wrap">' + escapeHtml(err && err.message ? err.message : String(err)) + '</pre>' +
+                    '</body></html>'
+                );
+                w.document.close();
+            }
         }
-</script>
+        
+    </script>
 </body>
 </html>
