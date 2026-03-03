@@ -637,6 +637,10 @@
            white-space: nowrap;
         }
 
+        .subtitle-ia {
+            display: inline-block;
+        }
+
         .hero-image {
             flex: 0 0 35%;
             display: flex;
@@ -685,6 +689,20 @@
 
             .hero-image img {
                 max-width: 440px;
+            }
+
+            .subtitle {
+                white-space: normal;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .subtitle-ia {
+                display: block;
+                margin-top: 0.3rem;
             }
         }
         
@@ -746,7 +764,7 @@
            <div class="hero-container">
               <div class="hero-text">
                  <h1>Alexander <span style="color: #939393;">López</span></h1>
-                 <p class="subtitle" style="margin-top: 1.5rem;" id="hero-subtitle">INSTRUCTOR • INFORMATICO • EMPRENDEDOR • EXPERTO EN IA</p>
+                 <p class="subtitle" style="margin-top: 1.5rem;" id="hero-subtitle">INSTRUCTOR • INFORMATICO • EMPRENDEDOR <span class="subtitle-ia">• EXPERTO EN IA</span></p>
              </div>
                <div class="hero-image">
                   <img src="https://i.ibb.co/ZznMK7LD/Imagen-Alex-2.png" alt="Alexander López">
