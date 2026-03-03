@@ -70,17 +70,11 @@
             color: var(--text-primary);
             text-decoration: none;
             letter-spacing: -0.02em;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
+            display: inline-block;
         }
 
-        .logo img {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            object-fit: cover;
-            display: block;
+        .logo .logo-muted {
+            color: #939393;
         }
 
         .nav-links {
@@ -634,12 +628,13 @@
 
         .subtitle {
            font-family: 'Inter', sans-serif;
-           font-size: clamp(0.85rem, 1.2vw, 0.95rem);
+           font-size: clamp(0.75rem, 1.1vw, 0.85rem);
            color: var(--text-secondary);
-           letter-spacing: 0.2em;
+           letter-spacing: 0.1em;
            text-transform: uppercase;
            font-weight: 300;
-         line-height: 1.6;
+           line-height: 1.4;
+           white-space: nowrap;
         }
 
         .hero-image {
@@ -730,7 +725,7 @@
 <body>
     <!-- MENÚ SUPERIOR -->
     <header class="top-menu">
-        <a href="#inicio" class="logo"><img src="https://i.ibb.co/9mCGtsr6/Alia-imagen.jpg" alt="Alia" /></a>
+        <a href="#inicio" class="logo">Al<span class="logo-muted">ia</span></a>
         <div class="menu-toggle" id="menu-toggle">
             <span></span>
             <span></span>
@@ -738,7 +733,7 @@
         </div>
         <nav class="nav-links" id="nav-links">
             <a href="#inicio">Inicio</a>
-            <a href="#quienes-somos">¿Quienes somos?</a>
+            <a href="#quienes-somos">¿Quiénes somos?</a>
             <a href="#cursos">Cursos</a>
             <a href="#contacto">Contacto</a>
         </nav>
@@ -751,7 +746,7 @@
            <div class="hero-container">
               <div class="hero-text">
                  <h1>Alexander <span style="color: #939393;">López</span></h1>
-                 <p class="subtitle" id="hero-subtitle">INSTRUCTOR • INFORMATICO • EMPRENDEDOR • EXPERTO EN IA</p>
+                 <p class="subtitle" style="margin-top: 1.5rem;" id="hero-subtitle">INSTRUCTOR • INFORMATICO • EMPRENDEDOR • EXPERTO EN IA</p>
              </div>
                <div class="hero-image">
                   <img src="https://i.ibb.co/ZznMK7LD/Imagen-Alex-2.png" alt="Alexander López">
@@ -762,10 +757,10 @@
         <!-- SECCIÓN ¿Quienes somos? -->
         <div class="section" data-anchor="quienes-somos">
            <div class="section-content">
-             <h2 class="sobre-title">Sobre nosotros</h2>
+             <h2 class="sobre-title">¿Quiénes somos?</h2>
              <div class="sobre-layout">
                  <div class="sobre-texto">
-                     <p>En Alia, ofrecemos servicios educativos para fortalecer tus conocimientos. Te recomendamos cosas que funcionan y fomentamos el uso de agentes de IA automatizados. Nuestros productos resuelven problemas reales y ayudan a cientos de empresarios a escalar sus negocios.</p>
+                     <p>En ALIA, ofrecemos servicios educativos para fortalecer tus conocimientos. Te recomendamos cosas que funcionan y fomentamos el uso de agentes de IA automatizados. Nuestros productos resuelven problemas reales y ayudan a cientos de empresarios a escalar sus negocios.</p>
                  </div>
                  <div class="sobre-carousel" id="sobre-carousel" aria-label="Presentación">
                      <img class="active" src="https://i.ibb.co/SXg1jHhK/4.jpg" alt="Alia" />
