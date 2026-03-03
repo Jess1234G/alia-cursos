@@ -733,12 +733,46 @@
             overflow-x: hidden;
         }
 
+        /* ===== REDES SOCIALES ===== */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .social-link:hover {
+            border-color: rgba(255, 255, 255, 0.6);
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
+        }
+
+        .social-link i {
+            font-size: 1.2rem;
+        }
+
     </style>
 
     <!-- Fuente Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <!-- MENÚ SUPERIOR -->
@@ -765,6 +799,20 @@
               <div class="hero-text">
                  <h1>Alexander <span style="color: #939393;">López</span></h1>
                  <p class="subtitle" style="margin-top: 1.4rem;" id="hero-subtitle">INSTRUCTOR • INFORMATICO • EMPRENDEDOR • EXPERTO EN IA</p>
+                 <div class="social-links">
+                    <a href="TU_ENLACE_SPOTIFY_AQUI" class="social-link" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-spotify"></i>
+                    </a>
+                    <a href="TU_ENLACE_INSTAGRAM_AQUI" class="social-link" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="TU_ENLACE_YOUTUBE_AQUI" class="social-link" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="TU_ENLACE_LINKEDIN_AQUI" class="social-link" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                 </div>
              </div>
                <div class="hero-image">
                   <img src="https://i.ibb.co/ZznMK7LD/Imagen-Alex-2.png" alt="Alexander López">
