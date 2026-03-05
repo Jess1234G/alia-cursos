@@ -1121,7 +1121,7 @@
             'in-alia': {
                 nombre: 'IN ALIA',
                 descripcion: 'En este curso aprenderás a usar agentes de IA para administrar, gestionar y escalar tu negocio. Ideal para principiantes que quieren empezar en el mundo de la inteligencia artificial.',
-                precio: '$97 USD',
+                precio: '$60.000 COP',
                 evento: 'Asincrónico',
                 modalidad: 'Virtual',
                 fecha: '14/03/2026 - 08:00 A.M.',
@@ -1130,7 +1130,7 @@
             'ia-avanzada': {
                 nombre: 'IA AVANZADA',
                 descripcion: 'Domina agentes autónomos, automatizaciones complejas y estrategias avanzadas de IA para llevar tu negocio al siguiente nivel.',
-                precio: '$47 USD',
+                precio: '$80.000 COP',
                 evento: 'Asincrónico',
                 modalidad: 'Virtual',
                 fecha: '21/03/2026 - 10:00 A.M.',
@@ -1139,7 +1139,7 @@
             'agentes-autonomos': {
                 nombre: 'AGENTES AUTÓNOMOS',
                 descripcion: 'Aprende a crear y desplegar agentes de IA que trabajen por ti 24/7, automatizando tareas complejas y generando ingresos pasivos.',
-                precio: '$127 USD',
+                precio: '$90.000 COP',
                 evento: 'Asincrónico',
                 modalidad: 'Virtual',
                 fecha: '28/03/2026 - 09:00 A.M.',
@@ -1177,7 +1177,7 @@
                 const cursoEvento = escapeHtml(curso.evento);
                 const cursoModalidad = escapeHtml(curso.modalidad);
                 const cursoFecha = escapeHtml(curso.fecha);
-                const notifyEmail = 'jesusdavidguerrero2018@gmail.com';
+                const notifyEmail = '304 3324969';
                 const cursoJson = JSON.stringify(curso).replace(/<\//g, '<\\/');
 
                 const html =
@@ -1245,7 +1245,7 @@
                     '    <div class="grid">' +
                     '      <div class="card">' +
                     '        <div id="step1Header" class="step1-header">Completa tus datos para continuar</div>' +
-                    '        <div class="kvs">' +
+                    '        <div class="kvs" style="margin-top:26px">' +
                     '          <div class="kv"><span>Evento:</span><b>' + cursoEvento + '</b></div>' +
                     '          <div class="kv"><span>Modalidad:</span><b>' + cursoModalidad + '</b></div>' +
                     '          <div class="kv"><span>Fecha y hora:</span><b>' + cursoFecha + '</b></div>' +
@@ -1283,11 +1283,12 @@
                     '        </div>' +
                     '      </div>' +
                     '      <div class="card">' +
-                    '        <div style="font-family:\'Playfair Display\',serif;font-weight:400;margin:0 0 10px 0;letter-spacing:-.01em;text-align:center;font-size:clamp(1.05rem,2.6vw,1.35rem)">Detalles de compra</div>' +
-                    '        <div class="muted" style="font-size:12px">Al confirmar tus datos, se abrirá la pasarela de pago en otra pestaña.</div>' +
+                    '        <div style="font-family:\'Playfair Display\',serif;font-weight:400;margin:0 0 10px 0;letter-spacing:-.01em;text-align:center;font-size:clamp(1.05rem,2.6vw,1.35rem)">Importante</div>' +
+                    '        <div class="muted" style="font-size:12px;text-align:justify;text-justify:inter-word">Despues de dar click y confirmar tus datos; se abrirá una pestaña nueva donde podras realizar tu pago. Una ves realices el pago, envia una captura de tu comprobante y un mensaje con tu codigo de facturación a nuestra cuenta de WhatsApp.</div>' +
                     '        <div class="kvs" style="margin-top:14px">' +
                     '          <div class="kv"><span>Precio:</span><b>' + cursoPrecio + '</b></div>' +
-                    '          <div class="kv"><span>Soporte:</span><b>' + escapeHtml(notifyEmail) + '</b></div>' +
+                    '          <div class="kv"><span>WhatsApp:</span><b>' + escapeHtml(notifyEmail) + '</b></div>' +
+                    '          <div class="kv"><span>Codigo de facturación:</span><b>__________</b></div>' +
                     '        </div>' +
                     '        <div class="muted" style="margin-top:14px;font-size:12px">Nota: Una vez se verifique tu pago, un miembro de nuestro equipo se pondrá en contacto contigo para enviarte toda la información relacionada con el curso.</div>' +
                     '      </div>' +
