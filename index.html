@@ -1177,6 +1177,7 @@
                 const cursoEvento = escapeHtml(curso.evento);
                 const cursoModalidad = escapeHtml(curso.modalidad);
                 const cursoFecha = escapeHtml(curso.fecha);
+                const cursoCodigodefacturacion = escapeHtml(curso.codigoDeFacturacion);
                 const notifyEmail = '304 3324969';
                 const cursoJson = JSON.stringify(curso).replace(/<\//g, '<\\/');
 
@@ -1249,6 +1250,7 @@
                     '          <div class="kv"><span>Evento:</span><b>' + cursoEvento + '</b></div>' +
                     '          <div class="kv"><span>Modalidad:</span><b>' + cursoModalidad + '</b></div>' +
                     '          <div class="kv"><span>Fecha y hora:</span><b>' + cursoFecha + '</b></div>' +
+                    '          <div class="kv"><span>Código de facturación:</span><b>' + cursoCodigodefacturacion + '</b></div>' +
                     '        </div>' +
                     '        <div style="margin-top:18px" id="step1" class="step active">' +
                     '          <form id="formDatos">' +
@@ -1259,7 +1261,7 @@
                     '              <div><label>WhatsApp</label><input id="whatsapp" required inputmode="numeric" pattern="\\d{10}" maxlength="10" minlength="10" autocomplete="tel" /></div>' +
                     '            </div>' +
                     '            <div style="margin-top:16px" class="row">' +
-                    '              <button class="btn btn-primary" id="btnConfirmar" type="button">Confirmar datos y pagar</button>' +
+                    '              <button class="btn btn-primary" id="btnConfirmar" type="button">Pagar</button>' +
                     '            </div>' +
                     '          </form>' +
                     '        </div>' +
@@ -1271,7 +1273,7 @@
                     '            <div class="muted" id="datosOut"></div>' +
                     '          </div>' +
                     '          <div style="margin-top:16px" class="row">' +
-                    '            <button class="btn btn-primary" id="btnConfirmar" type="button">Confirmar datos y pagar</button>' +
+                    '            <button class="btn btn-primary" id="btnConfirmar" type="button">Pagar</button>' +
                     '          </div>' +
                     '        </div>' +
                     '        <div style="margin-top:18px" id="step3" class="step">' +
@@ -1284,13 +1286,13 @@
                     '      </div>' +
                     '      <div class="card">' +
                     '        <div style="font-family:\'Playfair Display\',serif;font-weight:400;margin:0 0 10px 0;letter-spacing:-.01em;text-align:center;font-size:clamp(1.05rem,2.6vw,1.35rem)">Importante</div>' +
-                    '        <div class="muted" style="font-size:12px;text-align:justify;text-justify:inter-word">Despues de dar click y confirmar tus datos; se abrirá una pestaña nueva donde podras realizar tu pago. Una ves realices el pago, envia una captura de tu comprobante y un mensaje con tu codigo de facturación a nuestra cuenta de WhatsApp.</div>' +
+                    '        <div class="muted" style="font-size:12px;text-align:justify;text-justify:inter-word">Antes de pagar, primero debes confirmar tus datos. Si pagas y no confirmas tus datos, corres el riesgo de perder tu dinero. Una ves confirmes tus datos y presiones el boton de pagar, se abrirá una nueva pestaña donde podras realizar tu pago. Cuando hallas realizado el pago, envia una captura de tu comprobante y un mensaje con tu codigo de facturación a nuestra cuenta de WhatsApp.</div>' +
                     '        <div class="kvs" style="margin-top:14px">' +
                     '          <div class="kv"><span>Precio:</span><b>' + cursoPrecio + '</b></div>' +
                     '          <div class="kv"><span>WhatsApp:</span><b>' + escapeHtml(notifyEmail) + '</b></div>' +
                     '          <div class="kv"><span>Codigo de facturación:</span><b>__________</b></div>' +
                     '        </div>' +
-                    '        <div class="muted" style="margin-top:14px;font-size:12px">Nota: Una vez se verifique tu pago, un miembro de nuestro equipo se pondrá en contacto contigo para enviarte toda la información relacionada con el curso.</div>' +
+                    '        <div class="muted" style="margin-top:14px;font-size:12px;text-align:justify;text-justify:inter-word">Nota: Una vez se verifique tu pago, un miembro de nuestro equipo se pondrá en contacto contigo para enviarte toda la información relacionada con el curso.</div>' +
                     '      </div>' +
                     '    </div>' +
                     '  </div>' +
