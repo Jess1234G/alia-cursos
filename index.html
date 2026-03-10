@@ -854,6 +854,11 @@
             opacity: 0;
             pointer-events: none;
         }
+        .important-card > div[style*="margin-top:18px"] {
+            display: flex;
+            justify-content: center;
+        }
+
     </style>
 
     <!-- Fuente Inter -->
@@ -1177,9 +1182,30 @@
                 const cursoEvento = escapeHtml(curso.evento);
                 const cursoModalidad = escapeHtml(curso.modalidad);
                 const cursoFecha = escapeHtml(curso.fecha);
-                const cursoCodigodefacturacion = escapeHtml(curso.codigoDeFacturacion);
+                const cursoCodigodefacturacion = 'Cargando...'; // Temporal, se actualizará luego
                 const notifyEmail = '304 3324969';
+                const webAppUrl = 'https://script.google.com/macros/s/AKfycbxt6I55aZYkMkWjmSZvsVEKh2Zspfd0FPFJTi4IZWUGdTaPjnwf8HoJT7vEJjIQKesd/exec'; // Reemplaza con tu URL
                 const cursoJson = JSON.stringify(curso).replace(/<\//g, '<\\/');
+                // Obtener código único del backend
+                fetch(webAppUrl)
+                .then(r => r.json())
+                .then(data => {
+                    // Actualizar el código en la ventana hija
+                    w.__checkoutCurso.codigoDeFacturacion = data.code;
+                    // Actualizar el texto en la tarjeta "Código de facturación"
+                    const kvs = w.document.querySelectorAll('.kvs .kv');
+                    if (kvs.length >= 4) {
+                        const codigoEl = kvs[3].querySelector('b');
+                        if (codigoEl) codigoEl.textContent = data.code;
+                    }
+                    // Actualizar también en la tarjeta "Importante"
+                    const importantKvs = w.document.querySelectorAll('.important-card .kvs .kv');
+                    if (importantKvs.length >= 3) {
+                        const importantCodigoEl = importantKvs[2].querySelector('b');
+                        if (importantCodigoEl) importantCodigoEl.textContent = data.code;
+                    }
+                })
+                .catch(err => console.error('Error obteniendo código:', err));
 
                 const html =
                     '<!doctype html>' +
@@ -1230,6 +1256,8 @@
                     '    .summary{display:grid;gap:10px}' +
                     '    .line{display:flex;justify-content:space-between;gap:12px}' +
                     '    .success{padding:18px;border-radius:16px;border:1px solid rgba(76,175,80,.28);background:linear-gradient(145deg, rgba(76,175,80,.10), rgba(76,175,80,.04))}' +
+                    '    .important-card{display:flex;flex-direction:column;min-height:100%}' +
+                    '    .important-card .btn-pay{width:auto;min-width:160px;align-self:center;margin-top:auto}' +
                     '    @media (max-width: 900px){.wrap{padding:28px 14px}.top{flex-direction:column;align-items:stretch}.badge{padding:8px 12px}.top-left{text-align:center}.course-title{text-align:center}.grid{grid-template-columns:1fr}.card{padding:18px}}' +
                     '    @media (max-width: 520px){.wrap{padding:22px 12px}.row{flex-direction:column}.btn{letter-spacing:.08em}.kv{font-size:13px}.step1-header{font-size:clamp(.98rem,5.2vw,1.22rem)}}' +
                     '  </style>' +
@@ -1260,10 +1288,10 @@
                     '              <div><label>Número de teléfono</label><input id="telefono" required inputmode="numeric" pattern="\\d{10}" maxlength="10" minlength="10" autocomplete="tel" /></div>' +
                     '              <div><label>WhatsApp</label><input id="whatsapp" required inputmode="numeric" pattern="\\d{10}" maxlength="10" minlength="10" autocomplete="tel" /></div>' +
                     '            </div>' +
-                    '            <div style="margin-top:16px" class="row">' +
-                    '              <button class="btn btn-primary" id="btnConfirmar" type="button">Pagar</button>' +
-                    '            </div>' +
                     '          </form>' +
+                    '          <div style="margin-top: 1.5rem; display: flex; justify-content: center;">' +
+                    '            <button type="button" id="btnConfirmarDatos" class="btn btn-primary">Confirmar datos</button>' +
+                    '          </div>' +
                     '        </div>' +
                     '        <div style="margin-top:18px" id="step2" class="step">' +
                     '          <div class="summary">' +
@@ -1271,9 +1299,6 @@
                     '            <div class="line"><span class="muted">Total a pagar</span><b>' + cursoPrecio + '</b></div>' +
                     '            <div style="height:1px;background:rgba(255,255,255,.08)"></div>' +
                     '            <div class="muted" id="datosOut"></div>' +
-                    '          </div>' +
-                    '          <div style="margin-top:16px" class="row">' +
-                    '            <button class="btn btn-primary" id="btnConfirmar" type="button">Pagar</button>' +
                     '          </div>' +
                     '        </div>' +
                     '        <div style="margin-top:18px" id="step3" class="step">' +
@@ -1284,15 +1309,16 @@
                     '          <div style="margin-top:16px"><button class="btn btn-secondary" type="button" id="cerrar2">Cerrar</button></div>' +
                     '        </div>' +
                     '      </div>' +
-                    '      <div class="card">' +
+                    '      <div class="card important-card">' +
                     '        <div style="font-family:\'Playfair Display\',serif;font-weight:400;margin:0 0 10px 0;letter-spacing:-.01em;text-align:center;font-size:clamp(1.05rem,2.6vw,1.35rem)">Importante</div>' +
                     '        <div class="muted" style="font-size:12px;text-align:justify;text-justify:inter-word">Antes de pagar, primero debes confirmar tus datos. Si pagas y no confirmas tus datos, corres el riesgo de perder tu dinero. Una ves confirmes tus datos y presiones el boton de pagar, se abrirá una nueva pestaña donde podras realizar tu pago. Cuando hallas realizado el pago, envia una captura de tu comprobante y un mensaje con tu codigo de facturación a nuestra cuenta de WhatsApp.</div>' +
                     '        <div class="kvs" style="margin-top:14px">' +
                     '          <div class="kv"><span>Precio:</span><b>' + cursoPrecio + '</b></div>' +
                     '          <div class="kv"><span>WhatsApp:</span><b>' + escapeHtml(notifyEmail) + '</b></div>' +
-                    '          <div class="kv"><span>Codigo de facturación:</span><b>__________</b></div>' +
+                    '          <div class="kv"><span>Codigo de facturación:</span><b>' + cursoCodigodefacturacion + '</b></div>' +
                     '        </div>' +
                     '        <div class="muted" style="margin-top:14px;font-size:12px;text-align:justify;text-justify:inter-word">Nota: Una vez se verifique tu pago, un miembro de nuestro equipo se pondrá en contacto contigo para enviarte toda la información relacionada con el curso.</div>' +
+                    '        <div style="margin-top:18px; display: flex; justify-content: center;"><button class="btn btn-primary btn-pay" id="btnConfirmar" type="button">Pagar</button></div>' +
                     '      </div>' +
                     '    </div>' +
                     '  </div>' +
@@ -1305,6 +1331,8 @@
 
                 // Pasar datos del curso a la ventana hija
                 w.__checkoutCurso = curso;
+                // Pasar también la URL de la Web App
+                w.__webAppUrl = webAppUrl;
 
                 // Inyectar script programáticamente (más confiable que <script> dentro de document.write)
                 var sEl = w.document.createElement('script');
@@ -1338,9 +1366,58 @@
                   '  window.open(curso.urlPago, \"_blank\", \"noopener,noreferrer\");' +
                   '  return true;' +
                   '}' +
+                  // ===== BOTÓN "CONFIRMAR DATOS" =====
+                  'var btnConfirmarDatos = byId(\"btnConfirmarDatos\");' +
+                  'if (btnConfirmarDatos) {' +
+                  '  btnConfirmarDatos.addEventListener(\"click\", function(e) {' +
+                  '    e.preventDefault();' +
+                  '    var datos = validarYObtenerDatos();' +
+                  '    if (!datos) return;' +
+                  '    var payload = {' +
+                  '      curso: curso.nombre,' +
+                  '      nombre: datos.nombre,' +
+                  '      email: datos.email,' +
+                  '      telefono: datos.telefono,' +
+                  '      whatsapp: datos.whatsapp,' +
+                  '      codigo: curso.codigoDeFacturacion || window.__checkoutCurso.codigoDeFacturacion' +
+                  '    };' +
+                  '    btnConfirmarDatos.disabled = true;' +
+                  '    btnConfirmarDatos.textContent = \"Enviando...\";' +
+                  '    console.log(\"Enviando datos a:\", window.__webAppUrl, payload);' +
+                  '    fetch(window.__webAppUrl, {' +
+                  '      method: \"POST\",' +
+                  '      headers: { \"Content-Type\": \"application/x-www-form-urlencoded\" },' +
+                  '      body: new URLSearchParams(payload).toString()' +
+                  '    })' +
+                  '      .then(function(resp) { console.log(\"Respuesta recibida\", resp); return resp.json(); })' +
+                  '      .then(function(result) {' +
+                  '        console.log(\"Resultado:\", result);' +
+                  '        if (result.success) {' +
+                  '          btnConfirmarDatos.style.display = \"none\";' +
+                  '          var mensaje = document.createElement(\"div\");' +
+                  '          mensaje.textContent = \"¡Datos confirmados!\";' +
+                  '          mensaje.className = \"mensaje-confirmado\";' +
+                  '          mensaje.style.cssText = \"margin-top:1rem; color: #4CAF50; font-weight: bold; text-align: center;\";' +
+                  '          btnConfirmarDatos.parentNode.appendChild(mensaje);' +
+                  '        } else {' +
+                  '          alert(\"Error al guardar: \" + (result.error || \"\"));' +
+                  '          btnConfirmarDatos.disabled = false;' +
+                  '          btnConfirmarDatos.textContent = \"Confirmar datos\";' +
+                  '        }' +
+                  '      })' +
+                  '      .catch(function(err) {' +
+                  '        console.error(\"Error en fetch:\", err);' +
+                  '        alert(\"Error de conexión: \" + err.message);' +
+                  '        btnConfirmarDatos.disabled = false;' +
+                  '        btnConfirmarDatos.textContent = \"Confirmar datos\";' +
+                  '      });' +
+                  '  });' +
+                  '}' +
+                  // ===== LISTENERS ORIGINALES =====
                   'if(form){form.addEventListener(\"submit\", function(e){e.preventDefault();});}' +
                   'if(btnConfirmar){btnConfirmar.addEventListener(\"click\", function(e){if(e)e.preventDefault();confirmarYpagar();});}';
                 w.document.body.appendChild(sEl);
+
             } catch (err) {
                 w.document.open();
                 w.document.write(
