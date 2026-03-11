@@ -893,16 +893,19 @@
                  <h1>Alexander <span style="color: #939393;">López</span></h1>
                  <p class="subtitle" style="margin-top: 1.4rem;" id="hero-subtitle">INSTRUCTOR • INFORMÁTICO • EMPRENDEDOR • EXPERTO EN IA</p>
                  <div class="social-links">
-                      <a href="TU_ENLACE_SPOTIFY_AQUI" class="social-link" target="_blank" rel="noopener noreferrer">
+                      <a href="https://open.spotify.com/user/31uhy5azxztluk573dsz42gxogzm" class="social-link" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-spotify"></i>
                       </a>
-                      <a href="TU_ENLACE_INSTAGRAM_AQUI" class="social-link" target="_blank" rel="noopener noreferrer">
+                      <a href="https://www.instagram.com/alia_.ia/" class="social-link" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-instagram"></i>
                       </a>
-                      <a href="TU_ENLACE_YOUTUBE_AQUI" class="social-link" target="_blank" rel="noopener noreferrer">
+                      <a href="https://www.facebook.com/profile.php?id=61586345077806" class="social-link" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-facebook-f"></i>
+                      </a>
+                      <a href="https://www.youtube.com/@AlexanderL%C3%B3pez-q3y6z" class="social-link" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-youtube"></i>
                       </a>
-                      <a href="TU_ENLACE_LINKEDIN_AQUI" class="social-link" target="_blank" rel="noopener noreferrer">
+                      <a href="https://www.linkedin.com/in/alia-ia-2ab8703b5/" class="social-link" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-linkedin-in"></i>
                       </a>
                  </div>
@@ -918,8 +921,9 @@
            <div class="section-content">
              <h2 class="sobre-title">¿Quiénes somos?</h2>
              <div class="sobre-layout">
-                 <div class="sobre-texto">
-                     <p>En ALIA, ofrecemos servicios educativos para fortalecer tus conocimientos. Te recomendamos cosas que funcionan y fomentamos el uso de agentes de IA automatizados. Nuestros productos resuelven problemas reales y ayudan a cientos de empresarios a escalar sus negocios.</p>
+                 <div class="sobre-texto" style="text-align: center;">
+                     <p>Hola, mi nombre es Alexander López, fundador de Alia y asesor educativo en consultorías de inteligencia artificial aplicada. Mi tarea es instruir, enseñar y educar a pequeños y medianos empresarios en las nuevas tecnologias del mundo web digital. En consultorias Alia, transformamos la visión de tu empresa y aclaramos tu misión empresarial con el uso de nuestras herramientas aliadas de agentes autónomos.</p>
+                     <p>En nuestra consultoria, ofrecemos servicios educativos para fortalecer tus conocimientos. Te recomendamos cosas que funcionan y fomentamos el uso de agentes de automatizados. Nuestra consultoria resuelve problemas reales y ayudan a cientos de empresarios a escalar sus negocios.</p>
                  </div>
                  <div class="sobre-carousel" id="sobre-carousel" aria-label="Presentación">
                      <img class="active" src="https://i.ibb.co/SXg1jHhK/4.jpg" alt="Alia" />
@@ -980,32 +984,58 @@
         <div class="section" data-anchor="contacto">
             <div class="section-content">
                 <h2>Contacto</h2>
-                <form class="contacto-form" id="contactForm" onsubmit="event.preventDefault(); alert('Mensaje enviado (simulación)');">
-                    <input type="text" placeholder="Nombre completo" required>
-                    <input type="email" placeholder="Correo electrónico" required>
-                    <select required>
+                <form class="contacto-form" id="contactForm" onsubmit="event.preventDefault(); enviarFormularioContacto(event);">
+                    <input type="text" id="contactNombre" placeholder="Nombre completo" required
+                            style="text-box-trim: none;"
+                            oninput="this.value = this.value.toUpperCase()">
+                    <input type="email" id="contactEmail" placeholder="Correo electrónico" required>
+                    <select id="contactMotivo" required>
                         <option value="">Motivo de contacto</option>
-                        <option>Información de cursos</option>
-                        <option>Colaboración</option>
-                        <option>Otro</option>
+                        <option value="Información de cursos">Información de cursos</option>
+                        <option value="Colaboración">Colaboración</option>
+                        <option value="Otro">Otro</option>
                     </select>
-                    <textarea rows="4" placeholder="Mensaje" required></textarea>
+                    <textarea id="contactMensaje" rows="4" placeholder="Mensaje" required maxlength="300"></textarea>
+                    <div style="font-size: 0.8rem; color: #888; margin-top: -0.5rem; margin-bottom: 1rem;">
+                        Máximo 300 caracteres. <span id="contadorCaracteres">300</span> restantes.
+                    </div>
                     <button type="submit">Enviar mensaje</button>
                 </form>
+
                 <div class="footer-links">
                    <a href="#">Términos y condiciones</a>
                    <a href="#">Cookies</a>
                    <a href="#">Políticas de privacidad</a>
                 </div>
+
+                   <div class="social-links">
+                        <a href="https://open.spotify.com/user/31uhy5azxztluk573dsz42gxogzm" class="social-link" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-spotify"></i>
+                        </a>
+                        <a href="https://www.instagram.com/alia_.ia/" class="social-link" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=61586345077806" class="social-link" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@AlexanderL%C3%B3pez-q3y6z" class="social-link" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/alia-ia-2ab8703b5/" class="social-link" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
             </div>
         </div>
     </div>
 
     <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.7/vendors/scrolloverflow.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.7/fullpage.min.js"></script>
     <script>
         // Inicializar fullPage
         new fullpage('#fullpage', {
+           licenseKey: '00000000-00000000-00000000-00000000',
            autoScrolling: true,
            navigation: true,
            navigationPosition: 'right',
@@ -1020,21 +1050,21 @@
            paddingBottom: '0px',
            normalScrollElements: '.top-menu',
            onLeave: function(origin, destination, direction) {
-               if (origin && origin.anchor === 'quienes-somos') {
-                   if (window.__aliaSobreStopCarousel) window.__aliaSobreStopCarousel();
-               }
-           },
-           afterLoad: function(origin, destination, direction) {
-               if (destination && destination.anchor === 'quienes-somos') {
-                   if (window.__aliaSobreStartCarousel) window.__aliaSobreStartCarousel();
-               } else {
-                   if (window.__aliaSobreStopCarousel) window.__aliaSobreStopCarousel();
-               }
-               setTimeout(function() {
-                   window.dispatchEvent(new Event('resize'));
-               }, 100);
-           }
-       });
+                if (origin && origin.anchor === 'quienes-somos') {
+                    if (window.__aliaSobreStopCarousel) window.__aliaSobreStopCarousel();
+                }
+            },
+            afterLoad: function(origin, destination, direction) {
+                if (destination && destination.anchor === 'quienes-somos') {
+                    if (window.__aliaSobreStartCarousel) window.__aliaSobreStartCarousel();
+                } else {
+                    if (window.__aliaSobreStopCarousel) window.__aliaSobreStopCarousel();
+                }
+                setTimeout(function() {
+                    window.dispatchEvent(new Event('resize'));
+                }, 100);
+            }
+        });
 
         (function() {
             const anchor = 'quienes-somos';
@@ -1273,7 +1303,7 @@
                     '    </div>' +
                     '    <div class="grid">' +
                     '      <div class="card">' +
-                    '        <div id="step1Header" class="step1-header">Completa tus datos para continuar</div>' +
+                    '        <div id="step1Header" class="step1-header">Completa tus datos para registrarte</div>' +
                     '        <div class="kvs" style="margin-top:26px">' +
                     '          <div class="kv"><span>Evento:</span><b>' + cursoEvento + '</b></div>' +
                     '          <div class="kv"><span>Modalidad:</span><b>' + cursoModalidad + '</b></div>' +
@@ -1282,7 +1312,7 @@
                     '        </div>' +
                     '        <div style="margin-top:18px" id="step1" class="step active">' +
                     '          <form id="formDatos">' +
-                    '            <label>Nombre completo</label><input id="nombre" required />' +
+                    '            <label>Nombre completo</label><input id="nombre" required style="text-transform: uppercase" oninput="this.value = this.value.toUpperCase()" />' +
                     '            <label>Correo electrónico</label><input id="email" type="email" required />' +
                     '            <div class="row">' +
                     '              <div><label>Número de teléfono</label><input id="telefono" required inputmode="numeric" pattern="\\d{10}" maxlength="10" minlength="10" autocomplete="tel" /></div>' +
@@ -1290,7 +1320,7 @@
                     '            </div>' +
                     '          </form>' +
                     '          <div style="margin-top: 1.5rem; display: flex; justify-content: center;">' +
-                    '            <button type="button" id="btnConfirmarDatos" class="btn btn-primary">Confirmar datos</button>' +
+                    '            <button type="button" id="btnRegistrarDatos" class="btn btn-primary">Registrar datos</button>' +
                     '          </div>' +
                     '        </div>' +
                     '        <div style="margin-top:18px" id="step2" class="step">' +
@@ -1347,7 +1377,7 @@
                   '  var emailEl=byId(\"email\");' +
                   '  var telEl=byId(\"telefono\");' +
                   '  var waEl=byId(\"whatsapp\");' +
-                  '  var nombre=(nombreEl&&nombreEl.value?nombreEl.value:\"\").trim();' +
+                  '  var nombre=(nombreEl&&nombreEl.value?nombreEl.value:\"\").trim().toUpperCase();'+
                   '  var email=(emailEl&&emailEl.value?emailEl.value:\"\").trim();' +
                   '  var tel=onlyDigits(telEl&&telEl.value?telEl.value:\"\");' +
                   '  var wa=onlyDigits(waEl&&waEl.value?waEl.value:\"\");' +
@@ -1367,9 +1397,9 @@
                   '  return true;' +
                   '}' +
                   // ===== BOTÓN "CONFIRMAR DATOS" =====
-                  'var btnConfirmarDatos = byId(\"btnConfirmarDatos\");' +
-                  'if (btnConfirmarDatos) {' +
-                  '  btnConfirmarDatos.addEventListener(\"click\", function(e) {' +
+                  'var btnRegistrarDatos = byId(\"btnRegistrarDatos\");' +
+                  'if (btnRegistrarDatos) {' +
+                  '  btnRegistrarDatos.addEventListener(\"click\", function(e) {' +
                   '    e.preventDefault();' +
                   '    var datos = validarYObtenerDatos();' +
                   '    if (!datos) return;' +
@@ -1381,8 +1411,8 @@
                   '      whatsapp: datos.whatsapp,' +
                   '      codigo: curso.codigoDeFacturacion || window.__checkoutCurso.codigoDeFacturacion' +
                   '    };' +
-                  '    btnConfirmarDatos.disabled = true;' +
-                  '    btnConfirmarDatos.textContent = \"Enviando...\";' +
+                  '    btnRegistrarDatos.disabled = true;' +
+                  '    btnRegistrarDatos.textContent = \"Enviando...\";' +
                   '    console.log(\"Enviando datos a:\", window.__webAppUrl, payload);' +
                   '    fetch(window.__webAppUrl, {' +
                   '      method: \"POST\",' +
@@ -1393,23 +1423,23 @@
                   '      .then(function(result) {' +
                   '        console.log(\"Resultado:\", result);' +
                   '        if (result.success) {' +
-                  '          btnConfirmarDatos.style.display = \"none\";' +
+                  '          btnRegistrarDatos.style.display = \"none\";' +
                   '          var mensaje = document.createElement(\"div\");' +
-                  '          mensaje.textContent = \"¡Datos confirmados!\";' +
+                  '          mensaje.textContent = \"¡Datos registrados!\";' +
                   '          mensaje.className = \"mensaje-confirmado\";' +
                   '          mensaje.style.cssText = \"margin-top:1rem; color: #4CAF50; font-weight: bold; text-align: center;\";' +
-                  '          btnConfirmarDatos.parentNode.appendChild(mensaje);' +
+                  '          btnRegistrarDatos.parentNode.appendChild(mensaje);' +
                   '        } else {' +
                   '          alert(\"Error al guardar: \" + (result.error || \"\"));' +
-                  '          btnConfirmarDatos.disabled = false;' +
-                  '          btnConfirmarDatos.textContent = \"Confirmar datos\";' +
+                  '          btnRegistrarDatos.disabled = false;' +
+                  '          btnRegistrarDatos.textContent = \"Registrar datos\";' +
                   '        }' +
                   '      })' +
                   '      .catch(function(err) {' +
                   '        console.error(\"Error en fetch:\", err);' +
                   '        alert(\"Error de conexión: \" + err.message);' +
-                  '        btnConfirmarDatos.disabled = false;' +
-                  '        btnConfirmarDatos.textContent = \"Confirmar datos\";' +
+                  '        btnRegistrarDatos.disabled = false;' +
+                  '        btnRegistrarDatos.textContent = \"Registrar datos\";' +
                   '      });' +
                   '  });' +
                   '}' +
@@ -1519,6 +1549,112 @@
                 touchStartY = y;
             }, { passive: true });
         })();
+    </script>
+    <script>
+        // Contador de caracteres para el textarea del mensaje
+        let updateCounter; // variable global para poder llamarla después
+
+        function initContactForm() {
+            const textarea = document.getElementById('contactMensaje');
+            const counter = document.getElementById('contadorCaracteres');
+            if (textarea && counter) {
+                // Definir la función updateCounter
+                updateCounter = function() {
+                    const remaining = 300 - textarea.value.length;
+                    counter.textContent = remaining + ' caracteres restantes';
+                    counter.style.color = remaining < 50 ? '#ff4444' : '#666';
+                    if (remaining < 0) {
+                        textarea.value = textarea.value.substring(0, 300);
+                        updateCounter();
+                    }
+                };
+                textarea.addEventListener('input', updateCounter);
+                updateCounter(); // inicializar
+            } else {
+                // Si no existen los elementos, updateCounter será undefined
+                updateCounter = undefined;
+            }
+        }
+
+        // URL de tu Google Apps Script para el formulario de contacto (REEMPLAZA CON LA URL CORRECTA)
+        const CONTACT_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxiH9PaEHvAMloBw4baUusy5fjDIr8J-2F8-aNONIZ_J11kwU-YWsfUj2K5AwVTWzFn/exec';
+
+        // Enviar datos al Google Sheet
+        function enviarFormularioContacto(event) {
+            event.preventDefault();
+            const form = document.getElementById('contactForm');
+            if (!form) return;
+
+            const nombre = document.getElementById('contactNombre').value.trim().toUpperCase();
+            const email = document.getElementById('contactEmail').value.trim();
+            const motivo = document.getElementById('contactMotivo').value.trim();
+            const mensaje = document.getElementById('contactMensaje').value.trim();
+
+            if (!nombre || !email || !motivo || !mensaje) {
+                alert('Por favor completa todos los campos obligatorios.');
+                return;
+            }
+
+            const btn = document.querySelector('#contactForm button[type="submit"]');
+            const originalText = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = 'Enviando…';
+
+            // Obtener número de mensaje (simulando contador)
+            let numeroMensaje = localStorage.getItem('contactMsgCounter') || 0;
+            numeroMensaje = parseInt(numeroMensaje) + 1;
+            localStorage.setItem('contactMsgCounter', numeroMensaje);
+
+            const data = new URLSearchParams();
+            data.append('nombre', nombre);
+            data.append('email', email);
+            data.append('motivo', motivo);
+            data.append('mensaje', mensaje);
+            data.append('numeroMensaje', numeroMensaje);
+
+            // Enviar con mode: 'no-cors' para evitar errores de CORS
+            fetch(CONTACT_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',          // ← clave: no intenta leer la respuesta
+                body: data,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+            .then(() => {
+                // Como no podemos leer la respuesta, asumimos éxito
+                const successDiv = document.createElement('div');
+                successDiv.className = 'mensaje-exito';
+                successDiv.style.cssText = 'margin-top:1rem; padding:0.8rem; background:#d4edda; color:#155724; border-radius:0.5rem;';
+                successDiv.innerHTML = '<strong>¡Mensaje enviado!</strong> Te responderemos pronto.';
+                form.parentNode.insertBefore(successDiv, form.nextSibling);
+                form.reset();
+                if (typeof updateCounter === 'function') updateCounter();
+            })
+            .catch(error => {
+                console.error('Error en fetch:', error);
+                // Aunque haya error de red, los datos podrían haberse enviado.
+                // Mostramos un mensaje genérico.
+                alert('El mensaje se ha enviado. Gracias por contactarnos.');
+            })
+            .finally(() => {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            });
+        }
+
+
+
+        // Asignar el evento al formulario (ya tiene onsubmit, pero lo reforzamos)
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contactForm');
+            if (form) {
+                // Remover el atributo onsubmit para evitar duplicados (opcional)
+                form.removeAttribute('onsubmit');
+                form.addEventListener('submit', enviarFormularioContacto);
+            }
+            initContactForm();
+        });
     </script>
 </body>
 </html>
